@@ -48,6 +48,19 @@ module.exports = async function checkFeedBrowser(browser, { baseURL, screenshotD
             assert.equal(await page.locator('.desktop-sidebar').isVisible(), width >= 1024);
             assert.equal(await page.locator('.tabbar').isVisible(), width < 1024);
             assert.equal(await page.locator('.discover-feed [aria-current=page]').count(), 1);
+            if (javaScriptEnabled) {
+              const selectedVisible = await page
+                .locator('.discover-feed [aria-current=page]')
+                .evaluate((a) => {
+                  const selected = a.getBoundingClientRect();
+                  const strip = a.parentElement.getBoundingClientRect();
+                  return selected.left >= strip.left - 1 && selected.right <= strip.right + 1;
+                });
+              assert.ok(
+                selectedVisible,
+                `${handle} ${width} ${path}: selected filter is off-screen`,
+              );
+            }
             if (path.endsWith('before=1')) {
               assert.equal(
                 await page.locator('.discover-feed .empty p').textContent(),
@@ -71,6 +84,16 @@ module.exports = async function checkFeedBrowser(browser, { baseURL, screenshotD
           // Real links must keep working when JavaScript is disabled.
           await page.getByRole('link', { name: 'Food', exact: true }).click();
           assert.equal(new URL(page.url()).searchParams.get('tab'), 'food');
+          assert.equal(await page.locator('#feed-heading').textContent(), 'Food posts');
+          if (javaScriptEnabled) {
+            assert.ok(
+              await page
+                .locator('.discover-feed .tabs')
+                .evaluate((tabs) => tabs.scrollLeft > 0 || tabs.scrollWidth <= tabs.clientWidth),
+            );
+            assert.equal(await page.evaluate(() => window.scrollY), 0);
+            assert.equal(await page.evaluate(() => document.activeElement.tagName), 'BODY');
+          }
           assert.equal(
             await page.locator('.discover-feed .post-card').count(),
             handle === 'jason0ust' || handle === 'wing0cuhk' ? 1 : 2,

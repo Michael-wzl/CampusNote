@@ -42,10 +42,13 @@ router.get('/feed', async (req, res) => {
   res.page('discover/feed', {
     title: 'Campus Notes',
     tab: 'feed',
+    scripts: ['/m/discover/feed.js'],
     cards,
     nextUrl,
     emptyText,
     canCompose: selected === 'all',
+    feedHeading:
+      selected === 'all' ? 'All posts' : `${topic?.name_en ?? req.me.universityCode} posts`,
     feedTabs: choices.map((choice) => ({
       label: choice.label,
       href: `/feed?tab=${choice.code}`,

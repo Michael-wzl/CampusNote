@@ -18,7 +18,7 @@ Node 24.19.0 and portable Oracle MySQL 8.4.13 on IPv4 loopback port 13378, with 
 
 `modules/discover/tests/browser-checks.js` accepts an existing Playwright browser and `{ baseURL, screenshotDir }`; it adds no application dependency. Run it against a fresh development seed with the existing development login shortcuts enabled.
 
-Chromium 151 on Windows: **160 page layout checks pass** (five personas × four viewport widths × JavaScript on/off × four Feed states). Viewports: 390×844, 768×1024, 1440×900 and 320×720. Personas: Mandy, Wing, Jason, Newbie and Admin.
+Chromium 151 on Windows: **160 page layout checks pass**, including the usability follow-up below (five personas × four viewport widths × JavaScript on/off × four Feed states). Viewports: 390×844, 768×1024, 1440×900 and 320×720. Personas: Mandy, Wing, Jason, Newbie and Admin.
 
 Checks include document overflow, 44 px Feed tab targets, active tab, desktop versus compact navigation, topic empty state, real topic-link navigation with JavaScript disabled, visible keyboard focus and absence of page script errors. Browser checks do not change seed data.
 
@@ -28,7 +28,15 @@ Checks include document overflow, 44 px Feed tab targets, active tab, desktop ve
 
 Screenshots were visually inspected. This is desktop Chromium with viewport emulation, not physical phone, Safari or Firefox evidence.
 
-A separate no-JavaScript workflow published a maximum-length 750-character unbroken post through the real Content form. Feed wrapping passed at 320, 390, 720, 768 and 1440 CSS px. The 720 px check is a narrow-viewport check, not proof of 200% browser zoom; actual 200% zoom remains a manual verification item in the headless environment.
+A separate no-JavaScript workflow published a maximum-length 750-character unbroken post through the real Content form. Feed wrapping passed at 320, 390, 720, 768 and 1440 CSS px.
+
+## Usability review follow-up
+
+A real phone-width topic click exposed an off-screen selected filter: after choosing Food, the new page reset the horizontal tab strip to the left. Food's bounds were x=630.6–694.2 in a 390 px viewport. A module-only deferred script now scrolls that strip just enough to reveal the selection, without moving keyboard focus or vertical page position. A visible list heading identifies the current filter even without JavaScript. The 160-case browser check now asserts selected-filter visibility and the no-focus/no-page-scroll behavior. Updated screenshots reflect this change.
+
+Native Chromium **200% page zoom passes** for All, university, Food and the Food empty state. The test selected 200% in Chrome Settings → Appearance → Page zoom inside a dedicated temporary profile. At a fixed 1440 px outer window, the CSS viewport changed from 1418 px / DPR 1 to 709 px / DPR 2. All four pages had document width equal to 709 px, usable compact navigation and no horizontal overflow. This is browser page zoom, not a substituted narrow viewport or CSS transform. The profile's zoom was reset afterwards.
+
+Six real phone-width Load more → post → Back workflows pass: All, university and Food, each with JavaScript on and off. With 25 disposable anonymous HKU posts, each first page showed 20 cards; second pages showed 15, 12 and 7 respectively, with no repeated cards or further Load more link. Tab and cursor survived navigation and Back. CUHK/HKUST university feeds excluded those HKU fixtures, and the empty-All Write a post link reached the real compose page. Fixtures existed only in the separate development database.
 
 ## Pending module acceptance
 

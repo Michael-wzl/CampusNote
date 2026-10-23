@@ -1,5 +1,6 @@
-<section class="discover-feed" aria-label="Posts">
+<section class="discover-feed stack" aria-labelledby="feed-heading">
   <%- include('partials/tabs', { items: feedTabs, label: 'Feed filters' }) %>
+  <h2 class="small muted" id="feed-heading"><%= feedHeading %></h2>
 <% if (cards.length) { -%>
   <%- include('partials/post-list', { cards, nextUrl, empty: emptyText }) %>
 <% } else { -%>

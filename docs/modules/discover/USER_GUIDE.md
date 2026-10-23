@@ -24,6 +24,8 @@ Each card shows the post's number (such as #600012), its topic, the time, the au
 
 The feed shows 20 posts at a time. Tap **Load more** at the bottom for the next 20.
 
+The heading names the list you are viewing, such as **Food posts**. On a phone the topic strip scrolls sideways; with JavaScript enabled, the selected topic stays in view automatically. All filters and Load more also work without JavaScript.
+
 **Why you do not see some posts:** a post marked "My university" is shown only to students of the author's university. A student at CUHK never sees an HKU-only post, in any tab, in search or on a user page. Deleted posts and posts hidden by a moderator disappear everywhere.
 
 [Phone Feed (390 px)](img/feed-390.png) · [Tablet Feed (768 px)](img/feed-768.png) · [Desktop Feed (1440 px)](img/feed-1440.png)

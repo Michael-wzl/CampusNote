@@ -23,6 +23,7 @@ test('DS-T01 (CP1): All is active, with university/topic links and shared post c
     ['All', 'HKU', 'Share', 'Random', 'Feelings', 'Academics', 'Careers', 'Trade', 'Food'],
   );
   assert.equal(page.$('.discover-feed [aria-current=page]').attr('href'), '/feed?tab=all');
+  assert.equal(page.$('#feed-heading').text(), 'All posts');
   assert.deepEqual(postIds(page), HKU);
   assert.equal(page.$('.load-more').length, 0);
   assert.equal(page.$('.post-card[href="/posts/600011"] .author').text(), 'CUHK Hiking Club');
@@ -41,6 +42,10 @@ test('DS-T02: All respects each viewer university, including Newbie and Admin', 
     assert.equal(page.status, 200, handle);
     assert.deepEqual(postIds(page), ids, handle);
     assert.equal(page.$('.discover-feed a[href="/feed?tab=uni"]').text(), university);
+    assert.equal(
+      (await (await agentAs(handle)).page('/feed?tab=uni')).$('#feed-heading').text(),
+      `${university} posts`,
+    );
   }
 });
 
@@ -60,6 +65,7 @@ test('DS-T03: university and all seven topic filters keep their active link and 
     assert.equal(page.status, 200, tab);
     assert.deepEqual(postIds(page), ids, tab);
     assert.equal(page.$('.discover-feed [aria-current=page]').attr('href'), '/feed?tab=' + tab);
+    assert.equal(page.$('script[src="/m/discover/feed.js"]').length, 1);
   }
   const wing = await agentAs('wing0cuhk');
   assert.deepEqual(postIds(await wing.page('/feed?tab=uni')), [600011, 600008, 600003]);
@@ -88,6 +94,7 @@ test('DS-T04: keyset cursors work; unknown tabs and malformed parameters return 
     assert.deepEqual(postIds(page), HKU, query);
   }
   assert.deepEqual(postIds(await agent.page('/feed?tab=food&before=abc')), [600013, 600002]);
+  assert.equal((await agent.page('/feed?tab=food')).$('#feed-heading').text(), 'Food posts');
   assert.deepEqual(postIds(await agent.page('/feed?tab=food&before=600013')), [600002]);
 });
 
