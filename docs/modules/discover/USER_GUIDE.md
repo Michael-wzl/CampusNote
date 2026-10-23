@@ -4,6 +4,8 @@ The Feed and Search tabs are how you find posts. The feed shows everything you a
 
 Screenshots go in `docs/modules/discover/img/` when the pages are built; the placeholders below name the file each one should have.
 
+**Current delivery (23 Oct 2026):** All, your university and the seven topic Feed tabs are available, with 20-post pages and Load more. Watching, Hot, announcements and the other Discover pages described below are planned for subsequent deliveries.
+
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
 ## 1. The feed
@@ -24,7 +26,7 @@ The feed shows 20 posts at a time. Tap **Load more** at the bottom for the next 
 
 **Why you do not see some posts:** a post marked "My university" is shown only to students of the author's university. A student at CUHK never sees an HKU-only post, in any tab, in search or on a user page. Deleted posts and posts hidden by a moderator disappear everywhere.
 
-*(screenshot to add: `img/feed.png`)*
+[Phone Feed (390 px)](img/feed-390.png) · [Tablet Feed (768 px)](img/feed-768.png) · [Desktop Feed (1440 px)](img/feed-1440.png)
 
 ## 2. Hot posts
 
