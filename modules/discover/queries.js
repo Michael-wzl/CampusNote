@@ -14,4 +14,15 @@ async function feedAllIds(myUniversityId, before) {
   return rows.map((r) => r.post_id);
 }
 
-module.exports = { feedAllIds };
+// DS-5, BR-6/8/9: only my live posts, including anonymous ones; ownership implies same university.
+async function myPostIds(userId, before) {
+  const rows = await q(
+    `SELECT p.post_id FROM v_live_posts p
+     WHERE p.author_id = ? AND p.post_id < ?
+     ORDER BY p.post_id DESC LIMIT 21`,
+    [userId, before ?? 4294967295],
+  );
+  return rows.map((r) => r.post_id);
+}
+
+module.exports = { feedAllIds, myPostIds };
