@@ -76,7 +76,9 @@ Tap a name on a post that shows one to open that person's or organization's page
 
 Tap **Message** to write to them privately. On your own page there is no Message button, and a note reminds you that only posts that show your handle appear there. A banned user's page has no Message button either.
 
-*(screenshot to add: `img/user-page.png`)*
+Public pages show up to 20 posts at a time; tap **Load more** for the next page. Deleted and hidden posts disappear, and a post restricted to its author's university is visible only to that university. If there are no posts you may see that show a name, the page says **No public posts yet.** Use the back arrow to return to Feed. These links work with JavaScript disabled.
+
+[Own page on phone](img/user-own-390.png) · [Organization on desktop](img/user-org-1440.png) · [Tablet](img/user-org-768.png) · [Empty public page](img/user-empty-390.png)
 
 ## 7. For admins: announcements
 

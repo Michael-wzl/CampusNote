@@ -4,5 +4,15 @@
 module.exports = {
   name: 'discover',
   router: require('./routes'),
-  smoke: ['/feed', '/search', '/me/posts', '/me/watching', '/me/likes', '/me/history'],
+  smoke: [
+    '/feed',
+    '/search',
+    '/me/posts',
+    '/me/watching',
+    '/me/likes',
+    '/me/history',
+    '/u/mandy0hku',
+    '/u/jason0ust',
+    '/u/filmsoc00',
+  ],
 };
