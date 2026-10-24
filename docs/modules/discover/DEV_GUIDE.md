@@ -10,6 +10,8 @@
 
 You can build this module without knowing the rest of the app. Everything you need from other modules is listed in §3.
 
+**CP1 delivery, 23 Oct 2026:** All, university and topic feeds, My posts and public user pages are implemented, with 26 HTTP/database acceptance tests and combined browser verification. See [CP1_INTEGRATION_VALIDATION.md](CP1_INTEGRATION_VALIDATION.md) for the merge validation; each feature also retains its original evidence. Watching/Hot, search, the remaining personal lists and announcements retain their milestone scope below. Issue #2 remains open for the rest of Discover.
+
 ## 1. The module in one paragraph
 
 Discover is how people find posts. The Feed tab shows every post the reader may see, newest first, with tabs for the posts they watch (👀), the week's hot posts (🔥), their own university and each topic, plus an announcement banner on top. The Search tab finds posts that contain all the words typed, in Chinese or English, and jumps straight to a post when a number like `#600012` is typed. The module also owns the four personal lists on the Me page (my posts, watching, liked, history), each user's public page, and the admin page for announcements. It writes only one table (`announcements`); everything about posts is read through the shared views, so deletion, hiding, visibility and anonymity are never re-implemented here. It is the project's ranking and search showcase: a hot score built from correlated subqueries and time arithmetic, and an ngram full-text index that searches Chinese.
@@ -183,6 +185,9 @@ Speed (20,000 extra posts, measured): a rare word answers in under 1 ms. A word 
 | `/me/history` | History | `myHistoryIds` | latest visit first | `?page=` | "Posts you open appear here." (Browse the feed → `/feed`) |
 
 - **My posts** includes my anonymous posts: only I see this page. Under the title: "Anonymous posts show no name to others." Deleted and hidden posts are not listed.
+
+  CP1 delivery (23 Oct 2026, issue #15): `/me/posts` is implemented with the shared `my-list` template, 20-card keyset paging, the note and compose empty state above. Eight HTTP/database tests cover the My posts portions of DS-T15/16/17/19/26; see [MY_POSTS_VALIDATION.md](MY_POSTS_VALIDATION.md). The other three lists remain separate work; this does not complete DS-5 or issue #2.
+
 - **Watching, Liked, History** join `v_live_posts` and apply `VISIBLE`, so a post that was deleted or hidden after I touched it simply drops out.
 - **History** lists only rows with `cleared_at IS NULL`. When the list is not empty, the page shows a "Clear history" button: `<form method="post" action="/me/history/clear" data-confirm="Clear your history?">` with `csrfField()`. Content handles the POST (CT-6), keeps the view counts and redirects back here with "History cleared".
 - Ties (same second) go to the higher post id.

@@ -1,6 +1,6 @@
 # Public user pages validation — 23 Oct 2026
 
-Scope: DS-6's read-only `/u/:handle` page, including its specified Message link and own-page note. Refs [feature #17](https://github.com/Michael-wzl/CampusNote/issues/17) and [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2). This branch starts at main `995b84d`, independently of Feed PR #14 and My posts PR #16; those features remain on their existing branches.
+Original standalone scope: DS-6's read-only `/u/:handle` page, including its specified Message link and own-page note. Refs [feature #17](https://github.com/Michael-wzl/CampusNote/issues/17) and [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2). The feature began at main `995b84d`, independently of Feed PR #14 and My posts PR #16. This record retains its original counts; see [combined CP1 validation](CP1_INTEGRATION_VALIDATION.md) for all three pages together.
 
 ## Implementation and SQL
 
