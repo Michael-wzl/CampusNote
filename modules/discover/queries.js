@@ -14,6 +14,28 @@ async function feedAllIds(myUniversityId, before) {
   return rows.map((r) => r.post_id);
 }
 
+// DS-1, BR-5, BR-11: my university's live posts, including both audience settings.
+async function feedUniIds(myUniversityId, before) {
+  const rows = await q(
+    `SELECT p.post_id FROM v_live_posts p
+     WHERE ${VISIBLE} AND p.author_university_id = ? AND p.post_id < ?
+     ORDER BY p.post_id DESC LIMIT 21`,
+    [myUniversityId, myUniversityId, before ?? 4294967295],
+  );
+  return rows.map((r) => r.post_id);
+}
+
+// DS-1, BR-5, BR-8, BR-9: topic filtering never bypasses visibility or the live-post view.
+async function feedTopicIds(myUniversityId, topicId, before) {
+  const rows = await q(
+    `SELECT p.post_id FROM v_live_posts p
+     WHERE ${VISIBLE} AND p.topic_id = ? AND p.post_id < ?
+     ORDER BY p.post_id DESC LIMIT 21`,
+    [myUniversityId, topicId, before ?? 4294967295],
+  );
+  return rows.map((r) => r.post_id);
+}
+
 // DS-5, BR-6/8/9: only my live posts, including anonymous ones; ownership implies same university.
 async function myPostIds(userId, before) {
   const rows = await q(
@@ -25,4 +47,4 @@ async function myPostIds(userId, before) {
   return rows.map((r) => r.post_id);
 }
 
-module.exports = { feedAllIds, myPostIds };
+module.exports = { feedAllIds, feedUniIds, feedTopicIds, myPostIds };
