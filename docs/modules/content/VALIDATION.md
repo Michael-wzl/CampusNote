@@ -18,7 +18,7 @@ The branches are stacked in this order so each diff contains only its own change
 | Check | Result |
 |---|---|
 | `npm test -- modules/content` | 32 tests: 31 passed, 0 unexpected failures, 1 explicit TODO |
-| `npm test` | 159 total: 153 passed, 0 unexpected failures, 6 TODOs (1 Content Watching, 1 Identity count/list, 4 cross-module demo flows) |
+| `npm test` | 225 total: 222 passed, 0 unexpected failures, 3 TODOs (Content Watching, Identity count/list, Search-to-booking) |
 | `npm run lint` | Passed (ESLint and Prettier) |
 | Full `npm run check:sql` on a disposable database | 456 PASS checks; `ALL SQL CHECKS PASSED` |
 | HTTP race: 20 first-time participants | 20 successful 303 responses; aliases 0–20 including Host, no gaps or duplicates |
@@ -27,7 +27,7 @@ The branches are stacked in this order so each diff contains only its own change
 
 Original member validation used Node 25.8.1 and MySQL 8.0.46. Coordinator verification on 22 Oct uses Node 24.9.0 and MySQL 8.4.13. Development, HTTP tests and SQL races use separate task-owned databases. Content upload tests now use a temporary directory per test process and remove it afterwards; they never write into the running demo's upload folder. GitHub checks exercise the repository CI environment as well; consult each PR's checks for its exact commit.
 
-The six remaining TODOs depend on unfinished Discover/Messages integration. Publishing with a real image and Identity clear-history now run as ordinary passing integration tests. The Identity count-to-list check still reports its expected TODO assertion while Discover's lists are placeholders; the process exits successfully. These TODOs are **not** counted as completed integration tests. The post and comment rollback tests deliberately cause SQL errors and expect HTTP 500. They verify that failed transactions retain neither partial rows nor uploaded files; a comment retry still receives the first available alias.
+After the 25 Oct Messages integration, three TODOs depend on unfinished Discover destinations. Publishing with a real image and Identity clear-history now run as ordinary passing integration tests. The Identity count-to-list check still reports its expected TODO assertion while Discover's lists are placeholders; the process exits successfully. These TODOs are **not** counted as completed integration tests. The post and comment rollback tests deliberately cause SQL errors and expect HTTP 500. They verify that failed transactions retain neither partial rows nor uploaded files; a comment retry still receives the first available alias.
 
 ## Acceptance mapping: every CT-T01–CT-T30 clause
 
@@ -116,7 +116,7 @@ Two follow-up HTTP tests deliberately pause a submission after its route-level v
 ## Pending integration and approved privacy contract
 
 1. **Discover:** `/me/watching`, `/me/history`, `/me/posts`, liked lists and user pages are still placeholders on the checked baseline. Content writes the expected rows and links; rerun their list/count checks once Discover is integrated.
-2. **Messages:** database triggers create the expected notifications. Notification screens, private-message destinations and report forms still require Messages. Their links are verified; their complete UI workflows are not represented as passed.
+2. **Messages, integrated 25 Oct:** MS-1–MS-7 provide notifications, private conversations and moderation. Shared golden-path tests now execute comment/notification/Host reply, Visitor/Host chat, and report/hide/restore across lists with audit retention. The remaining integration gaps belong to Discover.
 3. **[Issue #5](https://github.com/Michael-wzl/CampusNote/issues/5), resolved by D23:** Michael approved the viewer’s own shared account sidebar on 22 Oct. Content and shared privacy tests enforce anonymous post/participant identities separately from that account navigation. No shared layout change is needed.
 4. **Team video:** [DEMO_SCRIPT.md](DEMO_SCRIPT.md) supplies the Content segment and narration. Whole-team recording and integration shots remain pending until the destination modules are ready.
 
@@ -129,3 +129,7 @@ Two follow-up HTTP tests deliberately pause a submission after its route-level v
 ### Shared HTTP test transport follow-up
 
 The coordinator fixed the reproduced IPv6-listener/IPv4-client mismatch in the shared HTTP test harness on 22 Oct; Content application behavior is unchanged. Five new transport regressions raise the full-suite count to 159 total / 153 pass / 6 TODO. See [the investigation and evidence](../../team/VALIDATION.md#login-test-transport-investigation-and-fix--22-oct-2026).
+
+### Messages integration follow-up — 25 Oct 2026
+
+The current combined application has 225 cases: 222 pass, 0 fail, 3 TODO. Messages-specific walkthrough TODOs are now real passing tests; Watching, count-to-list and Search-to-booking still await Discover. Historical member/transport counts above retain their original run dates. See [coordinator validation](../../team/VALIDATION.md#messages-integration--25-oct-2026) for the current integration scope.

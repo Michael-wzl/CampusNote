@@ -115,3 +115,7 @@ The existing Windows assertion, unfinished Discover destinations, shared walkthr
 - Re-ran `npm test -- modules/messages`: **40 passed**, 0 failed/skipped/TODO. Re-ran `npm run lint`: passed. Re-ran the original SQL suite: **456 PASS**, exit 0.
 - The full 225-test Windows result above predates these behavior-preserving language changes; it is not relabelled as a new full run. Subsequent PR CI is a separate check.
 - Publication target is the verified personal fork `MKWang-2006/CampusNote`, branch `codex/messages-ms1-ms7`. Its parent is `Michael-wzl/CampusNote`. Only the feature ref is updated; neither main branch is a publication target.
+
+## Coordinator integration follow-up — 25 Oct 2026
+
+The Linux PR CI passes at e4515d9. Coordinator review found no production-code blocker. With the shared walkthroughs enabled, the complete local app passes 222 of 225 cases with zero failures and three remaining Discover integration TODOs; all 456 SQL checks pass. The shared Windows path assertion reported above is now platform-correct, with a dedicated native Windows parser/reset-path CI job. This does not claim a full Windows application/database rerun. The original owner logs and counts remain historical evidence.

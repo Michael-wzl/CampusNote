@@ -2,7 +2,7 @@
 
 Repository: **[Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote)**.
 
-Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, demo data, login/profile, events and Content modules are built. Discover and Messages are starter modules; their owners can build against Content's working routes and data. Michael owns shared code, identity and events.
+Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, demo data, login/profile, events, Content and Messages MS-1–MS-7 are built. Discover's CP1 feeds, My posts and profiles are merged; its remaining features are the next implementation work. Michael owns shared code, identity and events.
 
 ## 1. Roles and repository access
 
@@ -20,7 +20,7 @@ Repository invitations have been sent to all three members. Accept yours on GitH
 
 ## 2. Run the app
 
-Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Docker for the database). Log in using the development shortcuts. Placeholder pages for the three teammate modules are expected.
+Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Docker for the database). Log in using the development shortcuts. Watching, Hot, Search, the remaining personal lists and announcements are still pending in Discover. The other merged module pages are available.
 
 ## 3. Build for desktop and phones
 

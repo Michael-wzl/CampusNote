@@ -1260,6 +1260,9 @@ h2 {
   :root {
     --topbar-h: 84px;
   }
+  html {
+    scroll-padding-bottom: calc(var(--tabbar-h) + 32px + env(safe-area-inset-bottom, 0px));
+  }
   .app-shell {
     display: block;
     max-width: 960px;
