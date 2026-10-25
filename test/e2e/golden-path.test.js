@@ -1,11 +1,11 @@
 // The demo's golden path across all modules (PRODUCT_SPEC.md §6), written in integration week
-// (COORDINATOR_ROADMAP.md §7, Sat 7 Nov). Sign-up and publishing run; later flows await integration.
+// (COORDINATOR_ROADMAP.md §7, Sat 7 Nov). Search-to-booking still awaits Discover integration.
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { resetDb, anon, agentAs, q } = require('../helpers');
+const { resetDb, anon, agentAs, make, q } = require('../helpers');
 const config = require('../../core/config');
 
 // The upload belongs to this test process, separate from demo and other module test files.
@@ -98,11 +98,189 @@ test('2. Post: + -> text, a photo, Academics, anonymous -> Publish -> the new po
   assert.ok(!reader.text.includes('mandy0hku'));
   assert.equal((await (await agentAs('wing0cuhk')).page(published.headers.location)).status, 404);
 });
-test('3. Discuss: a comment as Alice, the badge, the notification, the Host reply', {
-  todo: 'messages notification UI (MS-1, MS-2)',
+const badge = (page) => Number(page.$('a[href="/messages"] .badge').first().text() || 0);
+
+test('3. Discuss: a comment as Alice, the badge, the notification, the Host reply', async () => {
+  await resetDb();
+  const postId = await make.post({ author: 'newbie0hk', body: 'Which paper should I practise?' });
+  const mandy = await agentAs('mandy0hku');
+  const host = await agentAs('newbie0hk');
+  assert.equal(badge(await host.page('/messages')), 0);
+  const post = await mandy.page('/posts/' + postId);
+  const action = post.$(`form[action="/posts/${postId}/comments"]`).attr('action');
+  assert.ok(action);
+  const comment = await mandy.form(action, { body: 'Try the 2024 paper first.' });
+  assert.equal(comment.status, 303);
+  const commentId = Number(comment.headers.location.split('#c')[1]);
+  const thread = await mandy.page('/posts/' + postId);
+  assert.equal(thread.$(`#c${commentId} .content-alias`).text(), 'Alice');
+  assert.equal(badge(await host.page('/messages')), 1);
+  const notifications = await host.page('/messages/notifications');
+  const notification = notifications.$(`a[href="/posts/${postId}#c${commentId}"]`);
+  assert.equal(notification.length, 1);
+  assert.match(notification.text(), /Alice commented on your post/);
+  assert.doesNotMatch(notification.html(), /mandy0hku|newbie0hk/);
+  assert.equal(badge(notifications), 0);
+  assert.equal((await host.page(notification.attr('href'))).status, 200);
+  const reply = await host.form(action, {
+    body: 'Thanks, I will start there.',
+    reply_to: commentId,
+  });
+  assert.equal(reply.status, 303);
+  const replyId = Number(reply.headers.location.split('#c')[1]);
+  const repliedThread = await host.page('/posts/' + postId);
+  assert.equal(repliedThread.$(`#c${replyId} .content-alias`).text(), 'Host');
+  assert.match(repliedThread.$(`#c${replyId}`).text(), /replying to Alice/);
+  assert.equal(badge(await mandy.page('/messages')), 5);
+  const replyNotification = (await mandy.page('/messages/notifications')).$(
+    `a[href="/posts/${postId}#c${replyId}"]`,
+  );
+  assert.equal(replyNotification.length, 1);
+  assert.match(replyNotification.text(), /Host replied to your comment/);
+  assert.doesNotMatch(replyNotification.html(), /mandy0hku|newbie0hk/);
 });
-test('4. Message privately: "Message the host" as Visitor', { todo: 'messages (MS-4, MS-5)' });
-test('5. Moderate: report, Hide, "[hidden by a moderator]"', { todo: 'messages (MS-6, MS-7)' });
+
+test('4. Message privately: "Message the host" as Visitor', async () => {
+  await resetDb();
+  const postId = await make.post({
+    author: 'mandy0hku',
+    body: 'Can anyone recommend a study room?',
+  });
+  const visitor = await agentAs('newbie0hk');
+  const host = await agentAs('mandy0hku');
+  const post = await visitor.page('/posts/' + postId);
+  const entry = post.$(`a[href="/messages/new?post=${postId}"]`).attr('href');
+  assert.ok(entry);
+  const compose = await visitor.page(entry);
+  assert.equal(compose.status, 200);
+  assert.match(compose.$('main').text(), /You will appear as Visitor/);
+  const sent = await visitor.form(compose.$('form[method="post"]').attr('action'), {
+    body: 'The fourth floor is quiet in the morning.',
+  });
+  assert.equal(sent.status, 303);
+  const chatUrl = sent.headers.location;
+  const id = Number(chatUrl.split('/').pop());
+  const visitorChat = await visitor.page(chatUrl);
+  assert.equal(visitorChat.$('h1').text(), 'Host');
+  assert.match(visitorChat.$('.messages-context').text(), /You appear as Visitor/);
+  assert.doesNotMatch(visitorChat.$('main').html(), /mandy0hku|newbie0hk|\/u\//);
+  const inbox = await host.page('/messages');
+  const preview = inbox.$(`a[href="${chatUrl}"]`);
+  assert.match(preview.text(), /Visitor/);
+  assert.equal(preview.find('.badge').text(), '1');
+  const hostChat = await host.page(chatUrl);
+  assert.equal(hostChat.$('h1').text(), 'Visitor');
+  assert.match(hostChat.$('.messages-context').text(), /You appear as Host/);
+  assert.doesNotMatch(hostChat.$('main').html(), /mandy0hku|newbie0hk|\/u\//);
+  const replied = await host.form(hostChat.$('form[method="post"]').attr('action'), {
+    body: 'Thank you, I will try it tomorrow.',
+  });
+  assert.equal(replied.status, 303);
+  const received = await visitor.page(chatUrl);
+  assert.match(received.$('.messages-thread').text(), /Thank you, I will try it tomorrow/);
+  assert.doesNotMatch(received.$('main').html(), /mandy0hku|newbie0hk|\/u\//);
+  assert.equal((await visitor.page(entry)).headers.location, chatUrl);
+  const outsider = await agentAs('wing0cuhk');
+  assert.equal((await outsider.page(chatUrl)).status, 404);
+  assert.equal((await outsider.form(chatUrl, { body: 'I am not a member.' })).status, 404);
+  assert.equal(
+    (await q.one('SELECT COUNT(*) AS n FROM messages WHERE conversation_id = ?', [id])).n,
+    2,
+  );
+});
+
+test('5. Moderate: report, Hide, "[hidden by a moderator]", restore and preserve the audit', async () => {
+  await resetDb();
+  const postId = await make.post({
+    author: 'mandy0hku',
+    body: 'A post for the moderation walkthrough.',
+    anonymous: false,
+    visibility: 'all',
+  });
+  const mandy = await agentAs('mandy0hku');
+  const newbie = await agentAs('newbie0hk');
+  const reporter = await agentAs('kelvin0hk');
+  const admin = await agentAs('admin0000');
+  const commented = await newbie.form(`/posts/${postId}/comments`, {
+    body: 'This comment is being reviewed.',
+  });
+  assert.equal(commented.status, 303);
+  const commentId = Number(commented.headers.location.split('#c')[1]);
+  const lists = [
+    [reporter, '/feed'],
+    [reporter, '/feed?tab=uni'],
+    [mandy, '/me/posts'],
+    [reporter, '/u/mandy0hku'],
+  ];
+  async function checkLists(expected) {
+    for (const [agent, url] of lists) {
+      const page = await agent.page(url);
+      assert.equal(page.status, 200, url);
+      assert.equal(page.$(`a.post-card[href="/posts/${postId}"]`).length, expected, url);
+    }
+  }
+  await checkLists(1);
+  for (const [type, targetId] of [
+    ['comment', commentId],
+    ['post', postId],
+  ]) {
+    const page = await reporter.page('/posts/' + postId);
+    const link = page.$(`a[href="/report?type=${type}&id=${targetId}"]`).attr('href');
+    assert.ok(link);
+    const report = await reporter.page(link);
+    assert.equal(report.status, 200);
+    assert.equal(
+      (await reporter.form(report.$('form[method="post"]').attr('action'), { reason: 'spam' }))
+        .status,
+      303,
+    );
+    const queue = await admin.page('/admin/reports');
+    const target = queue
+      .$('.messages-report')
+      .filter(
+        (_, el) =>
+          queue.$(el).find('a').attr('href') ===
+          `/posts/${postId}` + (type === 'comment' ? `#c${commentId}` : ''),
+      );
+    assert.equal(target.length, 1);
+    const hideAction = target.find('form[action$="/hide"]').attr('action');
+    assert.ok(hideAction);
+    const reportId = Number(target.attr('data-report-id'));
+    assert.equal((await admin.form(hideAction)).status, 303);
+    const hidden = await reporter.page('/posts/' + postId);
+    if (type === 'comment') {
+      assert.equal(hidden.status, 200);
+      assert.match(hidden.$(`#c${commentId}`).text(), /\[hidden by a moderator\]/);
+      assert.doesNotMatch(hidden.$(`#c${commentId}`).text(), /This comment is being reviewed/);
+      await checkLists(1);
+    } else {
+      assert.equal(hidden.status, 404);
+      await checkLists(0);
+    }
+    const hiddenQueue = await admin.page('/admin/reports');
+    const restoreAction = hiddenQueue.$(`[data-target="${type}/${targetId}"] form`).attr('action');
+    assert.ok(restoreAction);
+    assert.equal((await admin.form(restoreAction)).status, 303);
+    const restored = await reporter.page('/posts/' + postId);
+    assert.equal(restored.status, 200);
+    if (type === 'comment')
+      assert.match(restored.$(`#c${commentId}`).text(), /This comment is being reviewed/);
+    await checkLists(1);
+    assert.deepEqual(
+      await q.one('SELECT resolution, resolved_by FROM reports WHERE report_id = ?', [reportId]),
+      { resolution: 'hidden', resolved_by: 1 },
+    );
+    assert.equal(
+      (
+        await q.one(
+          'SELECT COUNT(*) AS n FROM hidden_content WHERE target_type = ? AND target_id = ?',
+          [type, targetId],
+        )
+      ).n,
+      0,
+    );
+  }
+});
 test('6. Book a ticket: Search -> Campus events -> Film night -> Book -> My tickets', {
   todo: 'discover, events',
 });

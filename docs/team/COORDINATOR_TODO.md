@@ -18,7 +18,7 @@
 
 ## Your remaining actions
 
-1. **Make sure pending repository invitations are accepted.** All roles are claimed and invitations sent; teammates can follow `START_HERE.md` and begin their modules. MKWang-2006 has accepted and is assigned to issue #3; hX1-dev's invitation is still pending.
+1. **Track Discover's remaining work for 1 Nov.** All three collaborators have write access. Content and Messages MS-1–MS-7 are integrated; hX1-dev owns Watching/Hot, Search and remaining personal lists, followed by banners/admin announcements.
 2. **Send [TEAM_MESSAGE.md](TEAM_MESSAGE.md)**. Roles are [Content #1](https://github.com/Michael-wzl/CampusNote/issues/1), [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2) and [Messages #3](https://github.com/Michael-wzl/CampusNote/issues/3); [weekly status is #4](https://github.com/Michael-wzl/CampusNote/issues/4). The first checkpoint is 25 Oct; confirm dates with the team if needed.
 3. **Read [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md)** so you can explain the code you own. Automated review cannot replace your understanding for the presentation.
 
@@ -26,9 +26,9 @@ No manual copying of `.github` files, username replacement, team-email setup or 
 
 ## Validation
 
-Fresh coordinator checks on 22 Oct: **153 application tests pass, 0 fail; 6 TODOs await Discover/Messages integration.** ESLint and formatting pass. **456 SQL checks pass**, including the 120-buyer booking race and the comment-alias race. Events also passed a 200-buyer HTTP race: 50 booked, 150 sold out, no overselling.
+Fresh coordinator checks on 25 Oct: **222 application tests pass, 0 fail; 3 TODOs await Discover integration.** ESLint and formatting pass. **456 SQL checks pass**, including the 120-buyer booking race and the comment-alias race. Earlier Events verification also passed a 200-buyer HTTP race: 50 booked, 150 sold out, no overselling.
 
-See [VALIDATION.md](VALIDATION.md) for exact scope and limitations, and [GitHub Actions](https://github.com/Michael-wzl/CampusNote/actions) for the remote CI result. Content is implemented and reviewed; Discover and Messages remain starter modules. Full cross-module acceptance waits for those destinations.
+See [VALIDATION.md](VALIDATION.md) for exact scope and limitations, and [GitHub Actions](https://github.com/Michael-wzl/CampusNote/actions) for the remote CI result. Content and Messages are implemented and reviewed. Full cross-module acceptance waits for Discover's remaining lists and Search. The Windows path assertion is portable and has a focused native Windows CI job.
 
 ## Later work
 

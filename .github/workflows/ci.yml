@@ -11,6 +11,20 @@ permissions:
   contents: read
 
 jobs:
+  windows-paths:
+    name: Windows reset-path checks
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: SQL parser and reset-file order
+        run: node --test test/core/reset.test.js
+
   ci:
     runs-on: ubuntu-24.04
     timeout-minutes: 20

@@ -8,6 +8,7 @@
 - **Tablet, 768 to 1023 px:** an expanded content column with bottom navigation. Suitable card lists can use two columns; keep controls and filters usable without squeezing a desktop layout into a small space.
 - **Phone, below 768 px:** one column with fixed bottom navigation and enough bottom padding to keep the last control visible above it. The compose page can hide the compact tabs; its back link remains available.
 - Account navigation may show the signed-in viewer's own handle, including on anonymous post pages (D23). This identifies only the current account; post and participant identities remain anonymous.
+- Compact layouts reserve scroll padding above the fixed bottom navigation so native keyboard focus and scroll-to-target behavior keep actions visible.
 - The shell supplies the page title, back link, active destination, unread badge, keyboard skip link and navigation. Logged-out pages use a centred form/content layout without authenticated navigation.
 - Breakpoints use CSS viewport width. Resizing the same page adapts it immediately; no browser/device detection, duplicated routes or alternate database code.
 

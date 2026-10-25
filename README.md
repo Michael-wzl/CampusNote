@@ -8,7 +8,7 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 **[Check your role and start working → START_HERE.md](START_HERE.md)**
 
-Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events and Content modules are built. Discover and Messages remain starter pages; Content links into them will be completed during integration. The detailed design pack is reference material, not a reading prerequisite for starting work. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
+Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events, Content and Messages MS-1–MS-7 are built. Discover's CP1 feeds, My posts and profiles are implemented; Watching, Hot, Search, other personal lists and announcements remain with its owner. The detailed design pack is reference material, not a reading prerequisite for starting work. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
 
 ## Run locally
 
@@ -30,7 +30,7 @@ npm run dev                 # http://localhost:3000
 
 `db:reset` replaces the configured development database; use a dedicated local database, not a shared or production one. Tests use `DB_NAME_TEST` and replace its contents.
 
-Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Placeholder pages in Discover and Messages are expected until their owners implement them. Publishing, comments, likes, watches, images and My comments are available through Content.
+Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Remaining Discover destinations are placeholders. Publishing/comments, private messages/notifications and report/moderation flows are available; MS-8 block/unblock controls remain optional.
 
 ### Setting up MySQL
 

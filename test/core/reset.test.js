@@ -1,6 +1,7 @@
 // The SQL splitter that db:reset uses for files with DELIMITER (BB-4).
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('node:path');
 const { splitSql, sqlFiles } = require('../../db/reset');
 
 test('splitSql splits on ; outside quotes and comments', () => {
@@ -34,6 +35,7 @@ test('splitSql understands DELIMITER, escaped quotes and doubled quotes', () => 
 test('db:reset loads the schema, module SQL, the core seed and module seeds in that order', () => {
   const files = sqlFiles();
   assert.equal(files[0], 'db/schema.sql');
-  assert.ok(files.includes('modules/messages/db/triggers.sql'));
-  assert.ok(files.indexOf('modules/messages/db/triggers.sql') < files.indexOf('db/seed/core.sql'));
+  const triggers = path.join('modules', 'messages', 'db', 'triggers.sql');
+  assert.ok(files.includes(triggers));
+  assert.ok(files.indexOf(triggers) < files.indexOf('db/seed/core.sql'));
 });
