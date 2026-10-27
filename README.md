@@ -8,7 +8,7 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 **[Check your role and start working → START_HERE.md](START_HERE.md)**
 
-Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events, Content and Messages MS-1–MS-7 are built. Discover's CP1 feeds, My posts and profiles are implemented; Watching, Hot, Search, other personal lists and announcements remain with its owner. The detailed design pack is reference material, not a reading prerequisite for starting work. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
+Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events, Content and Messages MS-1–MS-7 are built. Discover's Must features are merged: all feed tabs including Watching/Hot, Search, the four personal lists and public profiles are available. Announcement banners/admin announcements, Discover's SQL card and slide outline remain with hX1-dev for 6 Nov. The three shared Discover integration checks are now mandatory; see [validation](docs/team/VALIDATION.md) for current results and limits. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
 
 **Final submission:** code ZIP, slides and video are all due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal and required filenames.
 
@@ -41,7 +41,7 @@ npm run dev                 # http://localhost:3000
 
 `db:reset` replaces the configured development database; use a dedicated local database, not a shared or production one. Tests use `DB_NAME_TEST` and replace its contents.
 
-Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Remaining Discover destinations are placeholders. Publishing/comments, private messages/notifications and report/moderation flows are available; MS-8 block/unblock controls remain optional.
+Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Publishing/comments, all feed tabs, Search, personal lists, private messages/notifications and report/moderation flows are available. Announcement banners/admin announcements retain their later milestone scope; MS-8 block/unblock controls remain optional.
 
 ### Setting up MySQL
 

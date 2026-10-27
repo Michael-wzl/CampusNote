@@ -2,7 +2,7 @@
 
 Repository: **[Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote)**.
 
-Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, demo data, login/profile, events, Content and Messages MS-1–MS-7 are built. Discover's CP1 feeds, My posts and profiles are merged; its remaining features are the next implementation work. Michael owns shared code, identity and events.
+Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, demo data, login/profile, events, Content and Messages MS-1–MS-7 are built. Discover's Must features are merged, including Watching/Hot, Search and all four personal lists. Its announcement banners/admin announcements, SQL card and slide outline remain for 6 Nov. Michael owns shared code, identity, events and integration.
 
 ## 1. Roles and repository access
 
@@ -20,7 +20,7 @@ All three members have repository write access. Ownership is tracked in [Content
 
 ## 2. Run the app
 
-Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Docker for the database). Log in using the development shortcuts. Watching, Hot, Search, the remaining personal lists and announcements are still pending in Discover. The other merged module pages are available.
+Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Docker for the database). Log in using the development shortcuts. All feed tabs, Search, personal lists and the other merged module pages are available; announcement banners/admin announcements are still planned Should work.
 
 ## 3. Build for desktop and phones
 
@@ -28,7 +28,7 @@ The shared layout adapts automatically: a sidebar and wider content on desktop, 
 
 ## 4. Start your next task
 
-Read the short [grading and submission checklist](docs/team/SUBMISSION.md). hX1-dev continues Discover; Catherine135 starts the explicit CRUD/database video script; MKWang-2006 prepares the ZIP/rebuild checklist; Michael starts the Chen E-R diagram and marker README. Shared duties can progress while Discover is being completed.
+Read the short [grading and submission checklist](docs/team/SUBMISSION.md). hX1-dev finishes Discover's planned announcement features, SQL card and slide outline by 6 Nov; Catherine135 prepares the explicit CRUD/database video; MKWang-2006 prepares the ZIP/rebuild checklist; Michael handles integration, the Chen E-R diagram and marker README. The three shared integration flows are now mandatory tests; [VALIDATION.md](docs/team/VALIDATION.md) records current evidence and limitations. Keep the merged Must features working while these handoffs progress.
 
 1. Read your DEV_GUIDE's scope, build plan and acceptance tests. It includes tested SQL and a coding-agent prompt.
 2. Work only in `modules/<your module>/` and `docs/modules/<your module>/`. Ask Michael about shared-file or schema changes.
