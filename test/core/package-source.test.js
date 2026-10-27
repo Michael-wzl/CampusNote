@@ -131,10 +131,7 @@ test('source packaging detects export substitutions that change committed file c
 
 test('source packaging refuses a nested root, in-repo output and existing artifacts', (t) => {
   const f = fixture(t);
-  assert.throws(
-    () => packageSource({ ...f, root: path.join(f.root, 'db') }),
-    /repository root/,
-  );
+  assert.throws(() => packageSource({ ...f, root: path.join(f.root, 'db') }), /repository root/);
   assert.throws(() => packageSource({ ...f, out: path.join(f.root, 'source.zip') }), /outside/);
   fs.writeFileSync(f.out, 'keep this archive');
   assert.throws(() => packageSource(f), /already exists/);
