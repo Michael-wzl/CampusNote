@@ -19,20 +19,22 @@
 
 ## Your remaining actions
 
-1. **Track Discover's planned Should work and handoff for 6 Nov.** Its Must features are already merged. hX1-dev still owns DS-3 announcement banners, DS-7 admin announcements, the SQL card and slide outline. Keep issue #2 open for that scope; do not mark the full module complete yet.
-2. **Send [TEAM_MESSAGE.md](TEAM_MESSAGE.md)** and continue shared duties: Catherine135 on the explicit CRUD/database video, MKWang-2006 on the ZIP/rebuild checklist, hX1-dev on announcements and SQL/slide preparation. [SUBMISSION.md](SUBMISSION.md) is the shared reference; [weekly status is #4](https://github.com/Michael-wzl/CampusNote/issues/4).
-3. **Read [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md)** so you can explain the code you own. Automated review cannot replace your understanding for the presentation.
-4. **Prepare the Chen E-R diagram and marker README:** draft diagram by 6 Nov, final diagram/README and tested release by 13 Nov. Include setup from the submitted ZIP; MKWang-2006 verifies the actual archive on a second laptop by 11 Nov.
-5. **Arrange the 18 Nov draft rehearsal**, final slides/video on 19 Nov, and all-file submission on **20 Nov**. Official deadline: **21 Nov, 23:59 HKT**. Check upload limits and the clock time for Group 8's **23 Nov** presentation (order 8). The 22 Nov rehearsal uses the submitted files.
+**Current owner: Michael, with the assistant, for every code/repository task through the verified source ZIP.** Teammates join after the source-ready handoff for review and presentation; the earlier module split remains contribution history.
 
-No manual copying of `.github` files, username replacement, team-email setup or private-repo subscription is needed. The authenticated CLI is used for publication; the GitHub connector's write-access issue does not block the handoff.
+1. **Agreed app implementation is complete:** DS-3/DS-7 announcements join the merged Must features. Technical guides, all module SQL notes and editable Chen views are included. Preserve the tested behavior; keep optional MS-8 deferred.
+2. **Verify the app and actual ZIP:** run appropriate tests/SQL/lint/browser checks, finish the marker README, build the candidate archive and rebuild from its extracted contents in a clean isolated environment. Record commit/hash and evidence. No teammate is assigned this implementation/rebuild/packaging work.
+3. **Use the prepared [Chen views](../data/er/README.md) and technical handoff**, and read [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md) so you can explain the source. Source readiness can be handed off early once exact-ZIP rebuild and CI pass; 13 Nov remains the latest internal target.
+4. **Declare source-ready, then activate the team:** send [TEAM_MESSAGE.md](TEAM_MESSAGE.md) and the exact baseline. Everyone reviews code/README with suggestions; Catherine135 prepares video, hX1-dev slides, MKWang-2006 rehearsal/playback coordination. Michael implements accepted changes and regenerates/rechecks the ZIP.
+5. **Keep the official delivery dates:** review video 17 Nov, draft rehearsal 18 Nov, final slides/video 19 Nov, internal upload 20 Nov, hard deadline **21 Nov, 23:59 HKT**, delivery rehearsal 22 Nov and Group 8 presentation **23 Nov**, order 8. Check Moodle upload limits and the presentation clock time.
+
+[SUBMISSION.md](SUBMISSION.md) defines the handoff gate and checklist. Existing GitHub access is unchanged; teammates send suggestions rather than beginning parallel implementation. No manual `.github` copying, username replacement or private-repo subscription is needed.
 
 ## Validation
 
 Previous baseline, 25 Oct: **222 application tests passed, 0 failed; 3 TODOs awaited Discover integration.** ESLint/formatting and **456 SQL checks** passed. Earlier Events verification also passed a 200-buyer HTTP race: 50 booked, 150 sold out, no overselling.
 
-27 Oct coordinator integration: **249 tests pass, 0 fail, 0 skipped, 0 TODO; 456 SQL checks pass.** Discover's Must pages are merged, and the three shared flows now run as mandatory tests rather than TODOs or environment-gated checks. See [VALIDATION.md](VALIDATION.md) for the full-suite/browser scope and limitations, and [GitHub Actions](https://github.com/Michael-wzl/CampusNote/actions) for CI. The Windows path assertion is portable and has a focused native Windows reset-path job; this is distinct from a full second-laptop rebuild.
+27 Oct CP2 coordinator integration passed **249 tests with 0 fail/skip/TODO and 456 SQL checks**. The subsequent coordinator source baseline passes **275/275 with 0 fail/skip/TODO and 456 SQL checks**, including announcements and source-package regressions. See [VALIDATION.md](VALIDATION.md) for browser/source-export scope and limits, and [GitHub Actions](https://github.com/Michael-wzl/CampusNote/actions) for CI and clean-ZIP rebuild. Windows CI covers reset/package behavior, not a full Windows/MySQL application run.
 
 ## Later work
 
-Review and merge teammate PRs while shared delivery work progresses. The rubric allocates 30 marks to reproducibility and 70 to presentation: clear C/R/U/D and database effects in the video, a readable Chen diagram, selected SQL explanations, and all four members speaking within five minutes including the video. Check off [SUBMISSION.md](SUBMISSION.md); final assets and archive validation remain pending until recorded.
+After source-ready, review teammate suggestions while presentation work progresses; Michael retains repository, source ZIP and accepted-fix ownership. The rubric allocates 30 marks to reproducibility and 70 to presentation: clear C/R/U/D and database effects in the video, a readable Chen diagram, selected SQL explanations, and all four members speaking within five minutes including the video. Check off [SUBMISSION.md](SUBMISSION.md); final assets and archive validation remain pending until recorded.

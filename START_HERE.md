@@ -2,39 +2,31 @@
 
 Repository: **[Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote)**.
 
-Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, demo data, login/profile, events, Content and Messages MS-1–MS-7 are built. Discover's Must features are merged, including Watching/Hot, Search and all four personal lists. Its announcement banners/admin announcements, SQL card and slide outline remain for 6 Nov. Michael owns shared code, identity, events and integration.
+## 1. Current plan: source first, team presentation afterwards
 
-## 1. Roles and repository access
+**27 Oct ownership change:** Michael, working with the assistant, handles all code and repository work until the app and source are settled and the actual source ZIP is verified. This includes remaining features, tests, fixes, README, technical notes, clean rebuilds and packaging. The original module contributions below remain credited; they are not new coding assignments.
 
-| Role | Owner | What you build | Detailed guide |
-|---|---|---|---|
-| **Member 1 — Content** | **[Catherine135](https://github.com/Catherine135)** — claimed | Posts/images, comments, likes, watches and history | [Content DEV_GUIDE](docs/modules/content/DEV_GUIDE.md) |
-| **Member 2 — Discover** | **[hX1-dev](https://github.com/hX1-dev)** — claimed | Feeds, ranking, search, personal lists, user pages and announcements | [Discover DEV_GUIDE](docs/modules/discover/DEV_GUIDE.md) |
-| **Member 3 — Messages** | **[MKWang-2006](https://github.com/MKWang-2006)** — claimed | Notifications, private messages, reports and moderation | [Messages DEV_GUIDE](docs/modules/messages/DEV_GUIDE.md) |
+Teammates do not need to start coding, packaging or a second-laptop rebuild now. Michael will announce a source-ready commit/ZIP. **After that handoff**, everyone reviews the code and README, sends improvement suggestions and prepares the slides, video and rehearsals. Michael handles accepted code/repository changes and regenerates the ZIP.
 
-All three roles are claimed. Michael recorded MKWang-2006’s Messages claim on 21 Oct. Start your module directly; no name-only PR is needed.
+| Member | Original module contribution | After the source-ready handoff |
+|---|---|---|
+| **Michael** | Shared app, Identity, Events and integration | Retains all code/repo/README/testing/ZIP ownership; prepares technical handoff and handles review suggestions. |
+| **Member 1 — [Catherine135](https://github.com/Catherine135)** | Content | Review code/README; record/edit the explicit CRUD/database video and voice-over. |
+| **Member 2 — [hX1-dev](https://github.com/hX1-dev)** | Discover Must features | Review code/README; assemble slides from the settled app, E-R diagram and SQL notes. |
+| **Member 3 — [MKWang-2006](https://github.com/MKWang-2006)** | Messages | Review code/README; coordinate rehearsals, speaking transitions, playback and backups. |
 
-All three members have repository write access. Ownership is tracked in [Content #1](https://github.com/Michael-wzl/CampusNote/issues/1), [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2) and [Messages #3](https://github.com/Michael-wzl/CampusNote/issues/3).
+All members retain repository access. Send suggestions to Michael rather than starting parallel implementation. Previous role issues preserve contribution history: [Content #1](https://github.com/Michael-wzl/CampusNote/issues/1), [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2), [Messages #3](https://github.com/Michael-wzl/CampusNote/issues/3).
 
-[Weekly status — Done / Next / Blocked](https://github.com/Michael-wzl/CampusNote/issues/4)
+## 2. App and technical references
 
-## 2. Run the app
+The backbone, Identity, Events, Content, Messages MS-1–MS-7 and Discover Must flows are merged. The remaining agreed announcement work is now Michael/assistant's responsibility; source-ready status depends on the recorded final checks, not this ownership change. See [VALIDATION.md](docs/team/VALIDATION.md) for actual results and limitations.
 
-Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Docker for the database). Log in using the development shortcuts. All feed tabs, Search, personal lists and the other merged module pages are available; announcement banners/admin announcements are still planned Should work.
+For local setup follow [README.md](README.md#run-locally). Node 22+ and MySQL 8 are required; development shortcuts provide seeded personas. The website adapts to desktop, tablet and phone using the shared [responsive guide](docs/architecture/RESPONSIVE.md). Implementation references remain in the module [DEV_GUIDEs](docs/README.md).
 
-## 3. Build for desktop and phones
+## 3. Handoff and dates
 
-The shared layout adapts automatically: a sidebar and wider content on desktop, an expanded layout on tablets, and bottom navigation with one-column content on phones. Read the short [responsive guide](docs/architecture/RESPONSIVE.md); your module should use its fluid widths and shared helpers. Check pages at **390, 768 and 1440 px**, including without JavaScript.
+[SUBMISSION.md](docs/team/SUBMISSION.md) is the shared phase, grading and file checklist. Michael declares Phase A complete only after the agreed app, tests/SQL/lint/browser checks, marker README and exact-ZIP clean rebuild are verified. Then the team reviews and starts presentation work. Finish early if possible; 6 Nov is the latest agreed feature target and 13 Nov the latest source-ready target.
 
-## 4. Start your next task
+Later targets remain: video for review **17 Nov**; first timed rehearsal **18 Nov**; final slides/video **19 Nov**; internal all-file submission **20 Nov**; official deadline **21 Nov, 23:59 HKT**; final delivery rehearsal **22 Nov**; Group 8 presentation **23 Nov**, order 8. All dates are 2026/HKT. Every member speaks within the five-minute presentation, including a video of at most two minutes.
 
-Read the short [grading and submission checklist](docs/team/SUBMISSION.md). hX1-dev finishes Discover's planned announcement features, SQL card and slide outline by 6 Nov; Catherine135 prepares the explicit CRUD/database video; MKWang-2006 prepares the ZIP/rebuild checklist; Michael handles integration, the Chen E-R diagram and marker README. The three shared integration flows are now mandatory tests; [VALIDATION.md](docs/team/VALIDATION.md) records current evidence and limitations. Keep the merged Must features working while these handoffs progress.
-
-1. Read your DEV_GUIDE's scope, build plan and acceptance tests. It includes tested SQL and a coding-agent prompt.
-2. Work only in `modules/<your module>/` and `docs/modules/<your module>/`. Ask Michael about shared-file or schema changes.
-3. Pick the next unfinished feature or handoff in your guide; the first read-only pages are already merged. Use a feature branch and open a small PR. Keep completed Content/Messages behavior working rather than restarting those modules.
-4. Before merging, run `npm test` and `npm run lint`; CI also checks the SQL. Read [WORKFLOW.md](docs/team/WORKFLOW.md) when opening your first PR.
-
-**Checkpoints:** 1 Nov — Must features merged; 6 Nov — module complete; 13 Nov — tested release/package; 17 Nov — video for review; 18 Nov — timed draft rehearsal; 19 Nov — final slides/video; **20 Nov — submit all three files**. Official deadline: **21 Nov, 23:59 HKT**. Rehearse delivery on 22 Nov and present on **23 Nov** (Group 8, order 8). All dates are 2026/HKT. Post Done / Next / Blocked in the weekly status issue each Sunday.
-
-For the full specification, architecture and database design, see [docs/README.md](docs/README.md). You do not need to read the entire pack before starting your module.
+Michael reports technical progress in [weekly status #4](https://github.com/Michael-wzl/CampusNote/issues/4). After handoff, members report review/presentation progress there too.

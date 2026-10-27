@@ -1,11 +1,9 @@
 # Message to teammates
 
-Discover's Must features are merged: Watching/Hot, Search and the personal lists are available. The shared cross-module checks are now mandatory. Please pull the latest `main` and flag any problems.
+Change of plan: I'll handle the remaining code, repo, README, testing and source ZIP with the coding assistant first, so there's no coding or packaging task for you right now.
 
-- **@hX1-dev:** finish announcement banners/admin announcements, the SQL card and slide outline by **6 Nov**.
-- **@Catherine135:** prepare the demo video with clear **Create, Read, Update, Delete and database effects**, within two minutes.
-- **@MKWang-2006:** prepare the source-ZIP checklist and README-only rebuild on another laptop.
+Once the app and source are settled, I'll send the tested baseline. Then please review the code and README and suggest improvements. Catherine will handle the video, hX1-dev the slides, and MKWang-2006 rehearsal/playback coordination; everyone will have a speaking part. I'll handle any agreed code changes.
 
-I'll handle integration, the E-R diagram and README. First timed rehearsal: **18 Nov**; final slides/video: **19 Nov**. Code, slides and video are all due **21 Nov, 23:59 HKT**; we target **20 Nov** and present on **23 Nov**. Everyone needs a live speaking part in the five-minute presentation, including the video.
+The final targets stay the same: rehearsal **18 Nov**, final slides/video **19 Nov**, submission target **20 Nov** before the **21 Nov, 23:59 HKT** deadline. We present **23 Nov**.
 
-Please pull the latest repo and start with **[docs/team/SUBMISSION.md](SUBMISSION.md)** and your updated DEV_GUIDE: https://github.com/Michael-wzl/CampusNote
+Plan and handoff checklist: [SUBMISSION.md](SUBMISSION.md). Repo: https://github.com/Michael-wzl/CampusNote

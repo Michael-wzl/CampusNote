@@ -1,8 +1,10 @@
 # Discover module: developer guide
 
+> **Current ownership, 27 Oct:** Michael and the assistant maintain all code, tests, technical guides and source packaging through a verified source-ready ZIP. The original module contribution is credited below; the feature/build tables are technical references, not current teammate coding assignments. Teammates begin code/README review and presentation work only after Michael announces the settled baseline. See [SUBMISSION.md](../../team/SUBMISSION.md).
 | | |
 |---|---|
-| **Owner** | Member 2 — Discover: [hX1-dev](https://github.com/hX1-dev), self-selected in issue #2 |
+| **Original contributor** | Member 2 — Discover: [hX1-dev](https://github.com/hX1-dev), self-selected in issue #2 |
+| **Current code/repo maintainer** | Michael, working with the assistant |
 | **Folder** | `modules/discover/`, `docs/modules/discover/` |
 | **Features** | DS-1 to DS-7 (`PRODUCT_SPEC.md` §4) |
 | **Read first** | `ARCHITECTURE.md` §1, §5, §6 (above all §6.5), §8, §9; `PRODUCT_SPEC.md` BR-5, BR-6, BR-8 to BR-12, BR-17; `DATA_MODEL.md` §7.5 and §7.6; [responsive layout](../../architecture/RESPONSIVE.md); this guide |
@@ -16,7 +18,7 @@ You can build this module without knowing the rest of the app. Everything you ne
 
 **CP2 Must implementation, 26 Oct 2026 (issues #22/#24/#26):** Watching/Hot, Search and all four personal lists are complete. See [CP2_INTEGRATION_VALIDATION.md](CP2_INTEGRATION_VALIDATION.md) for the combined acceptance and [PERSONAL_LISTS_VALIDATION.md](PERSONAL_LISTS_VALIDATION.md) for the final list delivery. DS-3/DS-7 and the presentation materials keep their later milestone scope; issue #2 remains open.
 
-**Coordinator integration update, 27 Oct:** the saved-post Watching, Me count-to-list and Search-to-booking flows now run as mandatory shared tests, without the former TODO/environment gates. [Shared validation](../../team/VALIDATION.md) records current full-suite/browser results and limits. Next owner work is DS-3 banners, DS-7 admin announcements, `SQL_CARD.md` and the slide outline by **6 Nov**; full module/release acceptance remains separate.
+**Coordinator integration update, 27 Oct:** the saved-post Watching, Me count-to-list and Search-to-booking flows now run as mandatory shared tests, without the former TODO/environment gates. [Shared validation](../../team/VALIDATION.md) records current full-suite/browser results and limits. Remaining DS-3/DS-7 implementation and technical SQL notes are now Michael/assistant's Phase A work; hX1-dev begins slide preparation and review after source-ready. Full module/release acceptance remains separate.
 
 **Watching/Hot delivery, 26 Oct 2026 (issue #22):** DS-1's Watching tab and DS-2 are implemented with the specified activity/ranking rules and offset pages. See [WATCHING_HOT_VALIDATION.md](WATCHING_HOT_VALIDATION.md).
 
@@ -82,7 +84,7 @@ From the other modules you rely only on URLs and on rows they write:
 
 Announcement 1 ("Film night this Friday", links to `/events/1`, image `/static/seed/film-night.svg`) is current; announcement 2 ("Welcome week") has expired. Organization posts that show their name: 600011 (CUHK Hiking Club) and 600006 (HKU Film Society). Kelvin (`kelvin0hk`) posts only anonymously, so his user page lists nothing.
 
-**Current implementation:** all Feed tabs, Search, the four personal lists and public profiles are merged. Preserve these Must flows and their tests. The remaining implementation is DS-3 announcement banners and DS-7 admin announcements, followed by the SQL card and slide-outline handoff; do not restart the earlier feed/search/list work.
+**Current implementation:** all Feed tabs, Search, the four personal lists and public profiles are merged. Preserve these Must flows and their tests. Michael/assistant own the remaining DS-3 announcement banners, DS-7 admin announcements and technical SQL notes. Slide preparation starts with hX1-dev only after source-ready; do not restart the earlier feed/search/list work.
 
 ## 4. Build plan
 
@@ -90,16 +92,16 @@ Announcement 1 ("Film night this Friday", links to `/events/1`, image `/static/s
 |---|---|
 | CP1, Sun 25 Oct | `index.js`, `routes.js`, `queries.js` with `feedAllIds`, `feedUniIds`, `feedTopicIds`, `myPostIds`, `userByHandle` and `userPostIds`; `/feed` renders the tab strip and the All, university and topic tabs with "Load more"; `/me/posts` and `/u/:handle` render read-only. |
 | CP2, Sun 1 Nov (Must) | DS-1 complete (Watching tab), DS-2 Hot, DS-4 search (with the `#id` jump and the empty page), DS-5 the four lists; tests DS-T01 to DS-T08, DS-T10 to DS-T19 and DS-T26. |
-| Fri 6 Nov (Should) | DS-3 banner, DS-6 user page complete (Message button, own-page note), DS-7 admin announcements; tests DS-T09 and DS-T20 to DS-T28; USER_GUIDE screenshots; `SQL_CARD.md`; slide outline (final slides due 19 Nov). |
+| Fri 6 Nov (Should) | DS-3 banner, DS-6 user page complete (Message button, own-page note), DS-7 admin announcements; tests DS-T09 and DS-T20 to DS-T28; USER_GUIDE screenshots; `SQL_CARD.md`; technical SQL notes; slides start after source-ready (final slides due 19 Nov). |
 | Could | Nothing is planned for this module. Spend spare time timing the pages after `npm run load-test` (§5 DS-2 and DS-4 give the numbers to expect). |
 
-### Assessment and submission handoff (27 Oct update)
+### Assessment and source-ready handoff (27 Oct ownership change)
 
-The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+The [submission guide](../../team/SUBMISSION.md) defines the two phases and dates. **Michael/assistant own all implementation, README, technical notes, testing, clean rebuild and ZIP packaging.** Teammates have no coding or rebuild assignment before the source-ready handoff. The five-minute presentation includes a video of at most two minutes, and everyone speaks; materials/reproducibility carry 30 marks and presentation 70.
 
-hX1-dev continues Watching/Hot, Search and the remaining personal lists for **1 Nov**, then planned Should work, guide/screenshots and the SQL card by **6 Nov**. CP1 feeds, My posts and public profiles are already merged; recheck profile Message links against integrated Messages rather than rebuilding those pages.
+Michael/assistant finish DS-3 banners and DS-7 admin announcements and prepare the Discover guide/screenshots and SQL notes. Preserve the merged Must flows; do not assign this remaining implementation back to hX1-dev. After source-ready, hX1-dev reviews the code/README with suggestions and assembles slides from the settled app, Chen diagram and technical notes. Select 2–3 readable SQL examples; a live speaking part does not require four dense query slides. Draft rehearsal 18 Nov; final slides 19 Nov.
 
-Your shared duty is the slides: outline by **6 Nov**, a timed draft with the video for **18 Nov**, and final corrected slides by **19 Nov**, ready for separate upload on **20 Nov**. Build from the Chen diagram and the owners' SQL cards, selecting 2–3 readable SQL examples rather than four dense cards. Allocate a live speaking part to every member and keep the whole presentation within five minutes including the video.
+Latest technical targets remain 6 Nov for agreed features/notes and 13 Nov for the verified source baseline, with earlier handoff encouraged. The team's review/presentation phase starts at that gate. Michael submits all three files internally by **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**, order 8. Everyone learns the selected SQL after handoff and has a live speaking part.
 
 ## 5. Features
 
@@ -244,6 +246,14 @@ Every route has `requireRole('admin')` (403 for everyone else).
 - **Edit** (`GET` and `POST /admin/announcements/:id`): a non-numeric id or no row from `getAnnouncement` is a 404. Saving keeps the image unless a new one is uploaded or "Remove image" is on. After a successful save that replaced or removed an image under `/uploads/`, remove the old file (`uploads.remove`); seed images under `/static/seed/` are never removed. Flash "Announcement saved".
 - **Delete** (`POST /admin/announcements/:id/delete`, a `--danger` button at the bottom of the edit page with `data-confirm="Delete this announcement?"`): `deleteAnnouncement(id)`; 0 rows is a 404. Remove its uploaded image as above. Flash "Announcement deleted".
 
+**DS-3/DS-7 implementation, 27 Oct:** Michael/assistant completed banners, admin CRUD and the technical SQL card as part of Phase A. [Announcement validation](ANNOUNCEMENTS_VALIDATION.md) records the focused tests; [shared validation](../../team/VALIDATION.md) records full-app/browser/source checks. Earlier milestone assignments below are reference scope and contribution history, not new teammate coding duties.
+
+Implementation notes for the coordinator's 27 Oct source baseline:
+
+- A link of `/` is stored as `/feed`, the same authenticated destination, to satisfy the existing schema CHECK without a schema change.
+- The implementation uses `DATE_SUB(..., INTERVAL 8 HOUR)` / `DATE_ADD(..., INTERVAL 8 HOUR)` instead of `CONVERT_TZ` for fixed HKT conversion throughout the supported DATETIME range. Validation also rejects inputs whose UTC conversion would fall below year 1000; boundary round trips are tested.
+- Image updates/deletes lock the current row and return its actual image metadata. Cleanup uses that committed predecessor, not a stale form snapshot; a deleted row returns null and cannot be revived by an old edit.
+
 ## 6. `queries.js`
 
 Each function corresponds to a block in `queries.sql`; `@variables` become `?` in the same order (the `INSERT INTO got` line in that file is test scaffolding, not part of the query). `LIMIT 21 OFFSET ?` takes the offset as a number. The `${VISIBLE}` fragment takes `req.me.universityId`.
@@ -267,8 +277,8 @@ Each function corresponds to a block in `queries.sql`; `@variables` become `?` i
 | `listAnnouncements()` | rows with `state` | DS-7 |
 | `getAnnouncement(id)` | one row (with `starts_local`, `ends_local`) or null | DS-7 |
 | `createAnnouncement(fields, adminId)` | new id | DS-7 |
-| `updateAnnouncement(id, fields)` | nothing (the route checked the row exists) | DS-7 |
-| `deleteAnnouncement(id)` | `affectedRows` | DS-7 |
+| `updateAnnouncement(id, fields)` | `{ previousImage, image }`, or null after a concurrent deletion | DS-7 |
+| `deleteAnnouncement(id)` | deleted row's `{ image_path }`, or null when absent | DS-7 |
 
 Not SQL, but in the module: `toBooleanQuery(q)` (`modules/discover/search.js`) and `pageOf(ids, nextUrlFor)` (§5). The cards come from the backbone's `byIds` and `findVisible`.
 

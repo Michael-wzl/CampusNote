@@ -2,13 +2,13 @@
 
 Campus Notes is our COMP3278 group project: an anonymous campus forum for Hong Kong university students, modelled on the Triple Uni / HKU Pootal mini-program. This folder is everything needed to build it in three weeks with four people and very little coordination. It is the `docs/` folder of the repository; the code it describes is next to it (`../README.md` says how to run it).
 
-**Current status (27 Oct 2026):** backbone, identity, events, Content (Catherine135) and Messages MS-1–MS-7 (MKWang-2006) are implemented. Discover (hX1-dev) has delivered its Must features through merged PRs #23/#25/#27: Watching/Hot, Search and all four personal lists join the existing feeds and public profiles. Announcement banners/admin announcements, its SQL card and slide outline remain for 6 Nov. The three shared Discover integration checks are now mandatory; see [VALIDATION.md](team/VALIDATION.md) for current results and scope. CI includes Linux application/SQL checks and focused Windows reset-path checks.
+**Current status (27 Oct 2026):** the agreed app features are implemented. Original Content, Messages and Discover contributions remain credited in their dated records. Michael/assistant completed DS-3/DS-7 announcements and prepared the technical/source handoff; teammates start code/README review and presentation work after the verified source-ready handoff. The [Chen diagrams](data/er/README.md), SQL notes and source-packaging command are included. See [VALIDATION.md](team/VALIDATION.md) for app/browser/archive evidence and scope. CI includes Linux application/SQL and exact-ZIP rebuild checks, plus Windows reset/source-package checks.
 
 **Grading/deadline update (27 Oct):** [SUBMISSION.md](team/SUBMISSION.md) records the 30-mark reproducibility / 70-mark presentation rubric and owners' next actions. All three files are due **21 Nov, 23:59 HKT**; submit internally on **20 Nov**. Group 8 presents **23 Nov**, order 8. Feature checkpoints stay at 1/6 Nov; draft rehearsal is 18 Nov and final slides/video 19 Nov.
 
 **Layout:** one desktop-first responsive website, with a wider desktop sidebar layout and a single-column phone layout. All members should read the short [responsive guide](architecture/RESPONSIVE.md) before building pages.
 
-**Team kickoff:** check ownership and start your module in [START_HERE.md](../START_HERE.md). This pack is the detailed reference.
+**Current ownership:** [START_HERE.md](../START_HERE.md) explains the 27 Oct source-first plan. Michael/assistant maintain all code/repo work through a verified source ZIP. Original module ownership and build instructions below remain contribution history and technical references; they do not assign teammates coding work now.
 
 **Build history (17 Oct 2026):** version 1.1. Michael decided D1 to D5 on 17 Oct 2026, choosing the recommended option for each (`team/DECISIONS.md`), and the backbone, the identity module and the four module skeletons are built (D2). All SQL in the pack has been run on MySQL 8.0.46 (§4).
 

@@ -1,5 +1,5 @@
 // Every SQL statement of the discover module (docs/modules/discover/queries.sql has them with checks).
-const { q } = require('../../core/db');
+const { q, tx } = require('../../core/db');
 const { VISIBLE } = require('../../core/cards');
 
 // DS-1, BR-5, BR-11: the All tab, every live post I can see, newest first; 21 ids, so the route
@@ -163,6 +163,99 @@ async function myHistoryIds(userId, myUniversityId, offset) {
   return rows.map((row) => row.post_id);
 }
 
+// DS-3: an announcement is current at its inclusive start and before its exclusive end.
+async function currentAnnouncements() {
+  return q(
+    `SELECT announcement_id, title, subtitle, image_path, link_url
+     FROM announcements WHERE starts_at <= UTC_TIMESTAMP() AND UTC_TIMESTAMP() < ends_at
+     ORDER BY sort_order, announcement_id`,
+  );
+}
+
+// DS-7, BR-17: SQL determines the state using the same UTC clock as the public banner.
+async function listAnnouncements() {
+  return q(
+    `SELECT *, CASE WHEN UTC_TIMESTAMP() < starts_at THEN 'Scheduled'
+                   WHEN UTC_TIMESTAMP() >= ends_at THEN 'Expired' ELSE 'Current' END AS state
+     FROM announcements ORDER BY sort_order, announcement_id`,
+  );
+}
+
+// DS-7, BR-17: fixed-offset arithmetic supports the full valid DATETIME range, without TZ tables.
+async function getAnnouncement(id) {
+  return q.one(
+    `SELECT *, DATE_FORMAT(DATE_ADD(starts_at, INTERVAL 8 HOUR), '%Y-%m-%dT%H:%i') AS starts_local,
+               DATE_FORMAT(DATE_ADD(ends_at, INTERVAL 8 HOUR), '%Y-%m-%dT%H:%i') AS ends_local
+     FROM announcements WHERE announcement_id = ?`,
+    [id],
+  );
+}
+
+// DS-7: values remain placeholders; the application has validated dates, lengths and links.
+async function createAnnouncement(fields, adminId) {
+  const result = await q(
+    `INSERT INTO announcements
+     (title, subtitle, image_path, link_url, starts_at, ends_at, sort_order, created_by)
+     VALUES (?, ?, ?, ?, DATE_SUB(?, INTERVAL 8 HOUR), DATE_SUB(?, INTERVAL 8 HOUR), ?, ?)`,
+    [
+      fields.title,
+      fields.subtitle,
+      fields.image_path ?? null,
+      fields.link_url,
+      fields.starts,
+      fields.ends,
+      fields.sort_order,
+      adminId,
+    ],
+  );
+  return result.insertId;
+}
+
+// DS-7: lock the current image before changing it, so concurrent saves clean up the real predecessor.
+async function updateAnnouncement(id, fields) {
+  return tx(async (t) => {
+    // DS-7: a deleted row cannot be revived by a stale edit form.
+    const previous = await t.q.one(
+      'SELECT image_path FROM announcements WHERE announcement_id = ? FOR UPDATE',
+      [id],
+    );
+    if (!previous) return null;
+    const image = fields.image_path === undefined ? previous.image_path : fields.image_path;
+    // DS-7, BR-17: absent image instructions retain the locked value, not a stale form snapshot.
+    await t.q(
+      `UPDATE announcements SET title = ?, subtitle = ?, image_path = ?, link_url = ?,
+       starts_at = DATE_SUB(?, INTERVAL 8 HOUR), ends_at = DATE_SUB(?, INTERVAL 8 HOUR),
+       sort_order = ? WHERE announcement_id = ?`,
+      [
+        fields.title,
+        fields.subtitle,
+        image,
+        fields.link_url,
+        fields.starts,
+        fields.ends,
+        fields.sort_order,
+        id,
+      ],
+    );
+    return { previousImage: previous.image_path, image };
+  });
+}
+
+// DS-7: return the image from the deleted row; filesystem cleanup happens only after commit.
+async function deleteAnnouncement(id) {
+  return tx(async (t) => {
+    // DS-7: serialize deletion against an image replacement or another deletion.
+    const previous = await t.q.one(
+      'SELECT image_path FROM announcements WHERE announcement_id = ? FOR UPDATE',
+      [id],
+    );
+    if (!previous) return null;
+    // DS-7: a successful delete is a literal database DELETE, with missing targets handled by the route.
+    await t.q('DELETE FROM announcements WHERE announcement_id = ?', [id]);
+    return previous;
+  });
+}
+
 module.exports = {
   feedAllIds,
   feedUniIds,
@@ -177,4 +270,10 @@ module.exports = {
   myWatchingIds,
   myLikedIds,
   myHistoryIds,
+  currentAnnouncements,
+  listAnnouncements,
+  getAnnouncement,
+  createAnnouncement,
+  updateAnnouncement,
+  deleteAnnouncement,
 };

@@ -17,7 +17,8 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "load-test": "node scripts/load-test.js",
-    "demo:race": "node scripts/demo-race.js"
+    "demo:race": "node scripts/demo-race.js",
+    "package:source": "node scripts/package-source.js"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",

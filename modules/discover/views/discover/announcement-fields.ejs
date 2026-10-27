@@ -1,0 +1,24 @@
+<% if (errors.form) { -%>
+<p class="alert" role="alert"><%= errors.form %></p>
+<% } -%>
+<form class="form" method="post" enctype="multipart/form-data" action="<%= csrfUrl(action) %>" data-leave-guard>
+  <p class="hint">All dates and times are in Hong Kong time (UTC+8).</p>
+  <div class="group">
+<% [['title', 'Title', 'text', 60], ['subtitle', 'Subtitle (optional)', 'text', 120], ['link', 'Link (optional)', 'text', 255], ['starts', 'Starts', 'datetime-local', null], ['ends', 'Ends', 'datetime-local', null], ['sort_order', 'Sort order', 'number', null]].forEach(([name, label, type, max]) => { -%>
+    <%- include('partials/field', { name, label, type, value: values[name], error: errors[name], max, hint: name === 'link' ? 'A path inside Campus Notes, such as /events/1.' : name === 'sort_order' ? '0 to 255; lower numbers appear first.' : null, rows: null, autocomplete: null, inputmode: name === 'sort_order' ? 'numeric' : null, placeholder: null }) %>
+<% }) -%>
+<% if (item && item.image_path) { -%>
+    <div class="field"><span class="field-label">Current image</span><img class="announcement-preview" src="<%= item.image_path %>" alt="Current announcement image"></div>
+    <%- include('partials/toggle', { name: 'remove_image', label: 'Remove current image (unless replacing it)', checked: values.remove_image === '1' || (Array.isArray(values.remove_image) && values.remove_image.at(-1) === '1'), hint: null }) %>
+<% } -%>
+    <div class="field<%= errors.image ? ' has-error' : '' %>">
+      <label for="f-image">Image (optional)</label>
+      <input id="f-image" name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-preview="images" data-max-files="1" aria-describedby="f-image-hint<%= errors.image ? ' f-image-error' : '' %>"<% if (errors.image) { %> aria-invalid="true"<% } %>>
+      <p class="hint" id="f-image-hint">One image, at most 5 MB. A new image replaces the current image. Choose it again after correcting an error.</p>
+<% if (errors.image) { -%>
+      <p class="error" id="f-image-error"><%= errors.image %></p>
+<% } -%>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-cta"><%= item ? 'Save announcement' : 'Create announcement' %></button>
+</form>

@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   windows-paths:
-    name: Windows reset-path checks
+    name: Windows reset-path and source-package checks
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
@@ -22,8 +22,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: SQL parser and reset-file order
-        run: node --test test/core/reset.test.js
+      - name: SQL parser, reset order and source packaging
+        run: node --test test/core/reset.test.js test/core/package-source.test.js
 
   ci:
     runs-on: ubuntu-24.04
@@ -63,3 +63,43 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y default-mysql-client
       - name: SQL checks
         run: npm run check:sql
+      - name: Rebuild and smoke-test the exported source ZIP
+        env:
+          NODE_ENV: development
+          DB_NAME: campus_source_verify
+          DB_NAME_TEST: campus_source_verify_test
+        run: |
+          npm run package:source -- --out "$RUNNER_TEMP/Group_8_code.zip"
+          mkdir "$RUNNER_TEMP/campus-source-rebuild"
+          unzip -q "$RUNNER_TEMP/Group_8_code.zip" -d "$RUNNER_TEMP/campus-source-rebuild"
+          cd "$RUNNER_TEMP/campus-source-rebuild/CampusNote"
+          npm ci
+          npm run setup
+          npm run db:reset
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const request = require('supertest');
+          const cheerio = require('cheerio');
+          const { createApp } = require('./app');
+          const db = require('./core/db');
+          const { startTestServer, stopTestServer } = require('./test/http-server');
+          (async () => {
+            const server = await startTestServer(createApp());
+            try {
+              const agent = request.agent(server);
+              const login = await agent.get('/auth/login').expect(200);
+              const csrf = cheerio.load(login.text)('meta[name="csrf-token"]').attr('content');
+              assert.ok(csrf);
+              await agent.post('/auth/login').type('form').send({
+                _csrf: csrf, email: 'newbie@connect.hku.hk', password: 'campus123',
+              }).expect(303);
+              for (const url of ['/feed', '/feed?tab=hot', '/search?q=book', '/me', '/events'])
+                await agent.get(url).expect(200);
+              assert.equal((await db.q.one('SELECT COUNT(*) AS n FROM users')).n, 8);
+              console.log('Exported-source clean rebuild and login smoke passed');
+            } finally {
+              await stopTestServer(server);
+              await db.close();
+            }
+          })().catch((error) => { console.error(error); process.exitCode = 1; });
+          NODE

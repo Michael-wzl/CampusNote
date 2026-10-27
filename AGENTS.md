@@ -2,6 +2,12 @@
 
 Campus Notes is an anonymous campus forum for Hong Kong university students (a Triple Uni-style "tree hole"), built for the COMP3278 database course by four students. It is a server-rendered Node.js app: Express 5, EJS, MySQL 8 through `mysql2` with raw SQL.
 
+## Current responsibility (27 Oct 2026)
+
+Michael, working with his coding assistant, now owns all implementation, repository maintenance, documentation, validation and source packaging until a verified source baseline is ready. His delegated coordinator work may span modules and shared files. The teammate module assignments below describe technical boundaries and contribution history; they are not current coding duties. Teammates join after the source-ready handoff to review code/README and prepare slides, video and rehearsals. See `docs/team/SUBMISSION.md` for the phase gate.
+
+Keep module-to-module URL contracts, per-module table writers, visibility/anonymity, SQL parameters and responsive layout rules intact. Delegate bounded file scopes to agents to avoid overlapping edits. Ordinary module-only tasks remain confined to their assigned module unless Michael explicitly authorizes a coordinator task.
+
 ## Read first
 
 1. `docs/README.md`: map of the design pack.
@@ -12,7 +18,7 @@ Campus Notes is an anonymous campus forum for Hong Kong university students (a T
 
 ## Hard rules
 
-- **Stay in one module.** Create and edit files only under `modules/<module>/` and `docs/modules/<module>/` for the module you were asked to work on. The events module additionally owns `scripts/demo-race.js` (EV-7). If a change seems to need a shared file (`core/`, `views/`, `public/`, `db/`, `test/`, `package.json`, another module), stop and say so; do not edit it.
+- **Stay in the authorized scope.** For a module-only task, edit only `modules/<module>/` and `docs/modules/<module>/`; events additionally owns `scripts/demo-race.js` (EV-7). A shared-file change needs Michael's coordinator authorization. His current repo-wide coordinator work is authorized as described above; preserve module/table boundaries within it.
 - **Write only your module's tables** (the writer is named in each table's header in `db/schema.sql`). Reading any table or view is fine.
 - **Never `require` another module.** Link to other modules' pages with the URLs in `docs/team/WORK_DIVISION.md` §3.
 - **All SQL goes in `modules/<module>/queries.js`** as named functions taking plain values. Route handlers call those functions.
@@ -44,5 +50,5 @@ Seed personas (password `campus123`): `admin0000`, `mandy0hku`, `kelvin0hk` (alw
 - The feature's acceptance tests from the DEV_GUIDE exist in `modules/<module>/tests/` and pass, and `npm test` and `npm run lint` pass.
 - The page works as at least two personas, including `newbie0hk` for empty states, and without JavaScript.
 - Browser checks at 390, 768 and 1440 CSS pixels pass the responsive checklist in `docs/architecture/RESPONSIVE.md`: no horizontal document overflow, usable navigation, visible keyboard focus and touch targets at least 44 px high. Include phone and desktop screenshots in the PR.
-- No file outside the module changed (for events, `scripts/demo-race.js` is part of the module).
+- Changes stay within the assigned module scope, or are explicitly authorized coordinator changes with relevant integration checks.
 - Every SQL statement you added has a one-line comment naming the rule it implements (for example `-- BR-7`), and you can explain it.

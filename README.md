@@ -8,7 +8,9 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 **[Check your role and start working → START_HERE.md](START_HERE.md)**
 
-Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events, Content and Messages MS-1–MS-7 are built. Discover's Must features are merged: all feed tabs including Watching/Hot, Search, the four personal lists and public profiles are available. Announcement banners/admin announcements, Discover's SQL card and slide outline remain with hX1-dev for 6 Nov. The three shared Discover integration checks are now mandatory; see [validation](docs/team/VALIDATION.md) for current results and limits. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
+Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). Michael, working with his coding assistant, now maintains all code, the README, validation and source packaging. Earlier teammate contributions remain credited in the module guides and Git history. The team joins after the verified source-ready handoff to review code/README and prepare slides, video and rehearsals; there is no current teammate coding or packaging prerequisite.
+
+The agreed app features are implemented, including scheduled announcement banners/admin CRUD, the shared backbone, Identity, Events, Content, Messages MS-1–MS-7 and Discover feeds/search/lists/profiles. The three shared Discover integration checks are mandatory. The editable [Chen diagrams](docs/data/er/README.md) and module SQL cards support the later team review/presentation. See [validation](docs/team/VALIDATION.md) for current results, source-package evidence and limits. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
 
 **Final submission:** code ZIP, slides and video are all due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal and required filenames.
 
@@ -41,7 +43,7 @@ npm run dev                 # http://localhost:3000
 
 `db:reset` replaces the configured development database; use a dedicated local database, not a shared or production one. Tests use `DB_NAME_TEST` and replace its contents.
 
-Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Publishing/comments, all feed tabs, Search, personal lists, private messages/notifications and report/moderation flows are available. Announcement banners/admin announcements retain their later milestone scope; MS-8 block/unblock controls remain optional.
+Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Publishing/comments, all feed tabs, Search, personal lists, private messages/notifications, report/moderation and scheduled/admin announcements are available. MS-8 block/unblock controls remain optional and deferred.
 
 ### Setting up MySQL
 
@@ -93,6 +95,23 @@ All use the password `campus123`.
 | `npm run check:sql` | The SQL check suite (constraints, views, triggers, every module's queries, the race tests). Needs the `mysql` client. |
 | `npm run lint` / `npm run format` | ESLint and Prettier. |
 | `npm run load-test` | Adds 20,000 posts to the development database and times every page. |
+| `npm run package:source -- --ref COMMIT_OR_TAG --out ../Group_8_code.zip` | Export a clean committed source snapshot and a SHA-256/provenance manifest, without overwriting an existing package. |
+
+`npm run check:sql` also needs **Bash and Unix command-line tools**. On Windows use Git Bash/WSL or the Linux CI SQL result; the application, database reset and `npm test` are Node-based. Git is required by the maintainer's source-packaging command, not by a marker running the extracted ZIP.
+
+## Source candidate and team review
+
+Michael/assistant finish implementation, tests, README and an exact-ZIP clean rebuild before marking the source ready. Then teammates review that baseline and suggest improvements while preparing presentation materials. Michael handles accepted source/README changes and rebuilds the package. The [submission checklist](docs/team/SUBMISSION.md) records the phase gate and unchanged official deadline.
+
+From a clean repository checkout, export the tested commit with:
+
+```bash
+npm run package:source -- --ref HEAD --out ../Group_8_code.zip
+```
+
+The output directory must already exist and be outside the repository. The command refuses uncommitted source, missing required files, tracked private/generated paths and existing output files; choose a new path or archive the previous package when rebuilding. It verifies that the ZIP contains the complete committed tree and writes `Group_8_code.zip.manifest.json` beside it, recording the exact source commit/tree, file list and archive SHA-256. Keep that manifest as a provenance record; the required Moodle uploads remain code ZIP, separate slides and separate video.
+
+The archive is a **source candidate**, not proof of successful startup. Extract the actual exported ZIP into another directory, follow this README with fresh local configuration and a dedicated empty database, then verify the demo flows. Record the results in [VALIDATION.md](docs/team/VALIDATION.md). A source revision after team feedback requires a new verified archive; do not submit a stale ZIP or wait until after the deadline to finalize it.
 
 ## Where things are
 
@@ -107,5 +126,6 @@ All use the password `campus123`.
 | `modules/messages/db/triggers.sql` | The notification triggers. |
 | `core/` | The shared backbone: database, sessions, login, CSRF, pages, uploads, mail. |
 | `db/tests/`, `docs/modules/*/queries.sql` | The SQL check suite. |
+| `docs/data/er/` | Editable Chen SVG views, PNG previews and schema-mapping notes. |
 
 How the code is organised and why: `docs/architecture/ARCHITECTURE.md`. How the team works: `docs/team/WORKFLOW.md`.

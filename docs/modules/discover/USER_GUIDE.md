@@ -2,9 +2,9 @@
 
 The Feed and Search tabs are how you find posts. The feed shows everything you are allowed to see, newest first, with tabs for hot posts, your university and each topic. Search finds posts by their words, in English or Chinese. Your own lists (posts, watching, liked, history) and other people's public pages are here too.
 
-Screenshots go in `docs/modules/discover/img/` when the pages are built; the placeholders below name the file each one should have.
+Existing Feed/Search/list/profile screenshots are linked below. Announcement screenshots are added with the coordinator's source-baseline browser verification.
 
-**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, Search, all four personal lists and public user pages are available. Lists use 20-post pages and Load more. Announcements retain their later delivery scope.
+**Current implementation (27 Oct 2026):** All Feed tabs, Search, four personal lists, public pages, scheduled announcement banners and admin announcement management are implemented. Lists use 20-post pages and Load more. See [announcement validation](ANNOUNCEMENTS_VALIDATION.md) and the coordinator's [shared validation](../../team/VALIDATION.md) for the exact tested scope.
 
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
@@ -40,7 +40,7 @@ The 🔥 tab ranks the posts of the last 7 days. Every like counts 1 point, ever
 
 ## 3. Announcements
 
-On the **All** tab, current announcements from the Campus Notes team appear above the posts, for example "Film night this Friday". Tap one to open what it links to, such as an event where you can book a ticket. Announcements appear and disappear by themselves at the times the team set.
+On the **first page of All**, current announcements from the Campus Notes team appear above the posts, for example "Film night this Friday". Tap one to open its optional link, such as an event where you can book a ticket. Announcements appear at their start time and disappear at their end time. They do not appear on the other tabs or on later All pages. A banner without a link is informational and cannot be tapped.
 
 ## 4. Searching
 
@@ -103,12 +103,13 @@ Public pages show up to 20 posts at a time; tap **Load more** for the next page.
 Admins manage announcements from **Me → Announcements**.
 
 - The page lists announcements under **Current** (showing now), **Scheduled** (will start later) and **Expired**.
-- **New announcement:** fill in the title (up to 60 characters), an optional subtitle (up to 120), an optional image, an optional link, the start and end times (Hong Kong time) and the sort order (lower numbers come first), then tap **Save**.
-- The link must be a page inside Campus Notes and start with `/`, for example `/events/1` or `/feed?tab=academics`. Links to other websites are refused.
-- **Edit:** tap **Edit** next to an announcement. You can change any field, upload a new image or switch on **Remove image**.
-- **Delete:** on the edit page, tap **Delete** and confirm. It disappears from the feed at once.
+- **New announcement:** fill in the title (up to 60 characters), an optional subtitle (up to 120), an optional image, an optional link, the start and end times (Hong Kong time) and the sort order (0–255, lower numbers first), then tap **Create announcement**.
+- The link must be a page inside Campus Notes and start with `/`, for example `/events/1` or `/feed?tab=academics`. `/` is saved as `/feed`, the same destination. Links to other websites, whitespace and control characters are refused.
+- **Edit:** tap **Edit** next to an announcement. Change its fields, upload a replacement image or switch on **Remove current image (unless replacing it)**, then tap **Save announcement**. Choosing a replacement image takes precedence over the removal switch.
+- An image can be one JPEG, PNG, WebP or GIF of at most 5 MB. If the form reports an error, correct it and choose the image again; the previous image remains until a successful save.
+- **Delete:** on the edit page, tap **Delete announcement** and confirm. It disappears from the feed at once. With JavaScript disabled the same button submits directly, without a browser confirmation dialog.
 
-*(screenshot to add: `img/admin-announcements.png`)*
+For database/authorization checks and image-cleanup behavior, see [announcement validation](ANNOUNCEMENTS_VALIDATION.md).
 
 ## 8. Messages you may see
 

@@ -1,5 +1,4 @@
-// Placeholder routes for the discover module. Replace each one with the real page from
-// docs/modules/discover/DEV_GUIDE.md; keep the paths (docs/team/WORK_DIVISION.md §3).
+// Discover's routes follow the module URL contract (docs/team/WORK_DIVISION.md §3).
 const express = require('express');
 const { requireRole } = require('../../core/auth');
 const { int, oneOf } = require('../../core/validate');
@@ -8,11 +7,10 @@ const ref = require('../../core/ref');
 const { notFound } = require('../../core/errors');
 const queries = require('./queries');
 const { toBooleanQuery } = require('./search');
+const uploads = require('../../core/uploads');
+const { validateAnnouncement } = require('./announcements');
 
 const router = express.Router();
-
-const placeholder = (page) => (req, res) =>
-  res.page('discover/placeholder', { module: 'discover', ...page });
 
 // DS-1/DS-2: chronological feeds use keysets; activity and Hot use offset pages.
 router.get('/feed', async (req, res) => {
@@ -62,6 +60,8 @@ router.get('/feed', async (req, res) => {
     title: 'Campus Notes',
     tab: 'feed',
     scripts: ['/m/discover/feed.js'],
+    styles: ['/m/discover/announcements.css'],
+    announcements: selected === 'all' && !before ? await queries.currentAnnouncements() : [],
     cards,
     nextUrl,
     emptyText,
@@ -185,16 +185,101 @@ router.get('/u/:handle', async (req, res) => {
   });
 });
 
-router.get(
+const adminPage = (res, view, locals) =>
+  res.page(`discover/${view}`, {
+    tab: null,
+    styles: ['/m/discover/announcements.css'],
+    ...locals,
+  });
+
+async function announcement(req, res, next) {
+  const id = int(req.params.id, { min: 1, max: 65535 });
+  req.announcement = id && (await queries.getAnnouncement(id));
+  if (!req.announcement) throw notFound();
+  next();
+}
+
+async function announcementForm(res, values, errors = {}, item = null) {
+  const locals = {
+    title: item ? 'Edit announcement' : 'Announcements',
+    back: item ? '/admin/announcements' : '/me',
+    values,
+    errors,
+    item,
+    action: item ? `/admin/announcements/${item.announcement_id}` : '/admin/announcements',
+  };
+  if (item) return adminPage(res, 'announcement-edit', locals);
+  locals.announcements = await queries.listAnnouncements();
+  return adminPage(res, 'announcements', locals);
+}
+
+async function saveAnnouncement(req, res) {
+  const item = req.announcement || null;
+  const values = req.body || {};
+  const { fields, errors, removeImage } = validateAnnouncement(values, req.uploadError);
+  const uploaded = (req.files || []).map((file) => file.publicPath);
+  fields.image_path = uploaded[0] || (removeImage ? null : undefined);
+  if (Object.keys(errors).length) {
+    uploads.remove(uploaded);
+    return announcementForm(res.status(400), values, errors, item);
+  }
+  let previousImage;
+  try {
+    if (item) {
+      const changed = await queries.updateAnnouncement(item.announcement_id, fields);
+      if (!changed) throw notFound();
+      if (changed.previousImage !== changed.image) previousImage = changed.previousImage;
+    } else await queries.createAnnouncement(fields, req.me.userId);
+  } catch (err) {
+    uploads.remove(uploaded);
+    if ([3819, 1292].includes(err.errno))
+      return announcementForm(
+        res.status(400),
+        values,
+        { form: 'Check the link and the times' },
+        item,
+      );
+    throw err;
+  }
+  uploads.remove(previousImage);
+  return res.done({ to: '/admin/announcements', flash: 'Announcement saved' });
+}
+
+router.get('/admin/announcements', requireRole('admin'), (req, res) =>
+  announcementForm(res, { sort_order: '0' }),
+);
+router.post(
   '/admin/announcements',
   requireRole('admin'),
-  placeholder({
-    feature: 'DS-7',
-    title: 'Announcements',
-    tab: null,
-    back: '/me',
-    what: 'Create, edit and delete the banners at the top of the feed.',
-  }),
+  uploads.images({ field: 'image', max: 1 }),
+  saveAnnouncement,
 );
+router.get('/admin/announcements/:id', requireRole('admin'), announcement, (req, res) =>
+  announcementForm(
+    res,
+    {
+      ...req.announcement,
+      link: req.announcement.link_url,
+      starts: req.announcement.starts_local,
+      ends: req.announcement.ends_local,
+    },
+    {},
+    req.announcement,
+  ),
+);
+router.post(
+  '/admin/announcements/:id',
+  requireRole('admin'),
+  announcement,
+  uploads.images({ field: 'image', max: 1 }),
+  saveAnnouncement,
+);
+router.post('/admin/announcements/:id/delete', requireRole('admin'), async (req, res) => {
+  const id = int(req.params.id, { min: 1, max: 65535 });
+  const deleted = id && (await queries.deleteAnnouncement(id));
+  if (!deleted) throw notFound();
+  uploads.remove(deleted.image_path);
+  res.done({ to: '/admin/announcements', flash: 'Announcement deleted' });
+});
 
 module.exports = router;

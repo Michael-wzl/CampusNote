@@ -1,0 +1,7 @@
+<section class="discover-announcements stack form-width" aria-label="Edit announcement">
+  <%- include('discover/announcement-fields', { values, errors, item, action }) %>
+  <form method="post" action="/admin/announcements/<%= item.announcement_id %>/delete" data-confirm="Delete this announcement?">
+    <%- csrfField() %>
+    <button type="submit" class="btn btn-danger">Delete announcement</button>
+  </form>
+</section>

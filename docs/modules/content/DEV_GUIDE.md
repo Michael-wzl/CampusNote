@@ -1,8 +1,10 @@
 # Content module: developer guide
 
+> **Current ownership, 27 Oct:** Michael and the assistant maintain all code, tests, technical guides and source packaging through a verified source-ready ZIP. The original module contribution is credited below; the feature/build tables are technical references, not current teammate coding assignments. Teammates begin code/README review and presentation work only after Michael announces the settled baseline. See [SUBMISSION.md](../../team/SUBMISSION.md).
 | | |
 |---|---|
-| **Owner** | Member 1 — Content: [Catherine135](https://github.com/Catherine135), self-selected in issue #1 |
+| **Original contributor** | Member 1 — Content: [Catherine135](https://github.com/Catherine135), self-selected in issue #1 |
+| **Current code/repo maintainer** | Michael, working with the assistant |
 | **Folder** | `modules/content/`, `docs/modules/content/` |
 | **Features** | CT-1 to CT-8 (`PRODUCT_SPEC.md` §4) |
 | **Read first** | `ARCHITECTURE.md` §1, §5, §6, §9; `PRODUCT_SPEC.md` BR-5 to BR-10, BR-17 and BR-18; `UI_KIT.md` §3 to §5; [responsive layout](../../architecture/RESPONSIVE.md); this guide |
@@ -85,15 +87,15 @@ Posts 600012 (anonymous, with a thread) and 600006 (an organization's post with 
 | Fri 6 Nov (Should) | CT-7 paging and its tests (CT-T25, CT-T26); remaining tests; USER_GUIDE screenshots; `SQL_CARD.md`. |
 | Could | CT-8 full-screen image viewer (the plain link from CP2 already satisfies the feature). |
 
-Your shared duty is the whole-team demo video (`PRODUCT_SPEC.md` §9); the Content/comment-notification segment occupies its first 50 seconds. Start planning now rather than waiting for the remaining Discover work.
+After the source-ready handoff, Catherine135 owns the whole-team demo video (`PRODUCT_SPEC.md` §9); the Content/comment-notification segment occupies its first 50 seconds. Michael/assistant first settle and verify the app/source baseline.
 
-### Assessment and submission handoff (27 Oct update)
+### Assessment and source-ready handoff (27 Oct ownership change)
 
-The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+The [submission guide](../../team/SUBMISSION.md) defines the two phases and dates. **Michael/assistant own all implementation, README, technical notes, testing, clean rebuild and ZIP packaging.** Teammates have no coding or rebuild assignment before the source-ready handoff. The five-minute presentation includes a video of at most two minutes, and everyone speaks; materials/reproducibility carry 30 marks and presentation 70.
 
-Catherine135 owns the whole-team video: use the revised [Content segment](DEMO_SCRIPT.md) and [PRODUCT_SPEC §9](../../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes). Prepare the script now, deliver a review copy by **17 Nov**, rehearse with the team on **18 Nov**, and finish corrections by **19 Nov**. Show explicit Create/Read/Update/Delete and persisted database effects; coordinate the existing event-edit, ticket-cancellation and race shots with Michael. This does not require post editing or another new feature.
+Michael maintains the merged Content behavior, its guide/screenshots and SQL notes. After the settled baseline is announced, Catherine135 reviews the code/README with suggestions and owns the whole-team CRUD/database video using [the Content segment](DEMO_SCRIPT.md) and [PRODUCT_SPEC §9](../../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes). The video uses existing event editing and ticket cancellation; post editing is not new scope. Review copy 17 Nov, draft rehearsal 18 Nov, corrected final 19 Nov.
 
-Maintain the merged Content features and help verify the remaining Discover Watching integration. Finish guide/screenshots and the SQL card by **6 Nov**. Every owner prepares a card, but the team selects only 2–3 readable SQL examples for the live talk; the card is also preparation for questions.
+Latest technical targets remain 6 Nov for agreed features/notes and 13 Nov for the verified source baseline, with earlier handoff encouraged. The team's review/presentation phase starts at that gate. Michael submits all three files internally by **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**, order 8. Everyone learns the selected SQL after handoff and has a live speaking part.
 
 ## 5. Features
 
