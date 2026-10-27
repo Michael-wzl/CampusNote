@@ -4,7 +4,7 @@
       <%- include('partials/avatar', { code: card.avatar_code, size: 'md' }) %>
       <div class="stack">
         <div class="row wrap"><strong><%= ui.postNo(card.post_id) %></strong><span class="chip"><%= card.topic_name_en %></span></div>
-        <div class="muted"><%= card.author_university_code %> · <time title="<%= ui.hkt(card.created_at, true) %>"><%= ui.timeAgo(card.created_at) %></time></div>
+        <div class="muted"><%= card.author_university_code %> · <% if (card.visibility === 'all') { %><span class="content-audience"><%- ui.icon('globe') %> All universities</span> · <% } %><time title="<%= ui.hkt(card.created_at, true) %>"><%= ui.timeAgo(card.created_at) %></time></div>
         <% if (card.author_name != null) { %><a href="/u/<%= card.author_handle %>"><%= card.author_name %></a><% } %>
       </div>
     </header>

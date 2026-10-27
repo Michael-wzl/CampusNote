@@ -34,6 +34,7 @@ test('CT-T08/T09: post actions, anonymous privacy including the author, public i
   const p = await mandy.page('/posts/600012');
   assert.equal(p.status, 200);
   for (const value of ['#600012', 'Feelings', 'HKU']) assert.ok(p.text.includes(value));
+  assert.equal(p.$('.content-header .content-audience').text().trim(), 'All universities');
   assert.equal(p.$('.like[aria-pressed=true] [data-bind=likeCount]').text(), '3');
   assert.equal(p.$('.watch[aria-pressed=true] [data-bind=watchCount]').text(), '1');
   assert.equal(p.$('a[href="/messages/new?post=600012"]').length, 1);
@@ -48,7 +49,12 @@ test('CT-T08/T09: post actions, anonymous privacy including the author, public i
   assert.equal(own.$('form[action="/posts/600012/delete"]').length, 1);
   assert.equal(own.$('a[href="/messages/new?post=600012"]').length, 0);
   assert.equal(own.$('a[href="/report?type=post&id=600012"]').length, 0);
-  assert.equal((await mandy.page('/posts/600004')).$('a[href="/u/jason0ust"]').text(), 'jason0ust');
+  const universityOnly = await mandy.page('/posts/600001');
+  assert.equal(universityOnly.status, 200);
+  assert.equal(universityOnly.$('.content-header .content-audience').length, 0);
+  const named = await mandy.page('/posts/600004');
+  assert.equal(named.$('a[href="/u/jason0ust"]').text(), 'jason0ust');
+  assert.equal(named.$('.content-header .content-audience').text().trim(), 'All universities');
   assert.equal(
     (await mandy.page('/posts/600006')).$('a[href="/u/filmsoc00"]').text(),
     'HKU Film Society',
