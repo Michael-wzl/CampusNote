@@ -104,7 +104,15 @@ No other module writes `users`, `organizations` or `email_codes`.
 | CP1, Sun 25 Oct | Nothing new. Every Me menu link answers 200 (the empty module folders' placeholder pages count). Fix what members report. |
 | CP2, Sun 1 Nov | Re-run the identity tests on the merged app: the Me counts now link to discover's and content's real lists (ID-T21 checks that each count equals its list), and ID-T28 runs against the messages triggers from `main`. |
 | Fri 6 Nov | USER_GUIDE screenshots; `SQL_CARD.md` as an outline only (§9; Michael presents events). |
-| Could | ID-8 admin user list, in integration week at the latest; the first thing to cut. |
+| Could | ID-8 admin user list only if planned work is accepted before the 7 Nov feature freeze; the first thing to cut. Do not start optional features in integration week. |
+
+### Assessment and submission handoff (27 Oct update)
+
+The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+
+Michael verifies the merged Me counts against Discover's real lists at **CP2, 1 Nov**, and keeps Identity's guide/screenshots and SQL outline current by **6 Nov**. Registration, configuration and the development mailbox must remain reproducible from the submitted ZIP without external email service.
+
+For the 30 reproducibility marks, help make the README cover ZIP extraction, installation, configuration, database setup and initial data. Michael owns the marker README and Chen E-R diagram by **13 Nov**, and checks MKWang-2006's second-laptop/final-archive rebuild evidence. The live talk uses 2–3 selected SQL examples across the team; Michael presents the E-R/Events material and can answer Identity questions. Rehearse with drafts **18 Nov**, finalize assets **19 Nov**, and target upload **20 Nov**.
 
 ## 5. Features
 

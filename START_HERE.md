@@ -14,7 +14,7 @@ Campus Notes is our COMP3278 anonymous campus forum. The shared app, database, d
 
 All three roles are claimed. Michael recorded MKWang-2006’s Messages claim on 21 Oct. Start your module directly; no name-only PR is needed.
 
-Repository invitations have been sent to all three members. Accept yours on GitHub before pushing if you have not already. Ownership is tracked in [Content #1](https://github.com/Michael-wzl/CampusNote/issues/1), [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2) and [Messages #3](https://github.com/Michael-wzl/CampusNote/issues/3).
+All three members have repository write access. Ownership is tracked in [Content #1](https://github.com/Michael-wzl/CampusNote/issues/1), [Discover #2](https://github.com/Michael-wzl/CampusNote/issues/2) and [Messages #3](https://github.com/Michael-wzl/CampusNote/issues/3).
 
 [Weekly status — Done / Next / Blocked](https://github.com/Michael-wzl/CampusNote/issues/4)
 
@@ -26,13 +26,15 @@ Follow [README.md](README.md#run-locally). You need Node 22+ and MySQL 8 (or Doc
 
 The shared layout adapts automatically: a sidebar and wider content on desktop, an expanded layout on tablets, and bottom navigation with one-column content on phones. Read the short [responsive guide](docs/architecture/RESPONSIVE.md); your module should use its fluid widths and shared helpers. Check pages at **390, 768 and 1440 px**, including without JavaScript.
 
-## 4. Start your first task
+## 4. Start your next task
+
+Read the short [grading and submission checklist](docs/team/SUBMISSION.md). hX1-dev continues Discover; Catherine135 starts the explicit CRUD/database video script; MKWang-2006 prepares the ZIP/rebuild checklist; Michael starts the Chen E-R diagram and marker README. Shared duties can progress while Discover is being completed.
 
 1. Read your DEV_GUIDE's scope, build plan and acceptance tests. It includes tested SQL and a coding-agent prompt.
 2. Work only in `modules/<your module>/` and `docs/modules/<your module>/`. Ask Michael about shared-file or schema changes.
-3. Start with the read-only pages using seed data. Use a branch such as `content/CT-2-post-page` and open a small PR.
+3. Pick the next unfinished feature or handoff in your guide; the first read-only pages are already merged. Use a feature branch and open a small PR. Keep completed Content/Messages behavior working rather than restarting those modules.
 4. Before merging, run `npm test` and `npm run lint`; CI also checks the SQL. Read [WORKFLOW.md](docs/team/WORKFLOW.md) when opening your first PR.
 
-**Checkpoints:** 25 Oct — pages render with seed data; 1 Nov — Must features merged; 6 Nov — module complete. Post Done / Next / Blocked in the weekly status issue each Sunday.
+**Checkpoints:** 1 Nov — Must features merged; 6 Nov — module complete; 13 Nov — tested release/package; 17 Nov — video for review; 18 Nov — timed draft rehearsal; 19 Nov — final slides/video; **20 Nov — submit all three files**. Official deadline: **21 Nov, 23:59 HKT**. Rehearse delivery on 22 Nov and present on **23 Nov** (Group 8, order 8). All dates are 2026/HKT. Post Done / Next / Blocked in the weekly status issue each Sunday.
 
 For the full specification, architecture and database design, see [docs/README.md](docs/README.md). You do not need to read the entire pack before starting your module.

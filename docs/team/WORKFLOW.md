@@ -1,10 +1,10 @@
 # How we work (for every member)
 
-The whole team process fits on this page. Nothing here needs a meeting.
+Use this page for feature PRs and weekly updates. The [grading and submission checklist](SUBMISSION.md) adds the final deliverables and 18/22 Nov rehearsals: submit all three files internally on **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**. All dates are 2026/HKT.
 
 ## 1. The loop for one feature
 
-1. **Check** your recorded role and accept your collaborator invitation using `START_HERE.md`, then pick the next feature from your DEV_GUIDE (such as `CT-3`). Track it in your role issue checklist, or open a separate issue if useful.
+1. **Check** your recorded role in `START_HERE.md`, then pick the next unfinished feature or handoff from your DEV_GUIDE. All three members already have write access. Track feature progress in your role issue checklist, or open a separate issue if useful.
 2. **Branch** from an up-to-date `main`:
    ```bash
    git switch main && git pull

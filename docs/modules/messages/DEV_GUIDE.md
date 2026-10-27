@@ -1,6 +1,6 @@
 # Messages module: developer guide
 
-> Local implementation note (25 Oct 2026): MS-1 to MS-7 are implemented on `codex/messages-local`, synchronized to main `f9e8f68` (Discover DS-1, DS-5 My posts and DS-6). MS-8 controls are deferred. The schema, existing triggers and shared code are unchanged. Six integration tests exercise profile/private-message links, identity contexts, moderation across lists and shared badges. See `MAIN_ADAPTATION.md` and `VALIDATION.md` for actual results and remaining handoff. The existing shared renderer runs locals hooks during `res.page`, after the route's read-state updates; references below to hooks running before the handler describe the original guide, not the actual timing used by this implementation.
+> Merged status (27 Oct 2026): MS-1 to MS-7 are integrated on main through PR #19; MS-8 controls remain deferred. See `MAIN_ADAPTATION.md`, `VALIDATION.md` and the shared [validation record](../../team/VALIDATION.md) for implementation provenance and actual checks. The shared renderer runs locals hooks during `res.page`, after the route's read-state updates; references below to hooks running before the handler describe the original guide, not the actual timing used by this implementation.
 
 | | |
 |---|---|
@@ -102,7 +102,15 @@ module.exports = {
 | CP2, Sun 1 Nov (Must) | MS-1 with mark-read, MS-2, MS-3, MS-4 (start or reuse), MS-5 (send, mark read); tests MS-T01 to MS-T17, MS-T25 and MS-T26. |
 | Fri 6 Nov (Should) | MS-6 report form, MS-7 admin queue (hide, dismiss, restore); tests MS-T18 to MS-T24; USER_GUIDE screenshots; `SQL_CARD.md` (§9). |
 | Could | MS-8 block and unblock a conversation (§5): `block`, `unblock`, `isBlocked`, the notices from the `blocked_by_me` and `blocked_by_other` columns of `getConversation`, and the checks already shown in `sendMessage` and `startConversation`; tests MS-T27 to MS-T29. Only after every Should is merged. |
-| Weeks 4 and 5 | Your shared duties: lead the bug bash (Sun 8 Nov), do the rebuild test on a second laptop, assemble the Moodle package (`WORK_DIVISION.md` §5). |
+| Shared duties | Lead the bug bash (8 Nov), finish the second-laptop rebuild by 11 Nov, assemble/verify the release ZIP by 13 Nov and prepare the final files for upload on 20 Nov; see [SUBMISSION.md](../../team/SUBMISSION.md). |
+
+### Assessment and submission handoff (27 Oct update)
+
+The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+
+MKWang-2006 maintains merged MS-1–MS-7 and helps with cross-module defects; MS-8 controls remain optional and deferred. Keep guide/screenshots and the SQL card current by **6 Nov**. Every owner prepares a card, but only 2–3 readable SQL examples are selected for the live talk, and everyone still speaks.
+
+Lead the bug bash on **8 Nov**; complete a README-only fresh rebuild on a second laptop by **11 Nov**, recording OS/runtime versions and results. Help assemble the tested source ZIP by **13 Nov**, then extract and rebuild the actual final archive before upload. Include `.env.example`, lockfile, schema/triggers/seed and required static assets; exclude credentials, dependencies and generated uploads. Prepare `Group_8_code.zip` plus separate slides/video for the **20 Nov** upload target. Attend the draft rehearsal **18 Nov** and final delivery rehearsal **22 Nov**; the latter uses submitted assets, not a later submission date.
 
 ## 5. Features
 

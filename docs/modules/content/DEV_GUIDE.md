@@ -85,7 +85,15 @@ Posts 600012 (anonymous, with a thread) and 600006 (an organization's post with 
 | Fri 6 Nov (Should) | CT-7 paging and its tests (CT-T25, CT-T26); remaining tests; USER_GUIDE screenshots; `SQL_CARD.md`. |
 | Could | CT-8 full-screen image viewer (the plain link from CP2 already satisfies the feature). |
 
-Your shared duty in weeks 4 and 5 is the demo video (`PRODUCT_SPEC.md` §9); most of its first minute happens on your pages.
+Your shared duty is the whole-team demo video (`PRODUCT_SPEC.md` §9); the Content/comment-notification segment occupies its first 50 seconds. Start planning now rather than waiting for the remaining Discover work.
+
+### Assessment and submission handoff (27 Oct update)
+
+The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+
+Catherine135 owns the whole-team video: use the revised [Content segment](DEMO_SCRIPT.md) and [PRODUCT_SPEC §9](../../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes). Prepare the script now, deliver a review copy by **17 Nov**, rehearse with the team on **18 Nov**, and finish corrections by **19 Nov**. Show explicit Create/Read/Update/Delete and persisted database effects; coordinate the existing event-edit, ticket-cancellation and race shots with Michael. This does not require post editing or another new feature.
+
+Maintain the merged Content features and help verify the remaining Discover Watching integration. Finish guide/screenshots and the SQL card by **6 Nov**. Every owner prepares a card, but the team selects only 2–3 readable SQL examples for the live talk; the card is also preparation for questions.
 
 ## 5. Features
 
