@@ -2,7 +2,7 @@
 
 Campus Notes is a tree hole: you write short notes, anonymously unless you choose otherwise, and other students reply under nicknames that belong to that one post. This guide covers writing a post, reading and commenting, likes and watching, deleting, your history and your comments.
 
-Screenshots below use local demo accounts. Watching/History lists, private messages, reports and notification screens require the Discover and Messages modules; their descriptions below explain the intended integrated experience. For current checks and pending integration, see [VALIDATION.md](VALIDATION.md).
+Screenshots below use local demo accounts. Watching/History lists, private messages, reports and notification screens are integrated with Discover and Messages. See the [current app validation](../../team/VALIDATION.md) for recorded results and limits.
 
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Compose and reply forms stay at a comfortable reading width; post images fit the screen and action buttons wrap. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
@@ -38,6 +38,7 @@ Each post gets a random animal avatar, so even your picture does not give you aw
 Tap any post in the feed, in search results or in a notification. The post page shows:
 
 - the post's avatar, its number (#600012), its topic, how long ago it was posted and the writer's university;
+- a globe and **All universities** when the post is shared across campuses; the writer's university still identifies where the post came from, not an audience restriction;
 - the writer's handle, only if they chose **Show my handle**;
 - the text and the images (tap an image to see it full size);
 - the **heart** (like) and **star** (watch) buttons with their counts;
