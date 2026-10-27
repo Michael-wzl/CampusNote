@@ -88,7 +88,9 @@ function isPrivate(file) {
 
 function packageSource({ root = path.join(__dirname, '..'), ref = 'HEAD', out } = {}) {
   root = fs.realpathSync(path.resolve(root));
-  if (fs.realpathSync(git(root, ['rev-parse', '--show-toplevel']).trim()) !== root)
+  const gitRoot = fs.realpathSync(git(root, ['rev-parse', '--show-toplevel']).trim());
+  // Native path comparison handles Windows drive/case spelling after resolving aliases.
+  if (path.relative(root, gitRoot) !== '')
     throw new Error('Run source packaging from the repository root');
   if (git(root, ['status', '--porcelain=v1', '--untracked-files=all']).trim())
     throw new Error('Commit or remove uncommitted source changes before packaging');
