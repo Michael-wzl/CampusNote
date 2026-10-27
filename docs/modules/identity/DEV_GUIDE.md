@@ -1,5 +1,6 @@
 # Identity module: developer guide
 
+> **Current ownership, 27 Oct:** Michael and the assistant maintain all code, tests, technical guides and source packaging through a verified source-ready ZIP. The original module contribution is credited below; the feature/build tables are technical references, not current teammate coding assignments. Teammates begin code/README review and presentation work only after Michael announces the settled baseline. See [SUBMISSION.md](../../team/SUBMISSION.md).
 | | |
 |---|---|
 | **Owner** | Michael (coordinator). Built by Claude together with the backbone before kickoff (decision D2); Michael reviews it, owns it and maintains it. |
@@ -106,13 +107,13 @@ No other module writes `users`, `organizations` or `email_codes`.
 | Fri 6 Nov | USER_GUIDE screenshots; `SQL_CARD.md` as an outline only (§9; Michael presents events). |
 | Could | ID-8 admin user list only if planned work is accepted before the 7 Nov feature freeze; the first thing to cut. Do not start optional features in integration week. |
 
-### Assessment and submission handoff (27 Oct update)
+### Assessment and source-ready handoff (27 Oct ownership change)
 
-The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+The [submission guide](../../team/SUBMISSION.md) defines the two phases and dates. **Michael/assistant own all implementation, README, technical notes, testing, clean rebuild and ZIP packaging.** Teammates have no coding or rebuild assignment before the source-ready handoff. The five-minute presentation includes a video of at most two minutes, and everyone speaks; materials/reproducibility carry 30 marks and presentation 70.
 
-Michael verifies the merged Me counts against Discover's real lists at **CP2, 1 Nov**, and keeps Identity's guide/screenshots and SQL outline current by **6 Nov**. Registration, configuration and the development mailbox must remain reproducible from the submitted ZIP without external email service.
+Michael maintains Identity, current guide/technical notes and the marker README, including configuration, database setup/initial data, demo accounts and development mailbox without external email service. Michael/assistant verify clean setup from the actual source ZIP with isolated data and CI. After source-ready the team reviews code/README and sends suggestions; Michael implements accepted changes and regenerates/rechecks the archive.
 
-For the 30 reproducibility marks, help make the README cover ZIP extraction, installation, configuration, database setup and initial data. Michael owns the marker README and Chen E-R diagram by **13 Nov**, and checks MKWang-2006's second-laptop/final-archive rebuild evidence. The live talk uses 2–3 selected SQL examples across the team; Michael presents the E-R/Events material and can answer Identity questions. Rehearse with drafts **18 Nov**, finalize assets **19 Nov**, and target upload **20 Nov**.
+Latest technical targets remain 6 Nov for agreed features/notes and 13 Nov for the verified source baseline, with earlier handoff encouraged. The team's review/presentation phase starts at that gate. Michael submits all three files internally by **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**, order 8. Everyone learns the selected SQL after handoff and has a live speaking part.
 
 ## 5. Features
 

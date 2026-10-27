@@ -4,6 +4,8 @@
 
 Status: the stack (decision D1) and the backbone plan (D2) were decided on 17 Oct 2026, as recommended. The 21 Oct update adopts one desktop-first responsive website (D22); [RESPONSIVE.md](RESPONSIVE.md) is the layout contract for every module.
 
+**Maintenance update, 27 Oct 2026:** Michael and his delegated coding assistant now own the entire implementation, repo, README, validation and source package through the verified source-ready handoff. Teammates then review code/README and prepare the presentation. The module rules below still define technical boundaries and per-module table writers; they do not require the original human module contributors to resume coding. Authorized coordinator changes may span modules and shared files. See [SUBMISSION.md](../team/SUBMISSION.md) for the phase gate.
+
 ## 1. Seven rules that let four people work apart
 
 1. **Vertical modules.** Each member owns one folder, `modules/<name>/`, which contains that feature's routes, SQL, templates and tests. Nobody edits another member's folder. The backbone discovers modules automatically, so adding one never touches a shared file.
@@ -30,7 +32,7 @@ Status: the stack (decision D1) and the backbone plan (D2) were decided on 17 Oc
 | Quality | ESLint 9 + Prettier 3 | `npm run lint`, `npm run format`. |
 | CI | GitHub Actions with a MySQL 8.4 service | Runs lint, all tests and the SQL checks on every PR. |
 
-Exact versions are pinned in `package.json`: Express 5.2.1, EJS 3.1.10, mysql2 3.24.5, express-session 1.19.0, bcryptjs 3.0.3, multer 2.4.0, nodemailer 10.0.13 (used only when `SMTP_URL` is set); for development ESLint 9.39, Prettier 3.9, supertest 7.3 and cheerio 1.2. `npm run dev` uses Node's own `--watch` (it restarts when a `.js` file changes; templates are re-read on every request in development).
+Exact versions are pinned in `package.json`: Express 5.2.1, EJS 3.1.10, mysql2 3.24.5, express-session 1.19.0, bcryptjs 3.0.3, multer 2.5.0, nodemailer 10.1.4 (used only when `SMTP_URL` is set); for development ESLint 9.39, Prettier 3.9, supertest 7.3 and cheerio 1.2. `npm run dev` uses Node's own `--watch` (it restarts when a `.js` file changes; templates are re-read on every request in development).
 
 ## 3. Repository layout
 

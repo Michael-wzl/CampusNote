@@ -1,10 +1,12 @@
 # Messages module: developer guide
 
+> **Current ownership, 27 Oct:** Michael and the assistant maintain all code, tests, technical guides and source packaging through a verified source-ready ZIP. The original module contribution is credited below; the feature/build tables are technical references, not current teammate coding assignments. Teammates begin code/README review and presentation work only after Michael announces the settled baseline. See [SUBMISSION.md](../../team/SUBMISSION.md).
 > Merged status (27 Oct 2026): MS-1 to MS-7 are integrated on main through PR #19; MS-8 controls remain deferred. See `MAIN_ADAPTATION.md`, `VALIDATION.md` and the shared [validation record](../../team/VALIDATION.md) for implementation provenance and actual checks. The shared renderer runs locals hooks during `res.page`, after the route's read-state updates; references below to hooks running before the handler describe the original guide, not the actual timing used by this implementation.
 
 | | |
 |---|---|
-| **Owner** | Member 3 — Messages: [MKWang-2006](https://github.com/MKWang-2006), claim confirmed by Michael on 21 Oct |
+| **Original contributor** | Member 3 — Messages: [MKWang-2006](https://github.com/MKWang-2006), claim confirmed by Michael on 21 Oct |
+| **Current code/repo maintainer** | Michael, working with the assistant |
 | **Folder** | `modules/messages/` (including `db/triggers.sql`), `docs/modules/messages/` |
 | **Features** | MS-1 to MS-8 (`PRODUCT_SPEC.md` §4) |
 | **Read first** | `ARCHITECTURE.md` §1, §5, §6, §9; `PRODUCT_SPEC.md` BR-5, BR-6, BR-8, BR-9, BR-13, BR-14, BR-15, BR-17, BR-18; [responsive layout](../../architecture/RESPONSIVE.md); this guide |
@@ -102,15 +104,15 @@ module.exports = {
 | CP2, Sun 1 Nov (Must) | MS-1 with mark-read, MS-2, MS-3, MS-4 (start or reuse), MS-5 (send, mark read); tests MS-T01 to MS-T17, MS-T25 and MS-T26. |
 | Fri 6 Nov (Should) | MS-6 report form, MS-7 admin queue (hide, dismiss, restore); tests MS-T18 to MS-T24; USER_GUIDE screenshots; `SQL_CARD.md` (§9). |
 | Could | MS-8 block and unblock a conversation (§5): `block`, `unblock`, `isBlocked`, the notices from the `blocked_by_me` and `blocked_by_other` columns of `getConversation`, and the checks already shown in `sendMessage` and `startConversation`; tests MS-T27 to MS-T29. Only after every Should is merged. |
-| Shared duties | Lead the bug bash (8 Nov), finish the second-laptop rebuild by 11 Nov, assemble/verify the release ZIP by 13 Nov and prepare the final files for upload on 20 Nov; see [SUBMISSION.md](../../team/SUBMISSION.md). |
+| Current handoff | Michael/assistant own all code, rebuild and packaging. After source-ready, MKWang-2006 reviews code/README and coordinates rehearsal/playback; see [SUBMISSION.md](../../team/SUBMISSION.md). |
 
-### Assessment and submission handoff (27 Oct update)
+### Assessment and source-ready handoff (27 Oct ownership change)
 
-The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+The [submission guide](../../team/SUBMISSION.md) defines the two phases and dates. **Michael/assistant own all implementation, README, technical notes, testing, clean rebuild and ZIP packaging.** Teammates have no coding or rebuild assignment before the source-ready handoff. The five-minute presentation includes a video of at most two minutes, and everyone speaks; materials/reproducibility carry 30 marks and presentation 70.
 
-MKWang-2006 maintains merged MS-1–MS-7 and helps with cross-module defects; MS-8 controls remain optional and deferred. Keep guide/screenshots and the SQL card current by **6 Nov**. Every owner prepares a card, but only 2–3 readable SQL examples are selected for the live talk, and everyone still speaks.
+Michael maintains merged MS-1–MS-7, integration fixes, guide/screenshots and SQL notes; MS-8 controls remain optional and deferred. The assistant performs clean archive rebuilds and source packaging. After source-ready, MKWang-2006 reviews the code/README with suggestions and coordinates rehearsal availability, speaking transitions, playback and backups. A later setup check on another laptop is optional review feedback, not a prerequisite assigned to this member. Draft rehearsal 18 Nov; final delivery rehearsal 22 Nov uses submitted assets.
 
-Lead the bug bash on **8 Nov**; complete a README-only fresh rebuild on a second laptop by **11 Nov**, recording OS/runtime versions and results. Help assemble the tested source ZIP by **13 Nov**, then extract and rebuild the actual final archive before upload. Include `.env.example`, lockfile, schema/triggers/seed and required static assets; exclude credentials, dependencies and generated uploads. Prepare `Group_8_code.zip` plus separate slides/video for the **20 Nov** upload target. Attend the draft rehearsal **18 Nov** and final delivery rehearsal **22 Nov**; the latter uses submitted assets, not a later submission date.
+Latest technical targets remain 6 Nov for agreed features/notes and 13 Nov for the verified source baseline, with earlier handoff encouraged. The team's review/presentation phase starts at that gate. Michael submits all three files internally by **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**, order 8. Everyone learns the selected SQL after handoff and has a live speaking part.
 
 ## 5. Features
 

@@ -1,5 +1,6 @@
 # Events module: developer guide
 
+> **Current ownership, 27 Oct:** Michael and the assistant maintain all code, tests, technical guides and source packaging through a verified source-ready ZIP. The original module contribution is credited below; the feature/build tables are technical references, not current teammate coding assignments. Teammates begin code/README review and presentation work only after Michael announces the settled baseline. See [SUBMISSION.md](../../team/SUBMISSION.md).
 **Implementation status, 21 October 2026:** EV-1 to EV-7 are built; 23 module tests pass, and the 200-buyer HTTP race passed three times. See [VALIDATION.md](VALIDATION.md) and [SQL_CARD.md](SQL_CARD.md). The build plan below is the acceptance contract and original milestone plan.
 
 | | |
@@ -65,13 +66,13 @@ module.exports = {
 | Fri 6 Nov (Should) | EV-4 cancel booking, EV-6 organizer pages (create, edit, cancel, attendees, check-in); remaining tests; USER_GUIDE screenshots; `SQL_CARD.md`. |
 | Could | An "Add to calendar" `.ics` download on the event page. |
 
-### Assessment and submission handoff (27 Oct update)
+### Assessment and source-ready handoff (27 Oct ownership change)
 
-The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+The [submission guide](../../team/SUBMISSION.md) defines the two phases and dates. **Michael/assistant own all implementation, README, technical notes, testing, clean rebuild and ZIP packaging.** Teammates have no coding or rebuild assignment before the source-ready handoff. The five-minute presentation includes a video of at most two minutes, and everyone speaks; materials/reproducibility carry 30 marks and presentation 70.
 
-Michael maintains the implemented Events module and provides the video's explicit Update/Delete shots: edit an event, then book and cancel a ticket, showing the persisted change, literal ticket `DELETE` and restored capacity. Supply current booking-race evidence and SQL explanations for Catherine135's review video by **17 Nov**; rehearse **18 Nov** and finalize corrections **19 Nov**. Use only a disposable demonstration database.
+Michael maintains Events and prepares the technical handoff, including the video's existing Update/Delete shots: edit an event, then book/cancel a ticket with the literal ticket DELETE and restored capacity. Record current booking-race evidence using a disposable demonstration database. Catherine135 starts recording after source-ready; Michael supplies the settled behavior and SQL explanations. No extra Events feature is required by the rubric.
 
-Keep the module's guide/screenshots and SQL card current by **6 Nov**. Michael also owns the Chen E-R diagram, marker README and tested release by **13 Nov**, and checks the source ZIP for the **20 Nov** submission target. Prepare every module card, then choose only 2–3 readable examples for the live presentation. No new Events feature is required by the rubric.
+Latest technical targets remain 6 Nov for agreed features/notes and 13 Nov for the verified source baseline, with earlier handoff encouraged. The team's review/presentation phase starts at that gate. Michael submits all three files internally by **20 Nov**, before **21 Nov, 23:59 HKT**; Group 8 presents **23 Nov**, order 8. Everyone learns the selected SQL after handoff and has a live speaking part.
 
 ## 5. Features
 

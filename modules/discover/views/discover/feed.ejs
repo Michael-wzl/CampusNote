@@ -1,5 +1,17 @@
 <section class="discover-feed stack" aria-labelledby="feed-heading">
   <%- include('partials/tabs', { items: feedTabs, label: 'Feed filters' }) %>
+<% if (announcements.length) { -%>
+  <div class="announcement-banners" aria-label="Announcements">
+<% announcements.forEach((item) => { const tag = item.link_url ? 'a' : 'div'; -%>
+    <<%= tag %> class="card announcement-banner" data-announcement-id="<%= item.announcement_id %>"<% if (item.link_url) { %> href="<%= item.link_url %>"<% } %>>
+<% if (item.image_path) { -%>
+      <img src="<%= item.image_path %>" alt="" loading="lazy">
+<% } -%>
+      <div><h2><%= item.title %></h2><% if (item.subtitle) { %><p class="muted"><%= item.subtitle %></p><% } %></div>
+    </<%= tag %>>
+<% }) -%>
+  </div>
+<% } -%>
   <h2 class="small muted" id="feed-heading"><%= feedHeading %></h2>
 <% if (cards.length) { -%>
   <%- include('partials/post-list', { cards, nextUrl, empty: emptyText }) %>

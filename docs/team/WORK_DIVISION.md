@@ -2,7 +2,11 @@
 
 **Updated 27 Oct 2026.** Who owns what, where the modules meet, and how the work balances. It follows Michael's decisions D1 to D5 in `DECISIONS.md` (17 Oct 2026, option A for each); §6 records what would change under the other options. [SUBMISSION.md](SUBMISSION.md) is the shared grading, deadline and final-deliverable checklist.
 
-## 1. The split at a glance
+## 1. Current ownership and original module contributions
+
+**Plan change, 27 Oct:** Michael, working with the assistant, owns every implementation, repository, README, validation, rebuild and packaging task through a verified source ZIP. Teammates have no coding or packaging assignment now. After Michael announces a settled source-ready baseline, all members review code/README with suggestions and start presentation work: Catherine135 on video, hX1-dev on slides and MKWang-2006 on rehearsal/playback coordination. Michael handles accepted source changes and the final ZIP/upload.
+
+The table and original effort rationale preserve contributions and technical module/table boundaries. A module still writes only its designated tables; the single current human maintainer for all modules is Michael. Original member assignments are not current implementation obligations.
 
 | | Coordinator (Michael) | Member 1 — Content (Catherine135) | Member 2 — Discover (hX1-dev) | Member 3 — Messages (MKWang-2006) |
 |---|---|---|---|---|
@@ -12,14 +16,14 @@
 | **Tabs owned** | Me (hub, profile, settings) | + (compose) and the post page | Feed and Search | Messages |
 | **Feature IDs** | BB-1 to BB-6, ID-1 to ID-8, EV-1 to EV-7 | CT-1 to CT-8 | DS-1 to DS-7 | MS-1 to MS-8 |
 | **Presentation preparation** | intro, Chen E-R diagram, booking transaction | CRUD video, alias transaction | slides, hot ranking and search | notification trigger and conversation list |
-| **Shared duty** | integration, E-R drawing, README, rehearsals | demo video | slides | rebuild test, bug bash, Moodle package |
+| **Current duty** | all code/repo/README/rebuild/ZIP work; then technical review and final upload | after source-ready: review and demo video | after source-ready: review and slides | after source-ready: review and rehearsal/playback coordination |
 | **Effort (points)** | 10.5 module + 4.5 coordination = 15 | 11 + 2 = 13 | 11 + 2 = 13 | 10.5 + 2 = 12.5 |
 
-Roles are self-selected: Catherine135 claimed Content in issue #1; hX1-dev claimed Discover in issue #2. Michael confirmed MKWang-2006 for Messages on 21 Oct. All three members have write access. Start with [START_HERE.md](../../START_HERE.md). Content focuses on posting and interaction; Discover on feeds and search; Messages on private conversations, notifications and moderation. The presentation-preparation row is a pool of material, not four required SQL slides: choose 2–3 legible examples and give every member a live speaking part.
+Roles are self-selected: Catherine135 claimed Content in issue #1; hX1-dev claimed Discover in issue #2. Michael confirmed MKWang-2006 for Messages on 21 Oct. All three members have write access. Start with [START_HERE.md](../../START_HERE.md). Content focuses on posting and interaction; Discover on feeds and search; Messages on private conversations, notifications and moderation. The presentation-preparation row is a pool of material for Phase B, not four required SQL slides: choose 2–3 legible examples and give every member a live speaking part. Teammates send improvement suggestions after the source-ready handoff.
 
-## 2. Why this split
+## 2. Original split rationale (technical structure retained)
 
-The goal is the least communication, clear boundaries, the least aggregation work and roughly equal shares. Starting from first principles, communication in a team comes from **shared things that change**: shared files, shared tables, shared assumptions. So the split removes them one by one.
+This section records the original implementation split; it is not the current human task assignment. Its technical boundaries are retained while Michael maintains all source. The original goal was the least communication, clear boundaries, the least aggregation work and roughly equal shares. Starting from first principles, communication in a team comes from **shared things that change**: shared files, shared tables, shared assumptions. So the split removes them one by one.
 
 1. **Shared files.** Each member owns a folder and nothing else. The backbone discovers modules by folder, so no member ever edits `app.js`, the layout or another member's code. This limits merge conflicts to shared contract changes and work in the same module.
 2. **Shared tables.** Each table has one writer (§1). Where a module needs something to happen elsewhere (a comment must create a notification), the module that owns the result owns a database trigger. Content never calls messages code; messages never writes content tables.
@@ -158,13 +162,14 @@ One point is about 3 focused hours for a year-3 student using an AI coding assis
 
 Coordination for Michael (4.5 points): reviewing and running the backbone before kickoff (1.5), reviewing and merging PRs (1.5), integration week (1.5). The backbone and identity themselves (about 20 points) are built by Claude under decision D2.
 
-Shared duties start now and continue alongside feature work (about 2 points each):
-- **Michael:** Chen E-R draft by 6 Nov, final diagram/marker README and tested release by 13 Nov; run integration, lead the 18/22 Nov rehearsals and verify all-file submission on 20 Nov.
-- **Member 1 — Content (Catherine135):** prepare the explicit CRUD/database script now; record/edit and voice the video (`PRODUCT_SPEC.md` §9), ready for review 17 Nov and corrected final by 19 Nov.
-- **Member 2 — Discover (hX1-dev):** finish Discover; supply its SQL card and slide outline by 6 Nov. Assemble the talk from the four owners' preparation cards and Chen diagram, selecting 2–3 SQL examples. Draft rehearsal 18 Nov; final slides 19 Nov.
-- **Member 3 — Messages (MKWang-2006):** prepare packaging now, lead bug bash 8 Nov, rebuild an extracted candidate ZIP on a second laptop using only its README by 11 Nov, and assemble/verify the release ZIP by 13 Nov. Help check the three named final files for submission on 20 Nov.
+Current source-first work replaces the earlier shared implementation/rebuild split:
+- **Michael + assistant, Phase A:** finish agreed features, all module technical guides/SQL notes, integration, tests, Chen diagram, marker README, clean exact-ZIP rebuild and release packaging. Latest targets remain 6 Nov for feature/diagram draft completion and 13 Nov for source-ready; finish and hand off earlier if verified.
+- **Catherine135, after handoff:** review code/README and record/edit the CRUD/database video, ready for review 17 Nov and corrected final by 19 Nov.
+- **hX1-dev, after handoff:** review code/README and assemble slides from the settled app, diagram and technical notes; draft rehearsal 18 Nov, final slides 19 Nov.
+- **MKWang-2006, after handoff:** review code/README and coordinate rehearsal availability, speaking transitions, playback and backup checks. A later setup check on another laptop is optional review feedback, not a Phase A packaging task.
+- **Everyone, Phase B:** understand the selected SQL, suggest improvements and have a live speaking part. Michael retains code/repository/README/ZIP ownership and implements accepted suggestions.
 
-The official deadline is **21 Nov, 23:59 HKT**, for code ZIP, separate slides and separate video. Group 8 presents **23 Nov**, order 8. The 22 Nov rehearsal uses the submitted assets; it is not a submission-preparation date. All dates are 2026/HKT. Everyone speaks within five minutes including a video of at most two minutes. See [SUBMISSION.md](SUBMISSION.md) for names and acceptance criteria.
+The official deadline stays **21 Nov, 23:59 HKT** for the code ZIP, separate slides and separate video; internal upload target is **20 Nov**. Group 8 presents **23 Nov**, order 8. The 22 Nov rehearsal uses submitted assets. Dates are 2026/HKT; the presentation is five minutes including a video of at most two minutes. See [SUBMISSION.md](SUBMISSION.md).
 
 ## 6. What the other options would have changed
 
@@ -179,20 +184,20 @@ Michael chose option A for D1 to D5 on 17 Oct 2026, so none of these changes app
 | D4 HKU only | The visibility toggle and the "my university" tab disappear (−1 point for discover, −0.5 for content). |
 | D5 Chinese or bilingual UI | Bilingual adds about 1 point per module. |
 
-## 7. What each member hands in, and when
+## 7. Current handoffs and dates
 
-| By | Every member |
+| By / gate | Owner and deliverable |
 |---|---|
-| Sun 25 Oct (CP1) | Your pages render with seed data (read-only paths), linked from the tab bar or Me menu; CI green. |
-| Sun 1 Nov (CP2) | All **Must** features merged with their tests. |
-| Fri 6 Nov (module complete) | **Should** features merged; `docs/modules/<m>/USER_GUIDE.md` updated with screenshots; `docs/modules/<m>/SQL_CARD.md` (your presentation query, its result and three talking points); a note in your DEV_GUIDE of anything built differently from the guide. |
-| Integration week | Fix bugs found in your module within a day; do your shared duty. |
-| 18 Nov | Timed draft rehearsal with slides/video and every member's speaking part. |
-| 19 Nov | Corrected final slides/video; verify local playback and timing. |
-| 20 Nov (internal target) | Submit `Group_8_code.zip`, `Group_8_slides.pptx` and `Group_8_video.mp4` separately; verify acknowledgement before the 21 Nov hard deadline. |
+| Source-ready gate, no later than 13 Nov target | Michael/assistant: agreed features, source/README, validation, technical notes/diagram and verified exact source ZIP. The 1/6 Nov technical checkpoints remain latest targets, not a reason to delay an earlier handoff. |
+| After source-ready | Everyone: review the pinned code/README and send suggestions; presentation work starts from that baseline. Michael makes accepted source changes and regenerates the ZIP. |
+| 17 Nov | Catherine135: review video. |
+| 18 Nov | Everyone: timed draft rehearsal; MKWang-2006 coordinates, Michael checks timing. |
+| 19 Nov | hX1-dev/Catherine135: corrected final slides/video and local playback copies. |
+| 20 Nov (internal target) | Michael: verify and submit the three named files, with acknowledgement before the 21 Nov hard deadline. |
 
-## 8. If someone falls behind
+## 8. If the handoff or presentation is at risk
 
-- Say so in the Sunday status comment, or in the issue for the feature, as soon as you know. Nobody gets blamed for a late feature; a late surprise is the only real problem.
-- The coordinator first cuts **Could** features, then **Should** features of that module, then asks a buddy to take one feature (buddies: Content and Discover, which share the post card; Messages and Events, which are both "inbox" style).
-- A buddy works in the owner's folder only on a branch the owner reviews.
+- Michael reports Phase A progress and blockers promptly; reduce optional scope before compromising the source-ready gate or official deadline.
+- Do not assign unfinished source tasks back to teammates by default. Teammates begin review/presentation after the handoff; Michael retains source ownership and handles accepted fixes.
+- After handoff, report review/presentation blockers early in the weekly status issue. Adjust speaking/asset work with the team while protecting the 17–20 Nov targets.
+- The original buddy/module split remains historical context, not permission to start parallel implementation under the current plan.

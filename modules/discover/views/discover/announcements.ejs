@@ -1,0 +1,21 @@
+<section class="discover-announcements stack form-width" aria-label="Manage announcements">
+<% ['Current', 'Scheduled', 'Expired'].forEach((state) => { const rows = announcements.filter((item) => item.state === state); -%>
+  <section class="group stack" aria-label="<%= state %>">
+    <h2><%= state %></h2>
+<% if (!rows.length) { -%>
+    <p class="muted">None</p>
+<% } -%>
+<% rows.forEach((row) => { -%>
+    <article class="announcement-row" data-announcement-id="<%= row.announcement_id %>">
+      <h3><%= row.title %></h3>
+<% if (row.subtitle) { -%><p><%= row.subtitle %></p><% } -%>
+      <p class="hint"><%= ui.hkt(row.starts_at, true) %> to <%= ui.hkt(row.ends_at, true) %> HKT · Sort order <%= row.sort_order %></p>
+<% if (row.link_url) { -%><p><a class="announcement-link" href="<%= row.link_url %>"><%= row.link_url %></a></p><% } -%>
+      <a class="btn btn-ghost" href="/admin/announcements/<%= row.announcement_id %>">Edit</a>
+    </article>
+<% }) -%>
+  </section>
+<% }) -%>
+  <h2>New announcement</h2>
+  <%- include('discover/announcement-fields', { values, errors, item, action }) %>
+</section>

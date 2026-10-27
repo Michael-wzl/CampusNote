@@ -1,6 +1,6 @@
 # Content segment for the team demo video
 
-Catherine135 owns the whole-team recording. Use the canonical [PRODUCT_SPEC §9 script](../../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes) and [submission guide](../../team/SUBMISSION.md). The **entire video**, across all modules, must be at most two minutes and is included in the five-minute presentation. Target **1:55**; this Content/notification segment uses **0:00–0:50**, not a separate 1:45 video.
+Catherine135 owns the whole-team recording **after Michael announces the settled source-ready baseline**. Before that handoff, Michael/assistant own all code, technical notes and source verification; this storyboard is preparation material rather than an immediate teammate task. Use the canonical [PRODUCT_SPEC §9 script](../../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes) and [submission guide](../../team/SUBMISSION.md). The **entire video**, across all modules, must be at most two minutes and is included in the five-minute presentation. Target **1:55**; this Content/notification segment uses **0:00–0:50**, not a separate 1:45 video.
 
 Use local seeded accounts only. Reset a dedicated demonstration database before recording, prepare the sample image and two browser sessions, and use the generated post number rather than a hard-coded new ID. Capture persisted results, not just successful button clicks. The storyboard is a plan; the final recording remains to be made.
 
@@ -15,7 +15,7 @@ Hand off at **0:50** to Michael's existing event-edit shot (**Update**), then ti
 
 ## Recording and handoff dates
 
-- **Now:** settle the script and arrange the Content/Messages/Events shots in parallel with Discover development.
+- **After source-ready:** review the settled app/code/README, send suggestions to Michael, and arrange the Content/Messages/Events shots. Michael handles accepted source changes and publishes the updated baseline; do not record against unpinned parallel implementation.
 - **17 Nov:** deliver the whole-team review video and voice-over.
 - **18 Nov:** use the draft video and slides in the first timed rehearsal; every member also has a live speaking part.
 - **19 Nov:** finish corrected video, with local playable and backup copies.
