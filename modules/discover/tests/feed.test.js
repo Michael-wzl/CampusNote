@@ -20,7 +20,19 @@ test('DS-T01 (CP1): All is active, with university/topic links and shared post c
       .$('.discover-feed .tabs a')
       .map((_, a) => page.$(a).text())
       .get(),
-    ['All', 'HKU', 'Share', 'Random', 'Feelings', 'Academics', 'Careers', 'Trade', 'Food'],
+    [
+      '👀',
+      '🔥',
+      'All',
+      'HKU',
+      'Share',
+      'Random',
+      'Feelings',
+      'Academics',
+      'Careers',
+      'Trade',
+      'Food',
+    ],
   );
   assert.equal(page.$('.discover-feed [aria-current=page]').attr('href'), '/feed?tab=all');
   assert.equal(page.$('#feed-heading').text(), 'All posts');
@@ -153,6 +165,8 @@ test('DS-T19/T26 (CP1): hidden/deleted posts and anonymous identities stay out o
   ]) {
     const agent = await agentAs(handle);
     for (const tab of [
+      'watching',
+      'hot',
       'all',
       'uni',
       'share',

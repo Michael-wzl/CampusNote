@@ -13,9 +13,11 @@ const router = express.Router();
 const placeholder = (page) => (req, res) =>
   res.page('discover/placeholder', { module: 'discover', ...page });
 
-// CP1: read-only All, university and topic feeds. Hot and Watching follow at CP2.
+// DS-1/DS-2: chronological feeds use keysets; activity and Hot use offset pages.
 router.get('/feed', async (req, res) => {
   const choices = [
+    { code: 'watching', label: '👀' },
+    { code: 'hot', label: '🔥' },
     { code: 'all', label: 'All' },
     { code: 'uni', label: req.me.universityCode },
     ...ref.topics.map((topic) => ({ code: topic.code, label: topic.name_en })),
@@ -26,20 +28,35 @@ router.get('/feed', async (req, res) => {
       choices.map((choice) => choice.code),
     ) ?? 'all';
   const before = int(req.query.before, { min: 1, max: 4294967295 });
+  const page = int(req.query.page, { min: 1, max: 2147483647 }) ?? 1;
+  const offset = (page - 1) * 20;
   const topic = ref.topic(selected);
-  const ids = topic
-    ? await queries.feedTopicIds(req.me.universityId, topic.topic_id, before)
-    : selected === 'uni'
-      ? await queries.feedUniIds(req.me.universityId, before)
-      : await queries.feedAllIds(req.me.universityId, before);
+  const ids =
+    selected === 'watching'
+      ? await queries.feedWatchingIds(req.me.userId, req.me.universityId, offset)
+      : selected === 'hot'
+        ? await queries.hotIds(req.me.universityId, offset)
+        : topic
+          ? await queries.feedTopicIds(req.me.universityId, topic.topic_id, before)
+          : selected === 'uni'
+            ? await queries.feedUniIds(req.me.universityId, before)
+            : await queries.feedAllIds(req.me.universityId, before);
   // D18: paginate the merged view, then hydrate at most 20 cards, preserving the id order.
   const cards = await byIds(ids.slice(0, 20));
-  const nextUrl = ids.length > 20 ? `/feed?tab=${selected}&before=${ids[19]}` : null;
-  const emptyText = topic
-    ? `No posts in ${topic.name_en} yet.`
-    : selected === 'uni'
-      ? `No posts from ${req.me.universityCode} yet.`
-      : 'No posts yet. Be the first to write one.';
+  const nextUrl =
+    ids.length > 20
+      ? `/feed?tab=${selected}&${['watching', 'hot'].includes(selected) ? `page=${page + 1}` : `before=${ids[19]}`}`
+      : null;
+  const emptyText =
+    selected === 'watching'
+      ? 'Tap the star on a post to watch it. Watched posts appear here, the most recently active first.'
+      : selected === 'hot'
+        ? 'Nothing is hot this week yet.'
+        : topic
+          ? `No posts in ${topic.name_en} yet.`
+          : selected === 'uni'
+            ? `No posts from ${req.me.universityCode} yet.`
+            : 'No posts yet. Be the first to write one.';
   res.page('discover/feed', {
     title: 'Campus Notes',
     tab: 'feed',
@@ -49,7 +66,13 @@ router.get('/feed', async (req, res) => {
     emptyText,
     canCompose: selected === 'all',
     feedHeading:
-      selected === 'all' ? 'All posts' : `${topic?.name_en ?? req.me.universityCode} posts`,
+      selected === 'all'
+        ? 'All posts'
+        : selected === 'watching'
+          ? 'Watching posts'
+          : selected === 'hot'
+            ? 'Hot posts this week'
+            : `${topic?.name_en ?? req.me.universityCode} posts`,
     feedTabs: choices.map((choice) => ({
       label: choice.label,
       href: `/feed?tab=${choice.code}`,
