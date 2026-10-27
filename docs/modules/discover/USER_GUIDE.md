@@ -4,7 +4,7 @@ The Feed and Search tabs are how you find posts. The feed shows everything you a
 
 Screenshots go in `docs/modules/discover/img/` when the pages are built; the placeholders below name the file each one should have.
 
-**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, Search, My posts and public user pages are available, with 20-post pages and Load more. The remaining personal lists and announcements described below are planned for subsequent deliveries.
+**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, Search, all four personal lists and public user pages are available. Lists use 20-post pages and Load more. Announcements retain their later delivery scope.
 
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
@@ -74,13 +74,19 @@ Open **Me** and pick one of these:
 
 **My posts:** this page shows 20 posts at a time. Tap **Load more** for the next page. The reminder "Anonymous posts show no name to others." also applies to your own anonymous cards: they show no author name. When the list is empty, **Write a post** opens the compose page. Use the back arrow to return to Me. These links work with JavaScript disabled.
 
+**Watching, Liked and History:** these also show 20 posts per page. **Load more** keeps the current list. Personal Watching uses the time you saved the post; the Feed's 👀 tab instead follows recent discussion activity. Empty lists offer **Browse the feed**. Use the back arrow to return to Me; navigation and forms work without JavaScript.
+
 [My posts on phone](img/my-posts-390.png) · [Tablet](img/my-posts-768.png) · [Desktop](img/my-posts-1440.png) · [Empty list](img/my-posts-empty-390.png)
 
 **Clear history:** at the top of History, tap **Clear history** and confirm. Your list is emptied (the posts keep their view counts). Opening a post again puts it back in your history.
 
 If a post is deleted, hidden by a moderator, or no longer visible to you, it drops out of these lists by itself.
 
-*(screenshot to add: `img/me-history.png`)*
+[Watching on phone](img/me-watching-390.png) · [Tablet](img/me-watching-768.png) · [Desktop](img/me-watching-1440.png)
+
+[Liked on phone](img/me-likes-390.png) · [Tablet](img/me-likes-768.png) · [Desktop](img/me-likes-1440.png)
+
+[History on phone](img/me-history-390.png) · [Tablet](img/me-history-768.png) · [Desktop](img/me-history-1440.png) · [Empty list](img/me-history-empty-390.png) · [After Clear history](img/me-history-cleared-390.png)
 
 ## 6. User pages
 

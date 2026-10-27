@@ -141,38 +141,29 @@ router.get('/me/posts', async (req, res) => {
   });
 });
 
-router.get(
-  '/me/watching',
-  placeholder({
-    feature: 'DS-5',
-    title: 'Watching',
-    tab: 'me',
-    back: '/me',
-    what: 'Posts you watch (the star), latest watch first.',
-  }),
-);
-
-router.get(
-  '/me/likes',
-  placeholder({
-    feature: 'DS-5',
-    title: 'Liked',
-    tab: 'me',
-    back: '/me',
-    what: 'Posts you like (the heart), latest like first.',
-  }),
-);
-
-router.get(
-  '/me/history',
-  placeholder({
-    feature: 'DS-5',
-    title: 'History',
-    tab: 'me',
-    back: '/me',
-    what: 'Posts you opened, latest visit first, with "Clear history".',
-  }),
-);
+for (const [path, title, loadIds, emptyText] of [
+  ['/me/watching', 'Watching', queries.myWatchingIds, 'Posts you watch (the star) appear here.'],
+  ['/me/likes', 'Liked', queries.myLikedIds, 'Posts you like (the heart) appear here.'],
+  ['/me/history', 'History', queries.myHistoryIds, 'Posts you open appear here.'],
+]) {
+  router.get(path, async (req, res) => {
+    const page = int(req.query.page, { min: 1, max: 2147483647 }) ?? 1;
+    const ids = await loadIds(req.me.userId, req.me.universityId, (page - 1) * 20);
+    const cards = await byIds(ids.slice(0, 20));
+    res.page('discover/my-list', {
+      title,
+      tab: 'me',
+      back: '/me',
+      cards,
+      note: null,
+      nextUrl: ids.length > 20 ? `${path}?page=${page + 1}` : null,
+      emptyText,
+      emptyHref: '/feed',
+      emptyLabel: 'Browse the feed',
+      canClearHistory: path === '/me/history' && cards.length > 0,
+    });
+  });
+}
 
 router.get('/u/:handle', async (req, res) => {
   const handle = req.params.handle.toLowerCase();

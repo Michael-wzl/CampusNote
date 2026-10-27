@@ -130,6 +130,39 @@ async function orgPostIds(myUniversityId) {
   return rows.map((row) => row.post_id);
 }
 
+// DS-5, BR-5/8/9: my saved posts by watch time, distinct from the feed's activity order.
+async function myWatchingIds(userId, myUniversityId, offset) {
+  const rows = await q(
+    `SELECT p.post_id FROM post_watches w JOIN v_live_posts p ON p.post_id = w.post_id
+     WHERE w.user_id = ? AND ${VISIBLE}
+     ORDER BY w.created_at DESC, p.post_id DESC LIMIT 21 OFFSET ?`,
+    [userId, myUniversityId, offset],
+  );
+  return rows.map((row) => row.post_id);
+}
+
+// DS-5, BR-5/8/9: only my likes on posts I may still see, newest interaction first.
+async function myLikedIds(userId, myUniversityId, offset) {
+  const rows = await q(
+    `SELECT p.post_id FROM post_likes l JOIN v_live_posts p ON p.post_id = l.post_id
+     WHERE l.user_id = ? AND ${VISIBLE}
+     ORDER BY l.created_at DESC, p.post_id DESC LIMIT 21 OFFSET ?`,
+    [userId, myUniversityId, offset],
+  );
+  return rows.map((row) => row.post_id);
+}
+
+// DS-5, CT-6, BR-5/8/9/10: cleared history stays out until Content records another visit.
+async function myHistoryIds(userId, myUniversityId, offset) {
+  const rows = await q(
+    `SELECT p.post_id FROM post_views v JOIN v_live_posts p ON p.post_id = v.post_id
+     WHERE v.user_id = ? AND v.cleared_at IS NULL AND ${VISIBLE}
+     ORDER BY v.last_viewed_at DESC, p.post_id DESC LIMIT 21 OFFSET ?`,
+    [userId, myUniversityId, offset],
+  );
+  return rows.map((row) => row.post_id);
+}
+
 module.exports = {
   feedAllIds,
   feedUniIds,
@@ -141,4 +174,7 @@ module.exports = {
   hotIds,
   searchIds,
   orgPostIds,
+  myWatchingIds,
+  myLikedIds,
+  myHistoryIds,
 };
