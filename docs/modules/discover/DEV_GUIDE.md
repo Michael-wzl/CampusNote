@@ -14,9 +14,11 @@ You can build this module without knowing the rest of the app. Everything you ne
 
 ## 1. The module in one paragraph
 
-**Watching/Hot delivery, 26 Oct 2026 (issue #22):** DS-1's Watching tab and DS-2 are implemented with the specified activity/ranking rules and offset pages. See [WATCHING_HOT_VALIDATION.md](WATCHING_HOT_VALIDATION.md). Search and the remaining personal lists are the next CP2 work; announcements retain their Should priority.
+**CP2 Must implementation, 26 Oct 2026 (issues #22/#24/#26):** Watching/Hot, Search and all four personal lists are complete. See [CP2_INTEGRATION_VALIDATION.md](CP2_INTEGRATION_VALIDATION.md) for the combined acceptance and [PERSONAL_LISTS_VALIDATION.md](PERSONAL_LISTS_VALIDATION.md) for the final list delivery. DS-3/DS-7 and the presentation materials keep their later milestone scope; issue #2 remains open.
 
-**Search delivery, 26 Oct 2026 (issue #24):** DS-4 now implements required-word English/Chinese search, sorting, topic filtering, visible post-number jumps and empty-page discovery. See [SEARCH_VALIDATION.md](SEARCH_VALIDATION.md). The remaining personal lists complete the CP2 feature scope.
+**Watching/Hot delivery, 26 Oct 2026 (issue #22):** DS-1's Watching tab and DS-2 are implemented with the specified activity/ranking rules and offset pages. See [WATCHING_HOT_VALIDATION.md](WATCHING_HOT_VALIDATION.md).
+
+**Search delivery, 26 Oct 2026 (issue #24):** DS-4 implements required-word English/Chinese search, sorting, topic filtering, visible post-number jumps and empty-page discovery. See [SEARCH_VALIDATION.md](SEARCH_VALIDATION.md).
 
 Discover is how people find posts. The Feed tab shows every post the reader may see, newest first, with tabs for the posts they watch (👀), the week's hot posts (🔥), their own university and each topic, plus an announcement banner on top. The Search tab finds posts that contain all the words typed, in Chinese or English, and jumps straight to a post when a number like `#600012` is typed. The module also owns the four personal lists on the Me page (my posts, watching, liked, history), each user's public page, and the admin page for announcements. It writes only one table (`announcements`); everything about posts is read through the shared views, so deletion, hiding, visibility and anonymity are never re-implemented here. It is the project's ranking and search showcase: a hot score built from correlated subqueries and time arithmetic, and an ngram full-text index that searches Chinese.
 
@@ -198,7 +200,7 @@ Speed (20,000 extra posts, measured): a rare word answers in under 1 ms. A word 
 
 - **My posts** includes my anonymous posts: only I see this page. Under the title: "Anonymous posts show no name to others." Deleted and hidden posts are not listed.
 
-  CP1 delivery (23 Oct 2026, issue #15): `/me/posts` is implemented with the shared `my-list` template, 20-card keyset paging, the note and compose empty state above. Eight HTTP/database tests cover the My posts portions of DS-T15/16/17/19/26; see [MY_POSTS_VALIDATION.md](MY_POSTS_VALIDATION.md). The other three lists remain separate work; this does not complete DS-5 or issue #2.
+  CP1 delivery (23 Oct 2026, issue #15): `/me/posts` is implemented with the shared `my-list` template, 20-card keyset paging, the note and compose empty state above. Eight HTTP/database tests cover the My posts portions of DS-T15/16/17/19/26; see [MY_POSTS_VALIDATION.md](MY_POSTS_VALIDATION.md). CP2 issue #26 completes the other three lists; see [PERSONAL_LISTS_VALIDATION.md](PERSONAL_LISTS_VALIDATION.md).
 
 - **Watching, Liked, History** join `v_live_posts` and apply `VISIBLE`, so a post that was deleted or hidden after I touched it simply drops out.
 - **History** lists only rows with `cleared_at IS NULL`. When the list is not empty, the page shows a "Clear history" button: `<form method="post" action="/me/history/clear" data-confirm="Clear your history?">` with `csrfField()`. Content handles the POST (CT-6), keeps the view counts and redirects back here with "History cleared".

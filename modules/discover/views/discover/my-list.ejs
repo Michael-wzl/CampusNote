@@ -1,5 +1,13 @@
 <section class="discover-my-list stack" aria-label="<%= title %>">
+<% if (note) { -%>
   <p class="muted"><%= note %></p>
+<% } -%>
+<% if (locals.canClearHistory) { -%>
+  <form method="post" action="/me/history/clear" data-confirm="Clear your history?">
+    <%- csrfField() %>
+    <button type="submit" class="btn btn-ghost">Clear history</button>
+  </form>
+<% } -%>
 <% if (cards.length) { -%>
   <%- include('partials/post-list', { cards, nextUrl, empty: emptyText }) %>
 <% } else { -%>
