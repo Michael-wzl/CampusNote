@@ -1,6 +1,6 @@
 # Campus Notes: product specification
 
-**Version 1.1, 21 Oct 2026.** This is the single source for *what* the product does. `ARCHITECTURE.md` says how it is built, and each module's `DEV_GUIDE.md` turns this spec into tasks. If a guide disagrees with this file, this file wins; raise an issue so the guide gets fixed.
+**Version 1.2, 27 Oct 2026.** This is the single source for *what* the product does. `ARCHITECTURE.md` says how it is built, and each module's `DEV_GUIDE.md` turns this spec into tasks. If a guide disagrees with this file, this file wins; raise an issue so the guide gets fixed. [SUBMISSION.md](../team/SUBMISSION.md) records the published rubric and final deadlines. This update changes the demonstration plan, not application scope.
 
 ## 1. What it is
 
@@ -167,7 +167,7 @@ These rules cross module boundaries. Each module's guide repeats the ones it mus
 3. **Discuss:** another student opens the post → comments (appears as Alice) → the author sees the Messages badge → Notifications says "Alice commented on your post #600015" → the author replies (appears as Host).
 4. **Message privately:** a student who has not commented on the post taps "Message the host" → a conversation where the two appear as Visitor and Host. (A student who has commented appears under their alias instead, such as Alice.)
 5. **Moderate:** someone reports a comment → an admin opens Reports → Hide → the comment shows "[hidden by a moderator]" and the report is resolved.
-6. **Book a ticket:** Search → "Campus events" → Director Q&A (HKU members) shows a live countdown (it opens 2 hours after a database reset) → back to the list → Film night (already on sale) → Book → ticket code shown, tickets left goes down by one → My tickets lists it. (The video's 1:35 shot shows the countdown reaching zero on Film night, because `npm run demo:race` first resets its release time.)
+6. **Book a ticket:** Search → "Campus events" → Director Q&A (HKU members) shows a live countdown (it opens 2 hours after a database reset) → back to the list → Film night (already on sale) → Book → ticket code shown, tickets left goes down by one → My tickets lists it. Cancelling the booking removes its ticket row and returns inventory. The race segment uses `npm run demo:race`, which resets Film night's release time before its countdown and concurrent booking demonstration.
 
 ## 7. Quality requirements
 
@@ -184,15 +184,17 @@ Editing posts; Markdown; the reference app's "百宝箱" toolbox (polls and so o
 
 ## 9. Demo video script (at most 2 minutes)
 
-| Time | Shot | Shows |
+**Catherine135 owns the whole-team video.** Target **1:55**; the published limit is two minutes **inside** the five-minute presentation. Make Create, Read, Update and Delete explicit and show persistent database effects. Use the existing features below; post editing and new features remain out of scope. [Content's segment](../modules/content/DEMO_SCRIPT.md) supplies only the first 50 seconds, not an additional full-length video.
+
+| Time | Shot | CRUD / database evidence |
 |---|---|---|
-| 0:00 | Register as a new HKU student; the code appears in the mailbox; set a password | university e-mail only (BR-1, BR-2) |
-| 0:15 | Feed: All, HKU, Hot tabs; announcement banner | feeds, hot ranking |
-| 0:25 | Compose an anonymous post with a photo under Academics, HKU only | compose, images, visibility |
-| 0:40 | Second browser (Kelvin): comment as "Alice"; the author's badge lights up; the author replies as "Host" | aliases, triggers, notifications |
-| 1:00 | Kelvin taps "Message the host": the private chat shows Alice and Host, because Kelvin commented as Alice | private messages |
-| 1:10 | Search "library", then "叉烧" | full-text search in two languages |
-| 1:20 | Log in as Wing (CUHK): the HKU-only post is not there | visibility |
-| 1:25 | Report a rude comment; the admin hides it | moderation |
-| 1:35 | Film night: the countdown reaches zero; `npm run demo:race` fires 200 buyers at 50 tickets; result: 50 sold, 150 told sold out, counter 0 | transaction and concurrency |
-| 1:55 | End card: E-R diagram thumbnail and team names | |
+| 0:00–0:25 | With seeded accounts already signed in, publish an anonymous HKU post with an image; reopen its generated detail URL | **Create / Read:** persisted post and image; alias Host; show a brief visibility check or query-result overlay without revealing real identities. |
+| 0:25–0:50 | Second HKU student comments; author opens the resulting notification and comment | Participant alias allocation and the notification trigger connect Content and Messages; show the actual resulting rows/screen. |
+| 0:50–1:10 | Film Society edits an event's title or venue, saves and reloads | **Update:** the new value persists; show the relevant `UPDATE`/result overlay. |
+| 1:10–1:30 | Newbie (no existing ticket) books a ticket, opens My tickets, then cancels the booking | **Create / Delete:** the ticket row is inserted then deleted; inventory goes down then returns. Use this literal `DELETE` rather than treating moderation Hide as deletion. |
+| 1:30–1:50 | Run the seeded booking-race demonstration and show its actual outcome | Transaction/locking and rollback prevent overselling. Expected 200 buyers / 50 tickets: 50 booked, 150 sold out, final counter 0; verify this recording's actual result. |
+| 1:50–1:55 | End card with app and team names | Finish below the video limit; E-R and key SQL receive readable live explanation in the talk. |
+
+Recording preparation: use a dedicated demonstration database and the generated IDs. `demo:race` mutates/reset-seeds its target event; run it only after the CRUD segment, and do not use a shared or production database. Record concise query/result overlays or before/after state, not mock results. Keep SQL cards and additional features available for questions; registration, every search mode, private chat, moderation and every viewport do not all need to fit in this one video.
+
+Video review is **17 Nov**, first timed rehearsal **18 Nov**, corrected final slides/video **19 Nov**, and all three files are submitted internally by **20 Nov**, before the **21 Nov, 23:59 HKT** deadline. Everyone has a live speaking part; voice-over does not replace it. See [SUBMISSION.md](../team/SUBMISSION.md) for the five-minute budget and acceptance checklist.

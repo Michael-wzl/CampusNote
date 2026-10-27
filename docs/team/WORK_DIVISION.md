@@ -1,6 +1,6 @@
 # Work division
 
-**Updated 21 Oct 2026.** Who owns what, where the modules meet, and how the work balances. It follows Michael's decisions D1 to D5 in `DECISIONS.md` (17 Oct 2026, option A for each); §6 records what would change under the other options.
+**Updated 27 Oct 2026.** Who owns what, where the modules meet, and how the work balances. It follows Michael's decisions D1 to D5 in `DECISIONS.md` (17 Oct 2026, option A for each); §6 records what would change under the other options. [SUBMISSION.md](SUBMISSION.md) is the shared grading, deadline and final-deliverable checklist.
 
 ## 1. The split at a glance
 
@@ -11,11 +11,11 @@
 | **Tables written** | users, organizations, email_codes, sessions, outbox, events, tickets | posts, post_images, post_participants, comments, post_likes, post_watches, post_views | announcements | notifications (by trigger), conversations, messages, conversation_reads, blocks, reports, hidden_content |
 | **Tabs owned** | Me (hub, profile, settings) | + (compose) and the post page | Feed and Search | Messages |
 | **Feature IDs** | BB-1 to BB-6, ID-1 to ID-8, EV-1 to EV-7 | CT-1 to CT-8 | DS-1 to DS-7 | MS-1 to MS-8 |
-| **Presents** | intro, E-R diagram, booking transaction | alias transaction | hot ranking and search | notification trigger and conversation list |
+| **Presentation preparation** | intro, Chen E-R diagram, booking transaction | CRUD video, alias transaction | slides, hot ranking and search | notification trigger and conversation list |
 | **Shared duty** | integration, E-R drawing, README, rehearsals | demo video | slides | rebuild test, bug bash, Moodle package |
 | **Effort (points)** | 10.5 module + 4.5 coordination = 15 | 11 + 2 = 13 | 11 + 2 = 13 | 10.5 + 2 = 12.5 |
 
-Roles are self-selected: Catherine135 claimed Content in issue #1; hX1-dev claimed Discover in issue #2. Michael confirmed MKWang-2006 for Messages on 21 Oct. All three roles are claimed, and collaborator invitations have been sent to all three accounts. Start with [START_HERE.md](../../START_HERE.md). Content focuses on posting and interaction; Discover on feeds and search; Messages on private conversations, notifications and moderation.
+Roles are self-selected: Catherine135 claimed Content in issue #1; hX1-dev claimed Discover in issue #2. Michael confirmed MKWang-2006 for Messages on 21 Oct. All three members have write access. Start with [START_HERE.md](../../START_HERE.md). Content focuses on posting and interaction; Discover on feeds and search; Messages on private conversations, notifications and moderation. The presentation-preparation row is a pool of material, not four required SQL slides: choose 2–3 legible examples and give every member a live speaking part.
 
 ## 2. Why this split
 
@@ -158,11 +158,13 @@ One point is about 3 focused hours for a year-3 student using an AI coding assis
 
 Coordination for Michael (4.5 points): reviewing and running the backbone before kickoff (1.5), reviewing and merging PRs (1.5), integration week (1.5). The backbone and identity themselves (about 20 points) are built by Claude under decision D2.
 
-Shared duties in weeks 4 and 5 (about 2 points each):
-- **Michael:** draw the Chen E-R diagram, write the README for markers, run integration week, tag v1.0, lead the rehearsals.
-- **Content owner:** record and edit the video (`PRODUCT_SPEC.md` §9), and write its voice-over.
-- **Discover owner:** build the slides from the four SQL cards and the E-R diagram; time the talk.
-- **Messages owner:** run the bug bash, do the rebuild test (fresh clone, README only, on a second laptop), and assemble the Moodle package.
+Shared duties start now and continue alongside feature work (about 2 points each):
+- **Michael:** Chen E-R draft by 6 Nov, final diagram/marker README and tested release by 13 Nov; run integration, lead the 18/22 Nov rehearsals and verify all-file submission on 20 Nov.
+- **Member 1 — Content (Catherine135):** prepare the explicit CRUD/database script now; record/edit and voice the video (`PRODUCT_SPEC.md` §9), ready for review 17 Nov and corrected final by 19 Nov.
+- **Member 2 — Discover (hX1-dev):** finish Discover; supply its SQL card and slide outline by 6 Nov. Assemble the talk from the four owners' preparation cards and Chen diagram, selecting 2–3 SQL examples. Draft rehearsal 18 Nov; final slides 19 Nov.
+- **Member 3 — Messages (MKWang-2006):** prepare packaging now, lead bug bash 8 Nov, rebuild an extracted candidate ZIP on a second laptop using only its README by 11 Nov, and assemble/verify the release ZIP by 13 Nov. Help check the three named final files for submission on 20 Nov.
+
+The official deadline is **21 Nov, 23:59 HKT**, for code ZIP, separate slides and separate video. Group 8 presents **23 Nov**, order 8. The 22 Nov rehearsal uses the submitted assets; it is not a submission-preparation date. All dates are 2026/HKT. Everyone speaks within five minutes including a video of at most two minutes. See [SUBMISSION.md](SUBMISSION.md) for names and acceptance criteria.
 
 ## 6. What the other options would have changed
 
@@ -185,6 +187,9 @@ Michael chose option A for D1 to D5 on 17 Oct 2026, so none of these changes app
 | Sun 1 Nov (CP2) | All **Must** features merged with their tests. |
 | Fri 6 Nov (module complete) | **Should** features merged; `docs/modules/<m>/USER_GUIDE.md` updated with screenshots; `docs/modules/<m>/SQL_CARD.md` (your presentation query, its result and three talking points); a note in your DEV_GUIDE of anything built differently from the guide. |
 | Integration week | Fix bugs found in your module within a day; do your shared duty. |
+| 18 Nov | Timed draft rehearsal with slides/video and every member's speaking part. |
+| 19 Nov | Corrected final slides/video; verify local playback and timing. |
+| 20 Nov (internal target) | Submit `Group_8_code.zip`, `Group_8_slides.pptx` and `Group_8_video.mp4` separately; verify acknowledgement before the 21 Nov hard deadline. |
 
 ## 8. If someone falls behind
 

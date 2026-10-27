@@ -10,13 +10,24 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The shared backbone, identity, events, Content and Messages MS-1–MS-7 are built. Discover's CP1 feeds, My posts and profiles are implemented; Watching, Hot, Search, other personal lists and announcements remain with its owner. The detailed design pack is reference material, not a reading prerequisite for starting work. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
 
+**Final submission:** code ZIP, slides and video are all due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal and required filenames.
+
 ## Run locally
 
 You need **Node.js 22 or later** and **MySQL 8.0.19 or later** (8.4 LTS recommended).
 
+**From the submitted ZIP:** extract `Group_8_code.zip` and open a terminal in its `CampusNote` folder (the folder containing `package.json`). Git and a GitHub account are not required to run the extracted project. Continue with `npm ci` and `npm run setup` below.
+
+**From GitHub:** clone and enter the project folder first:
+
 ```bash
 git clone https://github.com/Michael-wzl/CampusNote.git
 cd CampusNote
+```
+
+**For either source**, install the pinned dependencies and create local configuration:
+
+```bash
 npm ci
 npm run setup               # creates .env with a random session secret; keeps any existing .env
 ```

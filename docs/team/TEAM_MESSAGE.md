@@ -1,9 +1,11 @@
 # Message to teammates
 
-Hi everyone, the repo is ready: https://github.com/Michael-wzl/CampusNote
+The grading criteria and deadlines are out. Code, slides and video are all due **21 Nov, 23:59 HKT**; let's submit by **20 Nov**. We present on **23 Nov**.
 
-The website now adapts to desktop, tablet and phone screens. The shared app, database, login/profile and events modules are built; I’ll maintain those and handle integration. Catherine’s Content and MKWang-2006’s Messages MS-1–MS-7 are integrated. hX1-dev’s CP1 feeds, My posts and profiles are merged; remaining Discover features are next. **Member 1 — Content: Catherine135; Member 2 — Discover: hX1-dev; Member 3 — Messages: MKWang-2006.** All three roles are claimed.
+- **@hX1-dev:** continue Discover's remaining Must features for **1 Nov**, then prepare the SQL card and slides.
+- **@Catherine135:** start the demo-video script now. It needs clear **Create, Read, Update, Delete and database effects**, within two minutes.
+- **@MKWang-2006:** prepare the source-ZIP checklist and README-only rebuild on another laptop.
 
-Please accept your GitHub collaborator invitation if you haven’t already, then start with **START_HERE.md** and your module’s DEV_GUIDE. The README has setup instructions, and the responsive guide explains the shared layout. No name-only PR is needed—start with a real feature using the demo data.
+I'll handle the E-R diagram, README, reviews and integration. First timed rehearsal: **18 Nov**; final slides/video: **19 Nov**. Everyone needs a speaking part in the five-minute presentation, including the video.
 
-Targets: pages working by **25 Oct**, Must features merged by **1 Nov**, module complete by **6 Nov**.
+Please pull the latest repo and start with **[docs/team/SUBMISSION.md](SUBMISSION.md)** and your updated DEV_GUIDE: https://github.com/Michael-wzl/CampusNote

@@ -4,6 +4,8 @@ Campus Notes is our COMP3278 group project: an anonymous campus forum for Hong K
 
 **Current status (25 Oct 2026):** backbone, identity, events, Content (Catherine135) and Messages MS-1–MS-7 (MKWang-2006) are implemented. Discover (hX1-dev) has delivered CP1 feeds, My posts and profiles; Watching/Hot, Search, remaining personal lists and announcements are pending. Three shared integration TODOs remain. CI includes Linux application/SQL checks and focused Windows reset-path checks.
 
+**Grading/deadline update (27 Oct):** [SUBMISSION.md](team/SUBMISSION.md) records the 30-mark reproducibility / 70-mark presentation rubric and owners' next actions. All three files are due **21 Nov, 23:59 HKT**; submit internally on **20 Nov**. Group 8 presents **23 Nov**, order 8. Feature checkpoints stay at 1/6 Nov; draft rehearsal is 18 Nov and final slides/video 19 Nov.
+
 **Layout:** one desktop-first responsive website, with a wider desktop sidebar layout and a single-column phone layout. All members should read the short [responsive guide](architecture/RESPONSIVE.md) before building pages.
 
 **Team kickoff:** check ownership and start your module in [START_HERE.md](../START_HERE.md). This pack is the detailed reference.
@@ -36,6 +38,7 @@ You do not need the whole picture to build your module. Your DEV_GUIDE tells you
 | `team/DECISIONS.md` | Cross-module decisions, including D1 to D5 already decided and the self-selected roles |
 | `team/WORK_DIVISION.md` | Who owns which folder, tables and URLs; every place modules meet; effort balance |
 | `team/COORDINATOR_ROADMAP.md` | Timeline, checkpoints, kickoff agenda, integration runbook, risks |
+| `team/SUBMISSION.md` | Published rubric, official deadline, named files, owner dates, ZIP rebuild and five-minute presentation acceptance |
 | `team/WORKFLOW.md` | Branches, pull requests, weekly status, using coding agents |
 | `modules/<m>/DEV_GUIDE.md` | One module's scope, tasks, SQL, acceptance tests and agent prompt |
 | `modules/<m>/USER_GUIDE.md` | One module's features from the user's side; becomes the user manual |
@@ -81,3 +84,4 @@ It prints one PASS or FAIL line per check (456 on 17 Oct 2026) and ends with `AL
 | 17 Oct 2026 | 1.0 (reviewed) | An independent review cross-checked the five module guides against the shared files. Fixes: blocks are per conversation (new `blocks` table) so blocking cannot reveal who is behind an alias; `post_views.cleared_at` keeps view counts after Clear history; test helper signatures in `ARCHITECTURE.md` §10; the `/u/:handle` touchpoint (`WORK_DIVISION.md` §4 row 14); no Message button for banned users; event buttons by role; one heading format for every feature; USER_GUIDE messages match the DEV_GUIDEs word for word. 456 SQL checks pass. |
 | 17 Oct 2026 | 1.1 | Decisions D1 to D5 recorded (option A each). The backbone is built: the schema, seed and SQL checks moved to `db/`, the triggers to `modules/messages/db/`. `ARCHITECTURE.md` and `UI_KIT.md` describe the built backbone (own session store, `process.loadEnvFile`, multipart CSRF token in the form's action URL, `--brand-soft`, CSS classes, reserved page-local names, `ui.date`). The identity module was built from its DEV_GUIDE by a separate coding agent as a test of the guide; what it found is now in the guide: labels and alert placement on the sign-up, login and reset pages, back arrows on forgot and reset, `config.isDev` for the persona list, the outbox as the one copy of a code (not kept once `SMTP_URL` is set), admins may ban other admins. `btn btn-cta` replaces the term "`--cta` button" in every guide. |
 | 21 Oct 2026 | 1.2 | Desktop-first responsive website adopted (D22); shared shell, module layout guidance and 390 / 768 / 1440 px acceptance checks replace the fixed 480 px layout. |
+| 27 Oct 2026 | 1.3 | Published grading/submission requirements adopted: 21 Nov all-file deadline, 20 Nov internal upload, 18 Nov draft rehearsal, 19 Nov final assets and 23 Nov Group 8 presentation. Guides share a reproducibility checklist and explicit CRUD/database video script; application scope is unchanged. |

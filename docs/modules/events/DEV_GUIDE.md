@@ -65,6 +65,14 @@ module.exports = {
 | Fri 6 Nov (Should) | EV-4 cancel booking, EV-6 organizer pages (create, edit, cancel, attendees, check-in); remaining tests; USER_GUIDE screenshots; `SQL_CARD.md`. |
 | Could | An "Add to calendar" `.ics` download on the event page. |
 
+### Assessment and submission handoff (27 Oct update)
+
+The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+
+Michael maintains the implemented Events module and provides the video's explicit Update/Delete shots: edit an event, then book and cancel a ticket, showing the persisted change, literal ticket `DELETE` and restored capacity. Supply current booking-race evidence and SQL explanations for Catherine135's review video by **17 Nov**; rehearse **18 Nov** and finalize corrections **19 Nov**. Use only a disposable demonstration database.
+
+Keep the module's guide/screenshots and SQL card current by **6 Nov**. Michael also owns the Chen E-R diagram, marker README and tested release by **13 Nov**, and checks the source ZIP for the **20 Nov** submission target. Prepare every module card, then choose only 2–3 readable examples for the live presentation. No new Events feature is required by the rubric.
+
 ## 5. Features
 
 ### Responsive page layout (every feature)

@@ -82,8 +82,16 @@ Announcement 1 ("Film night this Friday", links to `/events/1`, image `/static/s
 |---|---|
 | CP1, Sun 25 Oct | `index.js`, `routes.js`, `queries.js` with `feedAllIds`, `feedUniIds`, `feedTopicIds`, `myPostIds`, `userByHandle` and `userPostIds`; `/feed` renders the tab strip and the All, university and topic tabs with "Load more"; `/me/posts` and `/u/:handle` render read-only. |
 | CP2, Sun 1 Nov (Must) | DS-1 complete (Watching tab), DS-2 Hot, DS-4 search (with the `#id` jump and the empty page), DS-5 the four lists; tests DS-T01 to DS-T08, DS-T10 to DS-T19 and DS-T26. |
-| Fri 6 Nov (Should) | DS-3 banner, DS-6 user page complete (Message button, own-page note), DS-7 admin announcements; tests DS-T09 and DS-T20 to DS-T28; USER_GUIDE screenshots; `SQL_CARD.md`; the slides (your shared duty). |
+| Fri 6 Nov (Should) | DS-3 banner, DS-6 user page complete (Message button, own-page note), DS-7 admin announcements; tests DS-T09 and DS-T20 to DS-T28; USER_GUIDE screenshots; `SQL_CARD.md`; slide outline (final slides due 19 Nov). |
 | Could | Nothing is planned for this module. Spend spare time timing the pages after `npm run load-test` (§5 DS-2 and DS-4 give the numbers to expect). |
+
+### Assessment and submission handoff (27 Oct update)
+
+The [submission guide](../../team/SUBMISSION.md) is the source for the rubric, file checklist and dates. **All three Group 8 files are due 21 Nov, 23:59 HKT**; our internal upload target is **20 Nov**. The five-minute presentation includes the video (at most two minutes), and every member must speak. Materials/reproducibility carry 30 marks; presentation carries 70.
+
+hX1-dev continues Watching/Hot, Search and the remaining personal lists for **1 Nov**, then planned Should work, guide/screenshots and the SQL card by **6 Nov**. CP1 feeds, My posts and public profiles are already merged; recheck profile Message links against integrated Messages rather than rebuilding those pages.
+
+Your shared duty is the slides: outline by **6 Nov**, a timed draft with the video for **18 Nov**, and final corrected slides by **19 Nov**, ready for separate upload on **20 Nov**. Build from the Chen diagram and the owners' SQL cards, selecting 2–3 readable SQL examples rather than four dense cards. Allocate a live speaking part to every member and keep the whole presentation within five minutes including the video.
 
 ## 5. Features
 
@@ -305,7 +313,7 @@ Run them with `npm test -- modules/discover`. The SQL itself is checked by `npm 
 
 ## 9. Presentation (SQL card)
 
-`docs/modules/discover/SQL_CARD.md` holds one slide's worth, and the Discover owner presents it:
+`docs/modules/discover/SQL_CARD.md` holds one slide's worth for the team's selection and for questions. The Discover owner has a live speaking part even if another module's SQL is selected:
 
 1. **Hot ranking** (`hotIds` in `queries.sql`): three correlated subqueries count likes, live comments (deleted and hidden ones excluded with `NOT EXISTS`) and watches per post; `TIMESTAMPDIFF` and `POW` turn age into a decay; `INTERVAL 7 DAY` bounds the window; the visibility predicate filters before ranking. Show the HKU result: 600012 at 1.34 on top, and why the hour-old 600013 is second.
 2. **Full-text search:** `FULLTEXT ... WITH PARSER ngram` cuts text into 2-character pieces, so "叉烧" is found without word breaks; the index was built with stopwords off, otherwise "main" is never found (D17); boolean mode with `+"word"` makes every word required. One finding: a phrase with an apostrophe never matches, so the app splits words at punctuation.

@@ -1,6 +1,6 @@
 # Coordinator roadmap
 
-**For Michael.** The plan from today to the presentation, what to do at each step, and how to keep four people moving with one meeting. Dates are 2026. Checkpoints fall on Sundays so that weekday classes are untouched.
+**For Michael. Updated 27 Oct 2026.** Dates and times are 2026/HKT. [SUBMISSION.md](SUBMISSION.md) is the shared reference for the published rubric, three deliverables and final acceptance. Feature scope and the 1/6 Nov checkpoints stay unchanged; the final schedule below supersedes the old 22 Nov submission target.
 
 ## 1. Timeline
 
@@ -15,13 +15,15 @@
 | **Sun 1 Nov** | **CP2: all Must features merged** | Check against each DEV_GUIDE's Must list. Re-scope anything at risk (§8). | Must features with tests. |
 | **Fri 6 Nov** | **Module complete** | Check §7 of `WORK_DIVISION.md` for every module. | Should features, USER_GUIDE with screenshots, SQL card. |
 | Sat 7 to Fri 13 Nov | **Integration week** | Run the runbook in §7. Tag `v1.0` on Fri 13 Nov. | Fix your bugs within a day; shared duties. |
-| Tue 17 Nov | Video final | Review it against `PRODUCT_SPEC.md` §9. | Content owner delivers the video. |
-| Wed 18 Nov | SQL injection lecture | Optional slide: our placeholders versus string concatenation. | |
-| Thu 19 Nov | Slides final | Review timing. | Discover owner delivers the slides. |
-| Fri 20 and Sun 22 Nov | Rehearsals (30 min each, online) | Time the talk at 5:00 or less; practise the TA's likely questions (§9). | Everyone speaks. |
-| **Mon 23 or Wed 25 Nov** | **Presentation** | | |
+| Tue 17 Nov | Video ready for review | Check explicit C/R/U/D and database effects against `PRODUCT_SPEC.md` §9. | Catherine135 delivers the video, at most two minutes. |
+| **Wed 18 Nov** | **First timed rehearsal (30 min, online)** | Time the whole talk, including video, at 5:00 or less; target 4:40. Record corrections. | Everyone speaks; hX1-dev brings draft slides, Catherine135 the video. |
+| Thu 19 Nov | Final slides and video | Review fixes, SQL explanations, Chen diagram and playback. | hX1-dev and Catherine135 finalize the files. |
+| **Fri 20 Nov** | **Internal submission target: all three files** | Check final archive/files, upload and verify acknowledgement. | MKWang-2006 prepares `Group_8_code.zip`; slides/video are separate named uploads. |
+| **Sat 21 Nov, 23:59** | **Official deadline: code ZIP, slides and video** | Keep this day as submission buffer; check Moodle for updates. | No planned feature work remains. |
+| Sun 22 Nov | Delivery rehearsal (30 min, online) | Use the submitted assets; practise questions and offline playback. | Everyone speaks. This is after submission, not a preparation deadline. |
+| **Mon 23 Nov** | **Group 8 presentation, order 8** | Confirm clock time on Moodle. | Everyone presents. |
 
-The Moodle deadline for source code and README has not been announced. Ask the TA by 6 Nov; until then, plan to submit by 22 Nov.
+The [26 Oct announcement](https://moodle.hku.hk/mod/forum/discuss.php?d=1068877) requires all materials by 21 Nov; the 27 Oct Moodle capture records 23:59 HKT and Group 8 on 23 Nov, order 8. Follow [SUBMISSION.md](SUBMISSION.md) for file naming, packaging and rubric weights. The 18 Nov SQL-injection lecture can inform explanations without adding features or delaying the rehearsal.
 
 ## 2. The weekly rhythm (asynchronous)
 
@@ -34,24 +36,24 @@ The Moodle deadline for source code and README has not been announced. Ask the T
 
 The public repository is [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). The app and `docs/` are the repository root. `.github/` is installed and CODEOWNERS uses `@Michael-wzl`; no manual file copying or Student Developer Pack application is needed for kickoff.
 
-The current handoff checklist is [COORDINATOR_TODO.md](COORDINATOR_TODO.md). Teammates start at [START_HERE.md](../../START_HERE.md), claim one of the three role issues, and follow the root README to run the app. Feature checklists live in their DEV_GUIDEs; a Projects board and an issue for every feature are optional.
+The current handoff checklist is [COORDINATOR_TODO.md](COORDINATOR_TODO.md). All roles are claimed and all three members have write access. Teammates start at [START_HERE.md](../../START_HERE.md), follow their next DEV_GUIDE task and the shared [submission checklist](SUBMISSION.md). A Projects board and an issue for every feature are optional.
 
-Invite the three teammates as collaborators using their GitHub usernames. `main` is protected with pull requests, passing `ci`, code-owner review for shared paths, resolved conversations, and no force pushes/deletion. The owner retains the default admin override. Module-only PRs do not need a coordinator approval; changes to shared code do.
+`main` is protected with pull requests, passing `ci`, code-owner review for shared paths, resolved conversations, and no force pushes/deletion. The owner retains the default admin override. Module-only PRs do not need a coordinator approval; changes to shared code do.
 
 ## 4. Reviewing the backbone (about 4 to 6 hours)
 
-Do this before kickoff; you will own this code and answer questions about it.
+Use this checklist for your own understanding of the code you own and will explain. [CODE_WALKTHROUGH.md](CODE_WALKTHROUGH.md) guides the reading; [VALIDATION.md](VALIDATION.md) records completed automated checks and remaining integration gaps.
 
 - [ ] `npm install`, `npm run db:reset`, `npm run dev`; log in as each persona; click every tab.
 - [ ] `npm test` and `npm run check:sql` pass locally; CI passes on GitHub.
 - [ ] Read `core/` file by file against `ARCHITECTURE.md` §6. Every function there exists with that signature.
 - [ ] Read `modules/identity/` (register, verify, login, Me page) as if you would present it.
 - [ ] Try to break it: register with a non-university e-mail, a wrong code six times, an expired code, a POST without a CSRF token, `/posts/600008` as an HKU user.
-- [ ] Each empty module folder has `index.js`, a placeholder page and a README pointing to its DEV_GUIDE.
+- [ ] Check the merged modules' manifests, routes and guide links; distinguish implemented pages from Discover destinations that still await completion.
 
 ## 5. Teammate message
 
-Use [TEAM_MESSAGE.md](TEAM_MESSAGE.md), which contains the repository link, three available roles and the short starting path.
+Use [TEAM_MESSAGE.md](TEAM_MESSAGE.md), which contains the repository link, current duties, new deadlines and the short starting path.
 
 ## 6. Kickoff agenda (Thu 22 Oct, 60 minutes)
 
@@ -67,17 +69,17 @@ Use [TEAM_MESSAGE.md](TEAM_MESSAGE.md), which contains the repository link, thre
 
 | Day | Do |
 |---|---|
-| Sat 7 | Feature freeze: only bug-fix PRs from now. Write `test/e2e/golden-path.test.js` from `PRODUCT_SPEC.md` §6. Run `npm run load-test`; every page under 300 ms. |
+| Sat 7 | Feature freeze: only bug-fix PRs from now. Run the real golden-path flows, including the three Discover-dependent checks; do not count TODOs as passes. Run `npm run load-test`; investigate regressions against the documented budget and known relevance-search exception. |
 | Sun 8 | **Bug bash** (asynchronous, led by the Messages owner): each member spends an hour using two other modules with their USER_GUIDE, filing issues labelled `bug` with steps to reproduce. |
-| Mon 9 to Wed 11 | Owners fix their bugs. Draw the Chen E-R diagram from `DATA_MODEL.md` §1 (draw.io, saved in `docs/data/er/`). Write the README for markers (setup in 5 commands, personas, feature list, where the SQL is). Messages owner does the rebuild test on a second laptop using only the README. |
+| Mon 9 to Wed 11 | Owners fix their bugs. Finalize the Chen E-R diagram (draft by 6 Nov) from `DATA_MODEL.md` §1 in `docs/data/er/`. Finish the marker README, including setup from the submitted ZIP, database/data initialization, personas and SQL locations. MKWang-2006 extracts a candidate ZIP and rebuilds on a second laptop using only its README; record results. |
 | Thu 12 | Release candidate: fresh `db:reset`, full click-through as every persona, all tests and SQL checks green. |
-| Fri 13 | Tag `v1.0`. Export the Moodle package (zip of the tagged source without `node_modules` and `uploads`). |
+| Fri 13 | Tag the accepted `v1.0`; export and verify `Group_8_code.zip` from that release using [SUBMISSION.md §4](SUBMISSION.md#4-source-zip-and-reproducibility). Include SQL/seeds/static assets; exclude credentials, dependencies, generated uploads and private files. Rebuild the package if a later tested release changes. |
 
 ## 8. Keeping scope under control
 
 - At CP1, a module with no pages yet is the main warning sign. Talk to its owner the same day.
 - At CP2, any unfinished **Must** feature: cut that module's **Could** features, then its **Should** features, then bring in the buddy (`WORK_DIVISION.md` §8).
-- Never add features after CP2, however small. Polish beats breadth in a 5-minute presentation.
+- Do not add unplanned features after CP2; finish only the agreed Should work by 6 Nov. Freeze features on 7 Nov. Keep optional MS-8 deferred. The rubric rewards reproducibility and presentation, not feature count.
 - Contract changes after kickoff: allowed only for bugs or blockers, and always through a `contract-change` issue that you resolve within a day.
 
 ## 9. Questions to prepare for
@@ -87,7 +89,7 @@ Use [TEAM_MESSAGE.md](TEAM_MESSAGE.md), which contains the repository link, thre
 - How is anonymity guaranteed? (the views plus the privacy contract test)
 - How do you stop SQL injection? (placeholders everywhere; one slide comparing a concatenated query)
 - Why is `reports.target_id` not a foreign key? (§7.3)
-- How did you use AI tools, and can each member explain their SQL? (each member presents their own SQL card)
+- How did you use AI tools, and can each member explain their SQL? (everyone prepares their card; choose 2–3 readable examples for the live talk)
 
 ## 10. Risks
 
@@ -95,7 +97,8 @@ Use [TEAM_MESSAGE.md](TEAM_MESSAGE.md), which contains the repository link, thre
 |---|---|---|
 | A member is late or silent | medium | CP1 makes it visible in week 1; buddy system; MoSCoW cut lines. |
 | MySQL setup problems on a member's laptop | medium | README troubleshooting; the optional `docker compose up -d mysql` path in the root README; pair at kickoff. |
-| Code nobody can explain (AI-generated) | medium | Every member presents their own SQL card and rehearses the questions above. |
+| Code nobody can explain (AI-generated) | medium | Every member understands their SQL card; the talk selects 2–3 readable examples and everyone rehearses the questions above. |
+| Final assets or upload problems discovered too late | medium | Draft rehearsal 18 Nov, final assets 19 Nov, verified submission 20 Nov; 21 Nov is buffer before the hard deadline. |
 | Anonymity or visibility leak | low | Shared views plus the privacy and visibility contract tests in CI. |
 | Live demo fails | low | The video is pre-recorded; the app runs offline from a seed reset. |
 | Late schema change | low | Schema frozen at kickoff; `contract-change` process. |
