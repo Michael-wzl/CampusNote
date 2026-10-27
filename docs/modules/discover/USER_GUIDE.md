@@ -4,7 +4,7 @@ The Feed and Search tabs are how you find posts. The feed shows everything you a
 
 Screenshots go in `docs/modules/discover/img/` when the pages are built; the placeholders below name the file each one should have.
 
-**Current delivery (23 Oct 2026):** All, your university and the seven topic Feed tabs, My posts and public user pages are available, with 20-post pages and Load more. Watching, Hot, Search, Liked, History and announcements described below are planned for subsequent deliveries.
+**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, My posts and public user pages are available, with 20-post pages and Load more. Search, the remaining personal lists and announcements described below are planned for subsequent deliveries.
 
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
@@ -30,11 +30,13 @@ The heading names the list you are viewing, such as **Food posts**. On a phone t
 
 [Phone Feed (390 px)](img/feed-390.png) · [Tablet Feed (768 px)](img/feed-768.png) · [Desktop Feed (1440 px)](img/feed-1440.png)
 
+[Watching on phone](img/feed-watching-390.png) · [Tablet](img/feed-watching-768.png) · [Desktop](img/feed-watching-1440.png) · [Empty Watching](img/feed-watching-empty-390.png)
+
 ## 2. Hot posts
 
 The 🔥 tab ranks the posts of the last 7 days. Every like counts 1 point, every comment 2 and every watch 3, and a post's points are divided by its age, so a lively post from this morning beats a slightly livelier one from last week. A brand-new post gets a short moment near the top even before anyone reacts, so new posts get a chance to be seen. When two posts score the same, the newer one comes first. Deleted and hidden comments do not count.
 
-*(screenshot to add: `img/feed-hot.png`)*
+[Hot on phone](img/feed-hot-390.png) · [Tablet](img/feed-hot-768.png) · [Desktop](img/feed-hot-1440.png)
 
 ## 3. Announcements
 

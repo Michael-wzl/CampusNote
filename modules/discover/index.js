@@ -6,6 +6,8 @@ module.exports = {
   router: require('./routes'),
   smoke: [
     '/feed',
+    '/feed?tab=watching',
+    '/feed?tab=hot',
     '/feed?tab=uni',
     '/feed?tab=share',
     '/feed?tab=food',

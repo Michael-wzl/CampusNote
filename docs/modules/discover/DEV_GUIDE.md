@@ -14,6 +14,8 @@ You can build this module without knowing the rest of the app. Everything you ne
 
 ## 1. The module in one paragraph
 
+**Watching/Hot delivery, 26 Oct 2026 (issue #22):** DS-1's Watching tab and DS-2 are implemented with the specified activity/ranking rules and offset pages. See [WATCHING_HOT_VALIDATION.md](WATCHING_HOT_VALIDATION.md). Search and the remaining personal lists are the next CP2 work; announcements retain their Should priority.
+
 Discover is how people find posts. The Feed tab shows every post the reader may see, newest first, with tabs for the posts they watch (👀), the week's hot posts (🔥), their own university and each topic, plus an announcement banner on top. The Search tab finds posts that contain all the words typed, in Chinese or English, and jumps straight to a post when a number like `#600012` is typed. The module also owns the four personal lists on the Me page (my posts, watching, liked, history), each user's public page, and the admin page for announcements. It writes only one table (`announcements`); everything about posts is read through the shared views, so deletion, hiding, visibility and anonymity are never re-implemented here. It is the project's ranking and search showcase: a hot score built from correlated subqueries and time arithmetic, and an ngram full-text index that searches Chinese.
 
 ## 2. What you own
