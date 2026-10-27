@@ -1,0 +1,44 @@
+<section class="discover-search stack" aria-label="Search posts">
+  <form method="get" action="/search" class="form form-width" role="search">
+    <div class="group">
+      <div class="field">
+        <label for="search-q">Search posts</label>
+        <input type="search" id="search-q" name="q" value="<%= query %>" maxlength="100" aria-describedby="search-hint">
+        <p class="hint" id="search-hint">Words in Chinese or English, or a post number such as #600012.</p>
+      </div>
+      <div class="discover-search-options">
+        <div class="field">
+          <label for="search-sort">Sort by</label>
+          <select id="search-sort" name="sort" data-autosubmit>
+            <option value="relevance"<%= sort === 'relevance' ? ' selected' : '' %>>Relevance</option>
+            <option value="newest"<%= sort === 'newest' ? ' selected' : '' %>>Newest</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="search-topic">Topic</label>
+          <select id="search-topic" name="topic" data-autosubmit>
+            <option value="">All topics</option>
+          <% ref.topics.forEach(topic => { -%>
+            <option value="<%= topic.code %>"<%= selectedTopic === topic.code ? ' selected' : '' %>><%= topic.name_en %></option>
+          <% }) -%>
+          </select>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-cta">Search</button>
+  </form>
+<% if (!query) { -%>
+  <a class="card" href="/events">
+    <h2>Campus events</h2>
+    <p class="muted">Film nights, hikes and talks. Book free tickets.</p>
+  </a>
+  <h2>From organizations</h2>
+  <%- include('partials/post-list', { cards, nextUrl: null, empty: 'No public posts from organizations yet.' }) %>
+<% } else { -%>
+  <div class="row-between wrap">
+    <h2>Results</h2>
+    <a class="btn btn-ghost" href="/search">Clear search</a>
+  </div>
+  <%- include('partials/post-list', { cards, nextUrl, empty: emptyText }) %>
+<% } -%>
+</section>

@@ -4,7 +4,7 @@ The Feed and Search tabs are how you find posts. The feed shows everything you a
 
 Screenshots go in `docs/modules/discover/img/` when the pages are built; the placeholders below name the file each one should have.
 
-**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, My posts and public user pages are available, with 20-post pages and Load more. Search, the remaining personal lists and announcements described below are planned for subsequent deliveries.
+**Current delivery (26 Oct 2026):** All Feed tabs, including Watching and Hot, Search, My posts and public user pages are available, with 20-post pages and Load more. The remaining personal lists and announcements described below are planned for subsequent deliveries.
 
 **On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
@@ -57,7 +57,9 @@ Tips:
 
 Before you type anything, the Search page shows a **Campus events** card (tap it to see events and book tickets) and **From organizations**: the latest posts from campus societies and offices.
 
-*(screenshot to add: `img/search-empty.png`, `img/search-results.png`)*
+[Empty Search on phone](img/search-empty-390.png) · [Tablet](img/search-empty-768.png) · [Desktop](img/search-empty-1440.png)
+
+[Results on phone](img/search-results-390.png) · [Tablet](img/search-results-768.png) · [Desktop](img/search-results-1440.png) · [No matches](img/search-no-results-390.png) · [Short query](img/search-short-390.png)
 
 ## 5. Your lists
 

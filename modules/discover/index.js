@@ -12,6 +12,7 @@ module.exports = {
     '/feed?tab=share',
     '/feed?tab=food',
     '/search',
+    '/search?q=library',
     '/me/posts',
     '/me/watching',
     '/me/likes',
