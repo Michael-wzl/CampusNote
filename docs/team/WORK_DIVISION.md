@@ -30,7 +30,7 @@ This section records the original implementation split; it is not the current hu
 3. **Shared assumptions.** The rules everyone must agree on (visibility, anonymity, deletion, counts) are written once, in the schema's views and in `PRODUCT_SPEC.md` §5. Nobody re-implements them, so nobody can implement them differently.
 4. **Waiting.** The schema and the seed data are complete before anyone starts, and `/dev/login-as` gives everyone a logged-in user. Nobody waits for anyone's tables, pages or login.
 5. **Aggregation.** Everything merges into `main` continuously behind CI, from the first week. The final week is for polishing, not for joining four codebases.
-6. **Balance.** The split follows the product's own seams (the five tabs), which happen to cut the work into similar sizes (§5). Each module also contains one strong SQL story for its owner to present, since every member must speak.
+6. **Balance.** The original split follows the product's own seams (the five modules), which happen to cut the work into similar sizes (§5). Each module also contains one strong SQL story for its contributor to understand and explain, since every member must speak.
 
 The backbone and identity go to the coordinator because every module depends on them from day one. Building them before kickoff (decision D2) means the dependency is satisfied before anyone needs it.
 

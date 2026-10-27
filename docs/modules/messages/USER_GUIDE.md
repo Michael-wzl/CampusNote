@@ -58,6 +58,7 @@ Write your first message and tap **Send**. The page tells you how you will appea
 - If you already have a conversation with that person about the same post (or by handle), you go straight back to it: there is only one conversation per pair of people per post, plus one by handle.
 - A conversation about a post and a conversation by handle with the same person are separate, so nobody can work out which handle is behind an alias.
 - You can only message about posts you can see.
+- Post conversations have a **Chat #** reference in the inbox and conversation page. Use it to distinguish two Visitors on the same post. The reference belongs to that private conversation; it does not identify a person across other chats or posts. Sending a DM does not give you a public comment alias.
 
 The **Message** button on a public student or organization profile opens the same Messages module. It is absent on your own profile and on a banned user's profile. In a public conversation, tap the other person's name to return to their profile. Opening Message again reuses the conversation.
 

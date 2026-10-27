@@ -101,3 +101,14 @@ The coordinator's packaging instructions identify the tested ref and output arch
 - [ ] Show genuine database evidence, such as query/result overlays or an observed ticket/capacity change; do not substitute mock screens or stale race totals for the current recording.
 - [ ] Keep the video at or below two minutes; target 1:55. Rehearse playback and all speaker transitions on 18 Nov, correct assets by 19 Nov, and keep local playable copies/backups.
 - [ ] After upload, use the submitted assets in the 22 Nov rehearsal. Any necessary replacement before the deadline must be rechecked and acknowledged on Moodle; do not assume changes after the deadline are allowed.
+
+Suggested first-rehearsal speaking split (adjust together while preserving the total):
+
+- **0:00–0:25 — Catherine135:** audience, purpose and main app functions.
+- **0:25–1:10 — hX1-dev:** one readable Chen E-R view and its key relationships.
+- **1:10–1:55 — Michael:** booking transaction, inventory check and rollback.
+- **1:55–2:30 — MKWang-2006:** comment-notification trigger and its visible result.
+- **2:30–4:25 — video:** the existing [1:55 CRUD + database script](../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes).
+- **4:25–4:40 — MKWang-2006:** close and handoff, leaving 20 seconds below the five-minute limit.
+
+All four members speak live in this allocation; recording the voice-over does not replace a live part. Keep selected SQL legible and explain the result rather than reading every line.

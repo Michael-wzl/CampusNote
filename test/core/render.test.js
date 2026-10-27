@@ -32,6 +32,10 @@ const memberPage = (locals) => (req, res) => {
   res.page('errors/404', { title: 'Member page', message: 'Hello', ...locals });
 };
 app.get('/me/tickets', memberPage({ tab: 'me' }));
+app.get('/events', memberPage({ tab: 'me' }));
+app.get('/events/1', memberPage({ tab: 'me' }));
+app.get('/me', memberPage({ tab: 'me' }));
+app.get('/feed', memberPage({ tab: 'feed' }));
 app.get('/compose', memberPage({ tab: 'compose', hideTabs: true }));
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => res.status(500).send(err.message));
@@ -66,14 +70,35 @@ test('public pages offer a keyboard skip link and omit signed-in navigation', as
   assert.equal($('.desktop-sidebar, nav.tabbar').length, 0);
 });
 
-test('ticket pages expose Events as the desktop section and keep compact navigation', async () => {
-  const res = await request(server).get('/me/tickets');
-  assert.equal(res.status, 200);
-  const $ = cheerio.load(res.text);
-  assert.equal($('.sidebar-nav a[aria-current="page"]').attr('href'), '/events');
-  assert.equal($('nav.tabbar a[aria-current="page"]').attr('href'), '/me');
-  assert.equal($('.sidebar-nav .badge').text(), '3');
-  assert.equal($('.sidebar-account strong').text(), 'testuser1');
+test('Events and ticket pages select the reachable Events destination in both navigation layouts', async () => {
+  for (const url of ['/events', '/events/1', '/me/tickets']) {
+    const res = await request(server).get(url);
+    assert.equal(res.status, 200);
+    const $ = cheerio.load(res.text);
+    assert.equal($('.sidebar-nav a[aria-current="page"]').attr('href'), '/events');
+    assert.equal($('nav.tabbar a[aria-current="page"]').attr('href'), '/events');
+    assert.equal($('.sidebar-nav .badge').text(), '3');
+    assert.equal($('.sidebar-account strong').text(), 'testuser1');
+  }
+});
+
+test('compact navigation keeps every main destination and its unread badge without changing Me selection', async () => {
+  for (const [url, active] of [
+    ['/feed', '/feed'],
+    ['/me', '/me'],
+  ]) {
+    const res = await request(server).get(url);
+    assert.equal(res.status, 200);
+    const $ = cheerio.load(res.text);
+    assert.deepEqual(
+      $('nav.tabbar > a')
+        .map((i, el) => $(el).attr('href'))
+        .get(),
+      ['/feed', '/search', '/compose', '/messages', '/events', '/me'],
+    );
+    assert.equal($('nav.tabbar a[aria-current="page"]').attr('href'), active);
+    assert.equal($('nav.tabbar a[href="/messages"] .badge').text(), '3');
+  }
 });
 
 test('focused compose pages retain desktop navigation while hiding compact tabs', async () => {

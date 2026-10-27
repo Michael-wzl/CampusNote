@@ -31,8 +31,8 @@ Font: the system UI font stack (`-apple-system, "PingFang HK", "Noto Sans CJK TC
 The shared shell adapts without JavaScript:
 
 - **Desktop (at least 1024 px):** a left sidebar with Feed, Search, New post, Messages, Events and Me sits beside the page title, flash message and content.
-- **Tablet (768 to 1023 px):** an expanded content column with bottom navigation; suitable card lists use two columns.
-- **Phone (below 768 px):** a full-width single column and compact bottom tabs; bottom padding keeps page controls above the fixed navigation.
+- **Tablet (768 to 1023 px):** an expanded content column with six bottom destinations: Feed, Search, New post, Messages, Events and Me; suitable card lists use two columns.
+- **Phone (below 768 px):** a full-width single column with the same six compact destinations; bottom padding keeps page controls above the fixed navigation. Events and My tickets select Events in both navigation layouts.
 
 `res.page(view, { title, tab, back, hideTabs, styles, scripts })` fills the frame; `styles` and `scripts` add your module's own files from `/m/<module>/`. Pages without an active destination (a post page, settings) pass `tab: null` and usually `back`. `hideTabs: true` on compose hides compact tabs; the logged-in desktop sidebar remains available. Logged-out pages have no authenticated navigation and use readable centred forms. Modules provide page content, not another navigation frame. See [RESPONSIVE.md](RESPONSIVE.md) for the complete contract.
 

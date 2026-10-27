@@ -15,8 +15,8 @@ const router = express.Router();
 // DS-1/DS-2: chronological feeds use keysets; activity and Hot use offset pages.
 router.get('/feed', async (req, res) => {
   const choices = [
-    { code: 'watching', label: '👀' },
-    { code: 'hot', label: '🔥' },
+    { code: 'watching', label: '👀 Watching' },
+    { code: 'hot', label: '🔥 Hot' },
     { code: 'all', label: 'All' },
     { code: 'uni', label: req.me.universityCode },
     ...ref.topics.map((topic) => ({ code: topic.code, label: topic.name_en })),
@@ -57,7 +57,7 @@ router.get('/feed', async (req, res) => {
             ? `No posts from ${req.me.universityCode} yet.`
             : 'No posts yet. Be the first to write one.';
   res.page('discover/feed', {
-    title: 'Campus Notes',
+    title: 'Feed',
     tab: 'feed',
     scripts: ['/m/discover/feed.js'],
     styles: ['/m/discover/announcements.css'],

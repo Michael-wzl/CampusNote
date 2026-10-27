@@ -12,7 +12,7 @@
 - The shell supplies the page title, back link, active destination, unread badge, keyboard skip link and navigation. Logged-out pages use a centred form/content layout without authenticated navigation.
 - Breakpoints use CSS viewport width. Resizing the same page adapts it immediately; no browser/device detection, duplicated routes or alternate database code.
 
-Keep the existing `res.page(view, { title, tab, back, hideTabs, styles, scripts })` API. `tab` selects the active destination. Events and My tickets use the dedicated Events destination on desktop; My tickets remains under Me on the compact navigation. `hideTabs` hides compact tabs, while a logged-in desktop user can still use the sidebar. Add no module-owned fixed sidebar or bottom bar.
+Keep the existing `res.page(view, { title, tab, back, hideTabs, styles, scripts })` API. `tab` selects the active destination. The compact navigation contains Feed, Search, New post, Messages, Events and Me; Events and My tickets select Events at every width. Its six equal columns retain 44 px targets at 320 px, and the compose circle stays within its column. `hideTabs` hides compact tabs, while a logged-in desktop user can still use the sidebar. Add no module-owned fixed sidebar or bottom bar.
 
 ## Layout helpers to reuse
 
@@ -55,6 +55,12 @@ Check normal, empty and validation-error states as the personas in your DEV_GUID
 Run your module tests, `npm test` and `npm run lint` as usual. HTTP tests verify behavior and markup; they do not replace these browser layout checks. Follow [WORKFLOW.md](../team/WORKFLOW.md) for the PR checklist.
 
 ## Reference views
+
+The 27 Oct review update keeps Events in the compact navigation alongside Feed, Search, New post, Messages and Me. The same Feed works without JavaScript at both sizes; tablet and breakpoint checks are recorded in [validation](../team/VALIDATION.md).
+
+![Phone Feed at 390 px, 27 Oct](screenshots/review-phone-feed.png)
+
+[Desktop Feed at 1440 px, 27 Oct](screenshots/review-desktop-feed.png)
 
 These are screenshots of the same Events page with seed data, captured on 21 Oct 2026. The layout changes with viewport width.
 
