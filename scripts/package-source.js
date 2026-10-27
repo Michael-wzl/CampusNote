@@ -87,11 +87,11 @@ function isPrivate(file) {
 }
 
 function packageSource({ root = path.join(__dirname, '..'), ref = 'HEAD', out } = {}) {
-  root = fs.realpathSync(path.resolve(root));
-  const gitRoot = fs.realpathSync(git(root, ['rev-parse', '--show-toplevel']).trim());
-  // Native path comparison handles Windows drive/case spelling after resolving aliases.
+  root = fs.realpathSync.native(path.resolve(root));
+  const gitRoot = fs.realpathSync.native(git(root, ['rev-parse', '--show-toplevel']).trim());
+  // Native realpath also expands Windows short-name aliases; compare native path spelling.
   if (path.relative(root, gitRoot) !== '')
-    throw new Error('Run source packaging from the repository root');
+    throw new Error(`Run source packaging from the repository root (${root}; Git: ${gitRoot})`);
   if (git(root, ['status', '--porcelain=v1', '--untracked-files=all']).trim())
     throw new Error('Commit or remove uncommitted source changes before packaging');
   const commit = git(root, ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`]).trim();
@@ -117,7 +117,7 @@ function packageSource({ root = path.join(__dirname, '..'), ref = 'HEAD', out } 
   if (missing.length) throw new Error(`Required source files are missing: ${missing.join(', ')}`);
 
   out = path.resolve(root, out || '../Group_8_code.zip');
-  out = path.join(fs.realpathSync(path.dirname(out)), path.basename(out));
+  out = path.join(fs.realpathSync.native(path.dirname(out)), path.basename(out));
   const relative = path.relative(root, out);
   if (!relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative))
     throw new Error('Write the source ZIP outside the repository');
