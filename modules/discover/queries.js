@@ -103,6 +103,33 @@ async function hotIds(myUniversityId, offset) {
   return rows.map((r) => r.post_id);
 }
 
+// DS-4, BR-5/8/9, D17/18: required-word ngram search; select/order are fixed SQL choices only.
+async function searchIds(expr, myUniversityId, topicId, sort, offset) {
+  const newest = sort === 'newest';
+  const select = newest
+    ? 'p.post_id'
+    : 'p.post_id, MATCH(p.body) AGAINST (? IN BOOLEAN MODE) AS relevance';
+  const order = newest ? 'p.post_id DESC' : 'relevance DESC, p.post_id DESC';
+  const rows = await q(
+    `SELECT ${select} FROM v_live_posts p
+     WHERE MATCH(p.body) AGAINST (? IN BOOLEAN MODE) AND ${VISIBLE}
+       AND (? IS NULL OR p.topic_id = ?) ORDER BY ${order} LIMIT 21 OFFSET ?`,
+    [...(newest ? [] : [expr]), expr, myUniversityId, topicId, topicId, offset],
+  );
+  return rows.map((row) => row.post_id);
+}
+
+// DS-4, BR-5/6/8/9: organization discovery must never identify an anonymous club post.
+async function orgPostIds(myUniversityId) {
+  const rows = await q(
+    `SELECT p.post_id FROM v_live_posts p JOIN users u ON u.user_id = p.author_id
+     WHERE u.role = 'organization' AND p.is_anonymous = 0 AND ${VISIBLE}
+     ORDER BY p.post_id DESC LIMIT 10`,
+    [myUniversityId],
+  );
+  return rows.map((row) => row.post_id);
+}
+
 module.exports = {
   feedAllIds,
   feedUniIds,
@@ -112,4 +139,6 @@ module.exports = {
   userPostIds,
   feedWatchingIds,
   hotIds,
+  searchIds,
+  orgPostIds,
 };

@@ -1,0 +1,11 @@
+.discover-search .discover-search-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+.discover-search .discover-search-options > * {
+  min-width: 0;
+}
+.discover-search .discover-search-options > :last-child {
+  border-left: 1px solid var(--line);
+}

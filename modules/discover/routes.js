@@ -3,10 +3,11 @@
 const express = require('express');
 const { requireRole } = require('../../core/auth');
 const { int, oneOf } = require('../../core/validate');
-const { byIds } = require('../../core/cards');
+const { byIds, findVisible } = require('../../core/cards');
 const ref = require('../../core/ref');
 const { notFound } = require('../../core/errors');
 const queries = require('./queries');
+const { toBooleanQuery } = require('./search');
 
 const router = express.Router();
 
@@ -81,15 +82,48 @@ router.get('/feed', async (req, res) => {
   });
 });
 
-router.get(
-  '/search',
-  placeholder({
-    feature: 'DS-4',
+router.get('/search', async (req, res) => {
+  const query = String(req.query.q ?? '')
+    .trim()
+    .slice(0, 100);
+  if (/^#?\d{6,7}$/.test(query)) {
+    const id = Number(query.replace('#', ''));
+    if (await findVisible(id, req.me)) return res.redirect(303, `/posts/${id}`);
+  }
+  const sort = oneOf(req.query.sort, ['relevance', 'newest']) ?? 'relevance';
+  const topic = ref.topic(req.query.topic);
+  const page = int(req.query.page, { min: 1, max: 2147483647 }) ?? 1;
+  const expr = toBooleanQuery(query);
+  const ids = !query
+    ? await queries.orgPostIds(req.me.universityId)
+    : expr
+      ? await queries.searchIds(
+          expr,
+          req.me.universityId,
+          topic?.topic_id ?? null,
+          sort,
+          (page - 1) * 20,
+        )
+      : [];
+  const next = new URLSearchParams({
+    q: query,
+    sort,
+    topic: topic?.code ?? '',
+    page: String(page + 1),
+  });
+  res.page('discover/search', {
     title: 'Search',
     tab: 'search',
-    what: 'Search posts in Chinese or English, sort by relevance or newest, filter by topic; #600012 opens a post.',
-  }),
-);
+    styles: ['/m/discover/search.css'],
+    query,
+    sort,
+    selectedTopic: topic?.code ?? '',
+    cards: await byIds(ids.slice(0, 20)),
+    nextUrl: query && ids.length > 20 ? `/search?${next}` : null,
+    emptyText:
+      query && !expr ? 'Type at least 2 characters' : 'No posts contain all of these words.',
+  });
+});
 
 router.get('/me/posts', async (req, res) => {
   const before = int(req.query.before, { min: 1, max: 4294967295 });
