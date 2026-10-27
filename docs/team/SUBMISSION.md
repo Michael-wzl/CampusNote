@@ -36,11 +36,11 @@ There is no separate rubric category for a native mobile app, public deployment 
 
 | By | Owner | Deliverable |
 |---|---|---|
-| Now | hX1-dev | Continue Discover's remaining Must features and tests. |
+| Now | hX1-dev | Must features are merged. Finish DS-3/DS-7 announcements, the SQL card and slide outline for 6 Nov; maintain the completed flows. |
 | Now | Catherine135 | Prepare the explicit CRUD/database video script using [PRODUCT_SPEC §9](../product/PRODUCT_SPEC.md#9-demo-video-script-at-most-2-minutes). |
 | Now | Michael | Start the Chen E-R diagram and update the marker README. |
 | Now | MKWang-2006 | Prepare the source-package checklist and arrange the second-laptop rebuild. |
-| 1 Nov | Module owners; Michael reviews | Must features merged and the three Discover-dependent integration TODOs executing and passing. |
+| 1 Nov | Module owners; Michael reviews | Preserve the early merged Must delivery. The three Discover-dependent integration flows are now mandatory checks; current acceptance evidence is in [VALIDATION.md](VALIDATION.md). |
 | 6 Nov | Every owner | Planned Should work, accurate USER_GUIDE/screenshots and module SQL card. Discover also supplies a slide outline, not final slides yet. |
 | 6 Nov | Michael | Chen diagram draft; the developer crow's-foot diagram is not the presentation asset. |
 | 7–13 Nov | Everyone | Feature freeze, cross-module tests, performance checks and defect fixes. |
@@ -55,7 +55,7 @@ There is no separate rubric category for a native mobile app, public deployment 
 | 22 Nov | Everyone | Delivery/playback rehearsal using the submitted assets. |
 | 23 Nov | Everyone | Group 8 presentation; every member speaks. |
 
-Content and Messages are already integrated. Their owners can start these shared duties while Discover continues. Keep Sunday 21:00 status updates and small PRs; report blockers early. A late Must feature triggers the existing Could/Should cut and buddy process, not a later submission date.
+Content, Messages and Discover's Must features are integrated. Discover's planned announcement features and presentation materials remain due 6 Nov; this is not full module/release completion. All owners can progress their shared duties now. Keep Sunday 21:00 status updates and small PRs; report blockers early. Any regression blocking a Must flow triggers the existing Could/Should cut and buddy process, not a later submission date.
 
 ## 4. Source ZIP and reproducibility
 

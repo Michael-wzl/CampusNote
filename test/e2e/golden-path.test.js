@@ -1,5 +1,4 @@
-// The demo's golden path across all modules (PRODUCT_SPEC.md §6), written in integration week
-// (COORDINATOR_ROADMAP.md §7, Sat 7 Nov). Search-to-booking still awaits Discover integration.
+// The demo's golden path across all modules (PRODUCT_SPEC.md §6).
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -281,6 +280,45 @@ test('5. Moderate: report, Hide, "[hidden by a moderator]", restore and preserve
     );
   }
 });
-test('6. Book a ticket: Search -> Campus events -> Film night -> Book -> My tickets', {
-  todo: 'discover, events',
+test('6. Book a ticket: Search -> Campus events -> Film night -> Book -> My tickets', async () => {
+  await resetDb();
+  const viewer = await agentAs('newbie0hk');
+  const search = await viewer.page('/search');
+  assert.equal(search.status, 200);
+  const eventsUrl = search.$('.discover-search a[href="/events"]').attr('href');
+  assert.equal(eventsUrl, '/events', 'Search must expose the Campus events entry');
+  const events = await viewer.page(eventsUrl);
+  assert.equal(events.status, 200);
+  const filmUrl = events.$('a[href="/events/1"]').first().attr('href');
+  assert.equal(filmUrl, '/events/1');
+  const detail = await viewer.page(filmUrl);
+  assert.equal(detail.status, 200);
+  assert.match(detail.$('h1').text(), /Film night/);
+  const bookAction = detail.$('form[action="/events/1/book"]').attr('action');
+  assert.equal(bookAction, '/events/1/book');
+  const before = await q.one('SELECT tickets_left FROM events WHERE event_id = 1');
+  const booked = await viewer.form(bookAction);
+  assert.equal(booked.status, 303);
+  assert.equal(booked.headers.location, filmUrl);
+  const ticket = await q.one('SELECT ticket_code FROM tickets WHERE event_id = 1 AND user_id = 6');
+  assert.ok(ticket, 'Booking must persist a ticket for the viewer');
+  const bookedDetail = await viewer.page(booked.headers.location);
+  assert.equal(bookedDetail.status, 200);
+  assert.equal(bookedDetail.$('.ticket-code').text().trim(), ticket.ticket_code);
+  assert.equal(
+    (await q.one('SELECT tickets_left FROM events WHERE event_id = 1')).tickets_left,
+    before.tickets_left - 1,
+  );
+  const meUrl = bookedDetail.$('a[href="/me"]').first().attr('href');
+  assert.equal(meUrl, '/me');
+  const me = await viewer.page(meUrl);
+  assert.equal(me.status, 200);
+  const ticketsUrl = me.$('main a[href="/me/tickets"]').attr('href');
+  assert.equal(ticketsUrl, '/me/tickets');
+  const tickets = await viewer.page(ticketsUrl);
+  assert.equal(tickets.status, 200);
+  const card = tickets.$('.ticket-card[data-event-id="1"]');
+  assert.equal(card.length, 1);
+  assert.equal(card.find('.ticket-code').text().trim(), ticket.ticket_code);
+  assert.equal(card.find('a[href="/events/1"]').length, 1);
 });

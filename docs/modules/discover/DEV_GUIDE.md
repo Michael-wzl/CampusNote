@@ -10,11 +10,13 @@
 
 You can build this module without knowing the rest of the app. Everything you need from other modules is listed in §3.
 
-**CP1 delivery, 23 Oct 2026:** All, university and topic feeds, My posts and public user pages are implemented, with 26 HTTP/database acceptance tests and combined browser verification. See [CP1_INTEGRATION_VALIDATION.md](CP1_INTEGRATION_VALIDATION.md) for the merge validation; each feature also retains its original evidence. Watching/Hot, search, the remaining personal lists and announcements retain their milestone scope below. Issue #2 remains open for the rest of Discover.
+**CP1 delivery, 23 Oct 2026:** All, university and topic feeds, My posts and public user pages were delivered with 26 HTTP/database acceptance tests and combined browser verification. See [CP1_INTEGRATION_VALIDATION.md](CP1_INTEGRATION_VALIDATION.md) for that dated evidence. CP2 subsequently completed Watching/Hot, Search and the remaining personal lists. Issue #2 stays open for the later announcements and presentation handoff, not those completed Must features.
 
 ## 1. The module in one paragraph
 
 **CP2 Must implementation, 26 Oct 2026 (issues #22/#24/#26):** Watching/Hot, Search and all four personal lists are complete. See [CP2_INTEGRATION_VALIDATION.md](CP2_INTEGRATION_VALIDATION.md) for the combined acceptance and [PERSONAL_LISTS_VALIDATION.md](PERSONAL_LISTS_VALIDATION.md) for the final list delivery. DS-3/DS-7 and the presentation materials keep their later milestone scope; issue #2 remains open.
+
+**Coordinator integration update, 27 Oct:** the saved-post Watching, Me count-to-list and Search-to-booking flows now run as mandatory shared tests, without the former TODO/environment gates. [Shared validation](../../team/VALIDATION.md) records current full-suite/browser results and limits. Next owner work is DS-3 banners, DS-7 admin announcements, `SQL_CARD.md` and the slide outline by **6 Nov**; full module/release acceptance remains separate.
 
 **Watching/Hot delivery, 26 Oct 2026 (issue #22):** DS-1's Watching tab and DS-2 are implemented with the specified activity/ranking rules and offset pages. See [WATCHING_HOT_VALIDATION.md](WATCHING_HOT_VALIDATION.md).
 
@@ -80,7 +82,7 @@ From the other modules you rely only on URLs and on rows they write:
 
 Announcement 1 ("Film night this Friday", links to `/events/1`, image `/static/seed/film-night.svg`) is current; announcement 2 ("Welcome week") has expired. Organization posts that show their name: 600011 (CUHK Hiking Club) and 600006 (HKU Film Society). Kelvin (`kelvin0hk`) posts only anonymously, so his user page lists nothing.
 
-**Existing starter:** `/feed` already renders the shared post cards for the basic All feed with seed data and paging. Extend this into DS-1; the remaining tabs, search, lists and announcements still need implementation.
+**Current implementation:** all Feed tabs, Search, the four personal lists and public profiles are merged. Preserve these Must flows and their tests. The remaining implementation is DS-3 announcement banners and DS-7 admin announcements, followed by the SQL card and slide-outline handoff; do not restart the earlier feed/search/list work.
 
 ## 4. Build plan
 

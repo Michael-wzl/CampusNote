@@ -1,5 +1,5 @@
 // ID-4 Me hub, ID-5 profile, ID-6 settings and password (DEV_GUIDE §7, ID-T21 to ID-T29).
-// The count-to-list check still needs Discover's lists (CP2); Clear history is integrated.
+// The CP2 count-to-list and Clear history checks run against the integrated modules.
 const { test, before } = require('node:test');
 const assert = require('node:assert/strict');
 const { resetDb, anon, agentAs, make, q } = require('../../../test/helpers');
@@ -280,24 +280,26 @@ test('ID-T29 change password', async () => {
 
 // ---------------------------------------------------------------- CP2 (other modules' lists)
 
-test(
-  'ID-T21 (CP2) each Me count equals the number of items on the page it links to',
-  { todo: 'needs content/discover lists (CP2)' },
-  async () => {
-    const mandy = await agentAs('mandy0hku');
-    const me = await mandy.page('/me');
-    for (const s of meStats(me)) {
-      const list = await mandy.page(s.href);
-      assert.equal(list.status, 200, s.href);
-      // discover's lists are post cards; content's My comments links each item to /posts/<id>#c<id>
-      const items =
-        s.href === '/me/comments'
-          ? list.$('main a[href^="/posts/"][href*="#c"]').length
-          : list.$('main .post-card').length;
-      assert.equal(items, s.value, `${s.label} (${s.href})`);
-    }
-  },
-);
+test('ID-T21 (CP2) each Me count equals the number of items on the page it links to', async () => {
+  const mandy = await agentAs('mandy0hku');
+  const me = await mandy.page('/me');
+  assert.equal(me.status, 200);
+  const stats = meStats(me);
+  assert.deepEqual(
+    stats.map((s) => s.href),
+    STAT_LINKS,
+  );
+  for (const s of stats) {
+    const list = await mandy.page(s.href);
+    assert.equal(list.status, 200, s.href);
+    // discover's lists are post cards; content's My comments links each item to /posts/<id>#c<id>
+    const items =
+      s.href === '/me/comments'
+        ? list.$('main a[href^="/posts/"][href*="#c"]').length
+        : list.$('main .post-card').length;
+    assert.equal(items, s.value, `${s.label} (${s.href})`);
+  }
+});
 
 test("ID-T24 (CP2) after Clear history, Mandy's Viewed count is 0", async () => {
   const mandy = await agentAs('mandy0hku');
