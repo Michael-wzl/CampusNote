@@ -6,6 +6,62 @@ beforeEach(resetDb);
 
 const badge = (page) => Number(page.$('a[href="/messages"] .badge').first().text() || 0);
 
+test('MS-I07: anonymous Visitors have distinct chat references without public aliases or identity leaks', async () => {
+  const postId = await make.post({ author: 'mandy0hku', anonymous: true, visibility: 'all' });
+  const firstUser = await make.user({ handle: 'visitor0a' });
+  const secondUser = await make.user({ handle: 'visitor0b' });
+  const first = await agentAs(firstUser.handle);
+  const second = await agentAs(secondUser.handle);
+  const mandy = await agentAs('mandy0hku');
+  const threads = [];
+  for (const [agent, body] of [
+    [first, 'First private question.'],
+    [second, 'Second private question.'],
+  ]) {
+    const sent = await agent.form('/messages/new?post=' + postId, { body });
+    assert.equal(sent.status, 303);
+    threads.push(sent.headers.location);
+  }
+  assert.notEqual(threads[0], threads[1]);
+  const home = await mandy.page('/messages');
+  const headings = threads.map((url) => home.$(`a[href="${url}"] strong`).text());
+  assert.equal(new Set(headings).size, 2);
+  for (const [i, url] of threads.entries()) {
+    const id = url.split('/').at(-1);
+    assert.ok(headings[i].includes(`Visitor · #${postId} · Chat #${id}`));
+    const page = await mandy.page(url);
+    assert.equal(page.status, 200);
+    assert.ok(page.$('h1').text().includes(`Visitor · Chat #${id}`));
+    assert.ok(page.$('.messages-context').text().includes(`Chat #${id}`));
+    assert.doesNotMatch(page.$('main').html(), /visitor0a|visitor0b|@connect\.hku\.hk|\/u\//);
+  }
+  const firstPage = await first.page(threads[0]);
+  assert.ok(
+    firstPage
+      .$('h1')
+      .text()
+      .includes(`Host · Chat #${threads[0].split('/').at(-1)}`),
+  );
+  assert.ok(firstPage.$('.messages-context').text().includes('You appear as Visitor'));
+  const reused = await first.page('/messages/new?post=' + postId);
+  assert.equal(reused.status, 303);
+  assert.equal(reused.headers.location, threads[0]);
+  assert.equal((await first.page(threads[1])).status, 404);
+  assert.equal((await first.form(threads[1], { body: 'Not my chat.' })).status, 404);
+  assert.equal((await (await agentAs('newbie0hk')).page(threads[0])).status, 404);
+  // BR-14: private first sends must not allocate a public per-post identity.
+  const participants = await q('SELECT user_id FROM post_participants WHERE post_id = ?', [postId]);
+  assert.deepEqual(
+    participants.map((row) => row.user_id),
+    [2],
+  );
+  // BR-14: a non-member's rejected send cannot change either conversation.
+  const messages = await q('SELECT message_id FROM messages WHERE conversation_id IN (?)', [
+    threads.map((url) => Number(url.split('/').at(-1))),
+  ]);
+  assert.equal(messages.length, 2);
+});
+
 test('MS-I01: a student profile links to first send, conversation reuse and the return profile', async () => {
   const newbie = await agentAs('newbie0hk');
   const profile = await newbie.page('/u/jason0ust');

@@ -3,8 +3,8 @@
   <form class="form" method="post" action="<%= csrfUrl('/compose') %>" enctype="multipart/form-data" data-leave-guard>
     <%- include('partials/field', { name: 'body', label: 'Your post', type: 'textarea', rows: 8, value: values.body, error: errors.body, max: 750, hint: 'Text is required. Line breaks are kept.', autocomplete: null, inputmode: null }) %>
     <div class="group">
-      <%- include('partials/toggle', { name: 'show_handle', label: 'Show my handle', checked: values.show_handle, hint: 'Others see your handle (or organization name) and can open your page.' }) %>
-      <%- include('partials/toggle', { name: 'all_universities', label: 'Visible to all universities', checked: values.all_universities, hint: 'Off: only ' + me.universityCode + ' students can see it.' }) %>
+      <%- include('partials/toggle', { name: 'show_handle', label: 'Show my handle', checked: values.show_handle, hint: 'On: show your handle (or organization name). Off: post anonymously.' }) %>
+      <%- include('partials/toggle', { name: 'all_universities', label: 'Visible to all universities', checked: values.all_universities, hint: 'On: students at all universities can see it. Off: only ' + me.universityCode + ' students can see it.' }) %>
     </div>
     <%- include('partials/topic-chips', { topics: ref.topics, name: 'topic', selected: values.topic, error: errors.topic, label: 'Pick a topic' }) %>
     <div class="field<%= errors.images ? ' has-error' : '' %>">

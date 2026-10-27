@@ -22,12 +22,12 @@
      { key: 'search', href: '/search', label: 'Search', icon: 'search' },
      { key: 'compose', href: '/compose', label: 'New post', icon: 'plus' },
      { key: 'messages', href: '/messages', label: 'Messages', icon: 'messages' },
+     { key: 'events', href: '/events', label: 'Events', icon: 'calendar' },
      { key: 'me', href: '/me', label: 'Me', icon: 'me' },
    ];
    const inEvents = pagePath.startsWith('/events') || pagePath === '/me/tickets';
    const currentSection = inEvents ? 'events' : tab;
-   const desktopLinks = [...tabs.filter((item) => item.key !== 'compose' && item.key !== 'me'),
-     { key: 'events', href: '/events', label: 'Events', icon: 'calendar' }, tabs[4]];
+   const desktopLinks = tabs.filter((item) => item.key !== 'compose');
 -%>
 <body class="<%= hideTabs || !me ? 'no-tabs' : '' %>">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -82,7 +82,7 @@
 <% if (item.key === 'compose') { -%>
     <a class="tab-compose" href="<%= item.href %>"<%- tab === item.key ? ' aria-current="page"' : '' %>><span class="plus"><%- ui.icon('plus') %></span><span class="sr-only"><%= item.label %></span></a>
 <% } else { -%>
-    <a href="<%= item.href %>"<%- tab === item.key ? ' aria-current="page"' : '' %>>
+    <a href="<%= item.href %>"<%- currentSection === item.key ? ' aria-current="page"' : '' %>>
       <%- ui.icon(item.icon) %><span><%= item.label %></span>
 <% if (item.key === 'messages' && unread > 0) { -%>
       <span class="badge" aria-label="<%= unread %> unread"><%= unread > 99 ? '99+' : unread %></span>

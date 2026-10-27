@@ -4,6 +4,25 @@ An anonymous notice board for students of HKU, CUHK and HKUST, in the style of t
 
 Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU, autumn 2026. A desktop-first responsive website that also adapts to tablets and phones. A server-rendered Node.js app: Express 5, EJS templates and MySQL 8 through `mysql2` with hand-written SQL (no ORM).
 
+## Marker quick start (ZIP)
+
+You need **Node.js 22+** and **MySQL 8.0.19+** (8.4 recommended). Extract `Group_8_code.zip`, open a terminal beside its `CampusNote` folder, then run:
+
+```bash
+cd CampusNote
+npm ci
+npm run setup
+```
+
+**Before resetting:** start MySQL and set its connection details in `.env` (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`). Check that `DB_NAME` and `DB_NAME_TEST` name **two distinct, dedicated local databases**; their defaults are `campus_notes` and `campus_notes_test`. The reset and test commands replace their contents, so choose different names if either already contains data you need. The MySQL account needs privileges on the chosen databases; see [full setup](#setting-up-mysql).
+
+```bash
+npm run db:reset
+npm run dev
+```
+
+Open **http://localhost:3000** and log in as **`mandy@connect.hku.hk` / `campus123`**. Sign-up/reset codes are at `/dev/mailbox` with `SMTP_URL` unset. No Git, GitHub account or real mail service is required to run the ZIP. For Docker, platform notes and troubleshooting, see [Run locally](#run-locally).
+
 ## Team: start here
 
 **[Check your role and start working → START_HERE.md](START_HERE.md)**
@@ -34,7 +53,7 @@ npm ci
 npm run setup               # creates .env with a random session secret; keeps any existing .env
 ```
 
-Start MySQL and set `DB_USER` / `DB_PASSWORD` in `.env` to your local account. If you already have Docker, you can instead run `docker compose up -d mysql --wait`; its database runs only on localhost:3306, using the default `.env.example` root account with an empty development password. Stop any other service using port 3306 first, or use your existing MySQL. This is a local development setup.
+Start MySQL and set its host, port and `DB_USER` / `DB_PASSWORD` in `.env` to your local connection. Check that `DB_NAME` and `DB_NAME_TEST` are distinct, dedicated local databases before the next command. If you already have Docker, you can instead run `docker compose up -d mysql --wait`; its database runs only on localhost:3306, using the default `.env.example` root account with an empty development password. Stop any other service using port 3306 first, or use your existing MySQL. This is a local development setup.
 
 ```bash
 npm run db:reset            # rebuilds campus_notes with schema, triggers and demo data
@@ -47,7 +66,11 @@ Open http://localhost:3000. In development the login page lists every demo accou
 
 ### Setting up MySQL
 
-macOS: `brew install node mysql@8.4`, then `brew services start mysql@8.4`. Windows: the MySQL Installer (choose 8.4). Then either put the root password in `.env`, or create a user for the app once (as root, in `mysql -uroot -p`):
+- **macOS:** `brew install node mysql@8.4`, then `brew services start mysql@8.4`.
+- **Windows:** install MySQL 8.4 and start its service.
+- **Linux:** use a local MySQL 8 server (8.4 recommended), or the Docker Compose option above. The default connection is `127.0.0.1:3306`; set `.env` to match your server.
+
+Then either put the local root password in `.env`, or create a user for the app once (as root, in `mysql -uroot -p`). These grants use the default database names; replace them if you chose different names:
 
 ```sql
 CREATE USER 'campus'@'localhost' IDENTIFIED BY 'choose-a-password';

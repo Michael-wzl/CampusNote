@@ -160,7 +160,7 @@ test('4. Message privately: "Message the host" as Visitor', async () => {
   const chatUrl = sent.headers.location;
   const id = Number(chatUrl.split('/').pop());
   const visitorChat = await visitor.page(chatUrl);
-  assert.equal(visitorChat.$('h1').text(), 'Host');
+  assert.equal(visitorChat.$('h1').text(), `Host · Chat #${id}`);
   assert.match(visitorChat.$('.messages-context').text(), /You appear as Visitor/);
   assert.doesNotMatch(visitorChat.$('main').html(), /mandy0hku|newbie0hk|\/u\//);
   const inbox = await host.page('/messages');
@@ -168,7 +168,7 @@ test('4. Message privately: "Message the host" as Visitor', async () => {
   assert.match(preview.text(), /Visitor/);
   assert.equal(preview.find('.badge').text(), '1');
   const hostChat = await host.page(chatUrl);
-  assert.equal(hostChat.$('h1').text(), 'Visitor');
+  assert.equal(hostChat.$('h1').text(), `Visitor · Chat #${id}`);
   assert.match(hostChat.$('.messages-context').text(), /You appear as Host/);
   assert.doesNotMatch(hostChat.$('main').html(), /mandy0hku|newbie0hk|\/u\//);
   const replied = await host.form(hostChat.$('form[method="post"]').attr('action'), {

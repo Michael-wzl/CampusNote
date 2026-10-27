@@ -156,7 +156,9 @@ async function showConversation(req, res, conversation, errors = {}, values = { 
       messages.at(-1).message_id,
     );
   return res.page('messages/conversation', {
-    title: conversation.display_name,
+    title: conversation.post_id
+      ? `${conversation.display_name} · Chat #${conversation.conversation_id}`
+      : conversation.display_name,
     tab: 'messages',
     back: '/messages',
     styles,

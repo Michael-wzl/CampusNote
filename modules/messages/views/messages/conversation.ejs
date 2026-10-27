@@ -3,6 +3,7 @@
 <% if (conversation.post_id) { -%>
     <p><% if (conversation.post_available) { %><a href="/posts/<%= conversation.post_id %>"><%= ui.postNo(conversation.post_id) %></a><% } else { %><%= ui.postNo(conversation.post_id) %> <span class="muted">This post is no longer available</span><% } %></p>
     <p class="muted">You appear as <%= myName %></p>
+    <p class="small muted">Chat #<%= conversation.conversation_id %> identifies this conversation.</p>
 <% } else { -%>
     <p><a href="/u/<%= conversation.other_handle %>"><%= conversation.display_name %></a></p>
 <% } -%>

@@ -1,4 +1,5 @@
 <%# ID-2: log in. Locals: action (keeps ?next=), values, alert, personas (development only). -%>
+<p class="muted">A campus notice board for HKU, CUHK and HKUST. Share notes, talk anonymously and find campus events.</p>
 <% if (alert) { -%>
 <p class="alert" role="alert"><%= alert %></p>
 <% } -%>
@@ -15,6 +16,8 @@
   <a href="/auth/register">New here? Join with your university e-mail</a>
 </div>
 <% if (personas.length) { -%>
-<h2 class="group-title">Developer shortcuts</h2>
+<details class="group identity-demo-logins">
+<summary>Developer shortcuts (local demo only)</summary>
 <%- include('partials/menu', { groups: [personas] }) %>
+</details>
 <% } -%>

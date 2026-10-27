@@ -21,8 +21,8 @@ test('DS-T01 (CP1): All is active, with university/topic links and shared post c
       .map((_, a) => page.$(a).text())
       .get(),
     [
-      '👀',
-      '🔥',
+      '👀 Watching',
+      '🔥 Hot',
       'All',
       'HKU',
       'Share',

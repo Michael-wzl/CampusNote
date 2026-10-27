@@ -173,7 +173,7 @@ body.no-tabs .page {
   height: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
   padding-bottom: env(safe-area-inset-bottom, 0px);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: center;
   background: #161616;
   border-top: 1px solid var(--line);
@@ -184,6 +184,7 @@ body.no-tabs .page {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  min-width: 0;
   min-height: 44px;
   justify-content: center;
   color: var(--muted);
@@ -200,8 +201,9 @@ body.no-tabs .page {
 .tabbar .tab-compose span.plus {
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
+  width: min(58px, 100%);
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
@@ -1334,8 +1336,5 @@ h2 {
   .page-grid,
   .post-list {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .tabbar a {
-    font-size: 12px;
   }
 }

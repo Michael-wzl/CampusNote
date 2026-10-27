@@ -1,4 +1,18 @@
-# Handoff validation — 21 Oct 2026
+# Validation and source readiness
+
+## Current source status — 27 Oct 2026
+
+The agreed app features are implemented. Follow-up fixes from App Tester's independent review clarify both audience-switch states, give anonymous conversations distinct chat references, keep Events in compact navigation, remove the repeated Feed title, name Watching/Hot filters and make the local-demo login shortcuts collapsible. The README now leads with the marker's ZIP setup path. These are usability/documentation improvements; anonymity, module/table boundaries and the schema are preserved.
+
+Fresh coordinator verification of these fixes passes **277/277 application tests, zero fail/skip/TODO, all 456 SQL checks and lint/format/diff checks** on Node 24.9.0 / isolated MySQL 8.4.13. New regressions cover distinct anonymous Visitors without identity leaks or public alias allocation, non-member denial, and complete/active compact navigation. Shared-shell Chrome checks cover 320/390/768/1023/1024/1440 px with JavaScript on/off; actual-app checks include normal password login, keyboard disclosure/navigation, both audience states and readable filters/titles. This is viewport emulation, not physical-phone or other-engine coverage.
+
+The preceding accepted candidate [`da536e1`](https://github.com/Michael-wzl/CampusNote/commit/da536e10811870284a3d50c95b753bd70834cb74), from [PR #29](https://github.com/Michael-wzl/CampusNote/pull/29), passed [main CI](https://github.com/Michael-wzl/CampusNote/actions/runs/40471714248), an actual ZIP rebuild and the `npm start` entrypoint smoke. App Tester independently reproduced its setup, 275 tests and 456 SQL checks on Debian 13 / Node 22.20.0 / MySQL 8.4.2. The review's approximate 29/30 materials score is one reviewer's opinion, not an official mark. Slides, video and live delivery remain unassessed.
+
+Each replacement handoff ZIP requires the current revision's [CI](https://github.com/Michael-wzl/CampusNote/actions) and a fresh rebuild from its actual extracted contents. The matching manifest identifies its exact source commit/tree and archive SHA-256; the coordinator's handoff record identifies the rebuild result. Native Windows CI covers **11 reset/package cases**, not a full Windows/MySQL app run. Michael/assistant handle source changes and packaging; teammates review the app/code/README and prepare presentation materials. Optional MS-8 and other Could features remain deferred.
+
+**Read the dated sections below as an audit trail.** Earlier TODO counts, incomplete-module statements and teammate coding assignments describe those earlier revisions. They do not describe the implemented source above. See [SUBMISSION.md](SUBMISSION.md) for current responsibilities and remaining presentation/submission work.
+
+## Historical handoff record — 21 Oct 2026
 
 ## Fresh local checks
 
