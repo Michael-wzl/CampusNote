@@ -19,7 +19,7 @@ All members retain repository access. Send suggestions to Michael rather than st
 
 ## 2. App and technical references
 
-The backbone, Identity, Events, Content, Messages MS-1–MS-7 and Discover Must flows are merged. The remaining agreed announcement work is now Michael/assistant's responsibility; source-ready status depends on the recorded final checks, not this ownership change. See [VALIDATION.md](docs/team/VALIDATION.md) for actual results and limitations.
+The backbone, Identity, Events, Content, Messages MS-1–MS-7, Discover Must flows and the agreed announcement features are implemented. The final source checks and exact-ZIP rebuild determine the source-ready handoff. See [VALIDATION.md](docs/team/VALIDATION.md) for actual results and limitations.
 
 For local setup follow [README.md](README.md#run-locally). Node 22+ and MySQL 8 are required; development shortcuts provide seeded personas. The website adapts to desktop, tablet and phone using the shared [responsive guide](docs/architecture/RESPONSIVE.md). Implementation references remain in the module [DEV_GUIDEs](docs/README.md).
 

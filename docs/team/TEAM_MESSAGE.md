@@ -1,9 +1,7 @@
 # Message to teammates
 
-Change of plan: I'll handle the remaining code, repo, README, testing and source ZIP with the coding assistant first, so there's no coding or packaging task for you right now.
+The agreed app features and source baseline are ready for review: desktop/phone layouts, Content, Discover, Messages, Events and admin announcements. Repo: https://github.com/Michael-wzl/CampusNote. Start with [START_HERE.md](../../START_HERE.md) and the root README; I'll share the verified source ZIP and exact commit alongside this message.
 
-Once the app and source are settled, I'll send the tested baseline. Then please review the code and README and suggest improvements. Catherine will handle the video, hX1-dev the slides, and MKWang-2006 rehearsal/playback coordination; everyone will have a speaking part. I'll handle any agreed code changes.
+Please review the app, code and README and send me improvement suggestions. Catherine will handle the video, hX1-dev the slides, and MKWang-2006 rehearsal/playback coordination; everyone will have a speaking part. I'll continue handling all code, repo and source packaging, including any agreed fixes. [SUBMISSION.md](SUBMISSION.md) links the Chen diagrams, SQL notes and presentation checklist.
 
 The final targets stay the same: rehearsal **18 Nov**, final slides/video **19 Nov**, submission target **20 Nov** before the **21 Nov, 23:59 HKT** deadline. We present **23 Nov**.
-
-Plan and handoff checklist: [SUBMISSION.md](SUBMISSION.md). Repo: https://github.com/Michael-wzl/CampusNote

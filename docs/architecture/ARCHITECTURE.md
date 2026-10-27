@@ -32,7 +32,7 @@ Status: the stack (decision D1) and the backbone plan (D2) were decided on 17 Oc
 | Quality | ESLint 9 + Prettier 3 | `npm run lint`, `npm run format`. |
 | CI | GitHub Actions with a MySQL 8.4 service | Runs lint, all tests and the SQL checks on every PR. |
 
-Exact versions are pinned in `package.json`: Express 5.2.1, EJS 3.1.10, mysql2 3.24.5, express-session 1.19.0, bcryptjs 3.0.3, multer 2.4.0, nodemailer 10.0.13 (used only when `SMTP_URL` is set); for development ESLint 9.39, Prettier 3.9, supertest 7.3 and cheerio 1.2. `npm run dev` uses Node's own `--watch` (it restarts when a `.js` file changes; templates are re-read on every request in development).
+Exact versions are pinned in `package.json`: Express 5.2.1, EJS 3.1.10, mysql2 3.24.5, express-session 1.19.0, bcryptjs 3.0.3, multer 2.5.0, nodemailer 10.1.4 (used only when `SMTP_URL` is set); for development ESLint 9.39, Prettier 3.9, supertest 7.3 and cheerio 1.2. `npm run dev` uses Node's own `--watch` (it restarts when a `.js` file changes; templates are re-read on every request in development).
 
 ## 3. Repository layout
 
