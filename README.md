@@ -23,6 +23,8 @@ npm run dev
 
 Open **http://localhost:3000** and log in as **`mandy@connect.hku.hk` / `campus123`**. Sign-up/reset codes are at `/dev/mailbox` with `SMTP_URL` unset. No Git, GitHub account or real mail service is required to run the ZIP. For Docker, platform notes and troubleshooting, see [Run locally](#run-locally).
 
+Follow [Check the app is running](#check-the-app-is-running) to confirm that the initial data loads and a new post is saved.
+
 ## Team: start here
 
 **[Check your role and start working → START_HERE.md](START_HERE.md)**
@@ -62,7 +64,27 @@ npm run dev                 # http://localhost:3000
 
 `db:reset` replaces the configured development database; use a dedicated local database, not a shared or production one. Tests use `DB_NAME_TEST` and replace its contents.
 
+The reset command automatically imports the SQL files in this order:
+
+1. `db/schema.sql`: tables, constraints and shared views.
+2. Module database SQL under `modules/*/db/`, excluding `seed.sql`: currently the notification triggers in `modules/messages/db/triggers.sql`.
+3. `db/seed/core.sql`: initial demo accounts and application data.
+4. Any module-specific `modules/*/db/seed.sql` files, if present.
+
+No manual SQL imports are needed.
+
 Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Publishing/comments, all feed tabs, Search, personal lists, private messages/notifications, report/moderation and scheduled/admin announcements are available. MS-8 block/unblock controls remain optional and deferred.
+
+### Check the app is running
+
+After starting the app, check the following in a browser. Use your configured `PORT` in the URL if it differs from 3000.
+
+1. Open http://localhost:3000 and log in with `mandy@connect.hku.hk` / `campus123`. The Feed should show seeded post cards.
+2. Open post `#600012`. Its text and comments should appear, confirming that the initial data is available.
+3. Click **New post**, enter `README smoke test`, select **Share**, leave both switches off and click **Publish**. The app should open the new post's detail page with its generated post number and the text you entered.
+4. Reload that detail page. The text should remain. Return to **Feed** and confirm that the new post also appears in the list.
+
+These checks create one test post in your dedicated local development database.
 
 ### Setting up MySQL
 
