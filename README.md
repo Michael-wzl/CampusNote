@@ -6,111 +6,145 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 ## Marker quick start (ZIP)
 
-You need **Node.js 22+** and **MySQL 8.0.19+** (8.4 recommended). Extract `Group_8_code.zip`, open a terminal **in** its `CampusNote` folder (the folder containing `package.json`), then run:
-
-```bash
-npm ci
-npm run setup
-```
-
-**Before resetting:** start MySQL (on Windows, start your installed MySQL service in the **Services** app). Set the connection details in `.env` (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`). Check that `DB_NAME` and `DB_NAME_TEST` name **two distinct, dedicated local databases**; their defaults are `campus_notes` and `campus_notes_test`. The reset and test commands replace their contents, so choose different names if either already contains data you need. The MySQL account needs privileges on the chosen databases; see [full setup](#setting-up-mysql).
-
-```bash
-npm run db:reset
-npm run dev
-```
-
-Open **http://localhost:3000** and log in as **`mandy@connect.hku.hk` / `campus123`**. Sign-up/reset codes are at `/dev/mailbox` with `SMTP_URL` unset. No Git, GitHub account or real mail service is required to run the ZIP. For Docker, platform notes and troubleshooting, see [Run locally](#run-locally).
-
-Follow [Check the app is running](#check-the-app-is-running) to confirm that the initial data loads and a new post is saved.
-
-## Team: start here
-
-**[Check your role and start working → START_HERE.md](START_HERE.md)**
-
-Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote). Michael, working with his coding assistant, now maintains all code, the README, validation and source packaging. Earlier teammate contributions remain credited in the module guides and Git history. The team joins after the verified source-ready handoff to review code/README and prepare slides, video and rehearsals; there is no current teammate coding or packaging prerequisite.
-
-The agreed app features are implemented, including scheduled announcement banners/admin CRUD, the shared backbone, Identity, Events, Content, Messages MS-1–MS-7 and Discover feeds/search/lists/profiles. The three shared Discover integration checks are mandatory. The editable [Chen diagrams](docs/data/er/README.md) and module SQL cards support the later team review/presentation. See [validation](docs/team/VALIDATION.md) for current results, source-package evidence and limits. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
-
-**Final submission:** upload **three separate files** to Moodle: `Group_8_code.zip`, `Group_8_slides.pptx` and `Group_8_video.mp4`. All are due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal.
+Extract `Group_8_code.zip` and follow the numbered [first-time setup](#run-locally) below. You do not need Git, a GitHub account or a real e-mail service. The ZIP contains the app; **Node.js and a running MySQL server must also be installed on your computer**.
 
 ## Run locally
 
-You need **Node.js 22 or later** and **MySQL 8.0.19 or later** (8.4 LTS recommended).
+Do these steps once, in order, running one command at a time. Continue after each command succeeds. Node.js runs the website; MySQL is a separate program that stores its data. `npm ci` installs the app's packages, but does not install or start MySQL.
 
-**From the submitted ZIP:** extract `Group_8_code.zip` and open a terminal in its `CampusNote` folder (the folder containing `package.json`). Git and a GitHub account are not required to run the extracted project. Continue with `npm ci` and `npm run setup` below.
+### 1. Open the project folder in a terminal
 
-**From GitHub:** clone and enter the project folder first:
+**From the ZIP:** extract it, then open a terminal **in** the extracted `CampusNote` folder. You should see `package.json` in that folder. On macOS, you can type `cd ` in Terminal (with a space), drag the folder from Finder into the terminal, then press Return.
+
+**From GitHub:** if you have not downloaded the project yet, run:
 
 ```bash
 git clone https://github.com/Michael-wzl/CampusNote.git
 cd CampusNote
 ```
 
-**For either source**, install the pinned dependencies and create local configuration:
+If you already have the project open in a terminal, stay in that folder. Do not run `cd CampusNote` again.
+
+Run `node --version`. It must print **v22 or later**. If Node is not installed, install [Node.js](https://nodejs.org/) before continuing.
+
+### 2. Install and start MySQL
+
+You need **MySQL 8.0.19 or later**; we recommend **8.4 LTS**. Follow the instructions for your computer:
+
+**macOS with Homebrew:** run these commands once. If `brew` is not found, install [Homebrew](https://brew.sh/) first and reopen Terminal.
+
+```bash
+brew install mysql@8.4
+brew services start mysql@8.4
+"$(brew --prefix mysql@8.4)/bin/mysqladmin" --host=127.0.0.1 --port=3306 --user=root ping
+```
+
+The last command should print **`mysqld is alive`**. If the service has just started, wait a few seconds and retry that last command. A fresh Homebrew installation normally has user `root` with an empty password. If you get `Access denied`, add `--password` before `ping` in the last command and enter your database password when prompted. Use that same password in step 4; do not reset it.
+
+**Windows:** install MySQL Server 8.4, keep its port at **3306**, and remember the **root password** you choose during installation. Open the **Services** app, find the MySQL service created by the installer and start it. Continue with step 3 and put that root password in `.env` at step 4.
+
+**Linux, Docker or an existing MySQL server:** use [these database options](#setting-up-mysql), then return to step 3. You only need one MySQL server; do not start Docker and a native MySQL service on the same port.
+
+### 3. Install the app and create its settings
+
+In the project folder from step 1, run:
 
 ```bash
 npm ci
-npm run setup               # creates .env with a random session secret; keeps any existing .env
+npm run setup
 ```
 
-Start MySQL and set its host, port and `DB_USER` / `DB_PASSWORD` in `.env` to your local connection. Check that `DB_NAME` and `DB_NAME_TEST` are distinct, dedicated local databases before the next command. If you already have Docker, you can instead run `docker compose up -d mysql --wait`; its database runs only on localhost:3306, using the default `.env.example` root account with an empty development password. Stop any other service using port 3306 first, or use your existing MySQL. This is a local development setup.
+`npm run setup` creates a file named **`.env`** with local settings and a random session secret. If it says **`Kept your existing .env`**, that is normal: it preserves your previous settings, which you should check in the next step.
+
+Funding, deprecated-package and audit warnings can appear even when `npm ci` succeeds. Keep the submitted package versions; **do not run `npm audit fix --force` as part of setup**. If a command prints an actual error and fails, resolve that error before continuing.
+
+### 4. Check the database settings
+
+Open `.env` in a text editor. It is a hidden file, so it may not appear in Finder. From the project terminal, use `open -e .env` on macOS or `notepad .env` on Windows.
+
+Check these lines; keep the other settings, including the generated `SESSION_SECRET`:
+
+```dotenv
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=campus_notes
+DB_NAME_TEST=campus_notes_test
+```
+
+- Leave `DB_PASSWORD=` empty **only if your MySQL root account has no password**. Otherwise put your actual MySQL password after `=` and save the file; use quotes if it contains `#` or spaces. This is the database password, not the `campus123` demo login password.
+- The database names must be **different and dedicated to this project**. `db:reset` creates/rebuilds `DB_NAME`; tests create/rebuild `DB_NAME_TEST`. Both replace the chosen database's contents. Choose other names if either already contains data you need.
+- Keep the default host and port unless your MySQL server uses different ones. Do not share or commit your `.env` file.
+
+### 5. Create the demo data, then start the app
 
 ```bash
-npm run db:reset            # rebuilds campus_notes with schema, triggers and demo data
-npm run dev                 # http://localhost:3000
+npm run db:reset
 ```
 
-`db:reset` replaces the configured development database; use a dedicated local database, not a shared or production one. Tests use `DB_NAME_TEST` and replace its contents.
+It should print **`Rebuilt campus_notes ...`** (or your chosen database name). It loads the tables, notification triggers and demo accounts/posts automatically; no manual SQL imports are needed. If it fails, fix the error before starting the app.
 
-The reset command automatically imports the SQL files in this order:
+Then run:
 
-1. `db/schema.sql`: tables, constraints and shared views.
-2. Module database SQL under `modules/*/db/`, excluding `seed.sql`: currently the notification triggers in `modules/messages/db/triggers.sql`.
-3. `db/seed/core.sql`: initial demo accounts and application data.
-4. Any module-specific `modules/*/db/seed.sql` files, if present.
+```bash
+npm run dev
+```
 
-No manual SQL imports are needed.
+It should print **`Campus Notes (development) on http://localhost:3000`**. **Leave this terminal running**, then open [http://localhost:3000](http://localhost:3000) in your browser. If you changed `PORT` in `.env`, use that port instead.
 
-Open http://localhost:3000. In development the login page lists every demo account under "Developer shortcuts"; click one to log in. Or use `mandy@connect.hku.hk` / `campus123`. Sign-up and password-reset codes appear at http://localhost:3000/dev/mailbox, so no real e-mail service is needed. Publishing/comments, all feed tabs, Search, personal lists, private messages/notifications, report/moderation and scheduled/admin announcements are available. MS-8 block/unblock controls remain optional and deferred.
+If you see **`ECONNREFUSED 127.0.0.1:3306`**, stop here: MySQL is not accepting connections at that address. Return to step 2; re-running `npm ci` will not fix it. For other errors, see [troubleshooting](#troubleshooting).
 
 ### Check the app is running
 
-After starting the app, check the following in a browser. Use your configured `PORT` in the URL if it differs from 3000.
+Try this short walkthrough:
 
-1. Open http://localhost:3000 and log in with `mandy@connect.hku.hk` / `campus123`. The Feed should show seeded post cards.
-2. Open post `#600012`. Its text and comments should appear, confirming that the initial data is available.
-3. Click **New post**, enter `README smoke test`, select **Share**, leave both switches off and click **Publish**. The app should open the new post's detail page with its generated post number and the text you entered.
-4. Reload that detail page. The text should remain. Return to **Feed** and confirm that the new post also appears in the list.
+1. Log in with **`mandy@connect.hku.hk` / `campus123`**. The **Feed** should contain demo posts. Open post **#600012** to see its text and comments.
+2. Click **New post**, enter `My first test post`, select **Share**, leave both switches off and click **Publish**. You should reach the new post's detail page. Reload it; your text should remain. Return to **Feed** and find the post there.
+3. Open a demo post, add a comment, then try **Like** and **Watch**. Look in **Messages** for Mandy's seeded conversations and notifications.
+4. For ticket booking, use **Me → Log out**, then log in as **`newbie@connect.hku.hk` / `campus123`**. Open **Events → Film night: Wake Up**, click **Book a ticket**, then try **Cancel booking**. Some other demo events are deliberately sold out, not on sale yet or already ended.
+5. To explore organizer and moderator screens, use the [demo accounts](#demo-accounts) below. The login page's **Developer shortcuts** also lets you choose a demo account. Sign-up/reset e-mail codes appear at [the local mailbox](http://localhost:3000/dev/mailbox) while `SMTP_URL` is unset; no real e-mail service is needed.
 
-These checks create one test post in your dedicated local development database.
+These actions change only your local project database. They do not affect GitHub or another teammate's copy.
+
+### Next time: start without rebuilding
+
+Open a terminal in the same project folder and run:
+
+```bash
+npm run dev
+```
+
+MySQL must still be running. On macOS, run `brew services start mysql@8.4` if you stopped it; on Windows, start its service again. Open http://localhost:3000 and log in.
+
+Press **Ctrl+C** in the app terminal to stop the website. Your posts remain in MySQL. You do **not** need to repeat `npm ci`, `npm run setup` or `npm run db:reset` for each visit. Run `db:reset` again only when you want to erase local changes and restore the demo data.
 
 ### Setting up MySQL
 
-- **macOS:** `brew install node mysql@8.4`, then `brew services start mysql@8.4`.
-- **Windows:** install MySQL 8.4 and start its service.
-- **Linux:** use a local MySQL 8 server (8.4 recommended), or the Docker Compose option above. The default connection is `127.0.0.1:3306`; set `.env` to match your server.
+Use these alternatives only if you did not use the macOS or Windows path above:
 
-Then either put the local root password in `.env`, or create a user for the app once (as root, in `mysql -uroot -p`). These grants use the default database names; replace them if you chose different names:
+- **Linux:** install/start a local MySQL 8 server and put its host, port, username and password in `.env`.
+- **Docker:** if Docker is already installed and running, run `docker compose up -d mysql --wait` from the project folder. Wait until it finishes successfully before `npm run db:reset`. The included `compose.yaml` uses `127.0.0.1:3306`, user `root` and an empty development password, matching `.env.example`. Stop any other MySQL service using port 3306 first.
+- **An existing MySQL server:** keep its current credentials and port; change `.env` to match. Use two dedicated project database names.
+
+For a dedicated app account instead of root, connect as your MySQL administrator. On Homebrew, run `"$(brew --prefix mysql@8.4)/bin/mysql" -uroot -p` and enter your database password (press Return if it is empty). Run the SQL below in that MySQL prompt, then type `exit` to return to your terminal. Replace the password and database names to match your choice, then set `DB_USER=campus` and your chosen `DB_PASSWORD` in `.env`.
 
 ```sql
 CREATE USER 'campus'@'localhost' IDENTIFIED BY 'choose-a-password';
 GRANT ALL PRIVILEGES ON campus_notes.* TO 'campus'@'localhost';
 GRANT ALL PRIVILEGES ON campus_notes_test.* TO 'campus'@'localhost';
-SET PERSIST log_bin_trust_function_creators = 1;   -- lets that user create the triggers
+SET PERSIST log_bin_trust_function_creators = 1;
 ```
 
-and set `DB_USER=campus` and `DB_PASSWORD=choose-a-password` in `.env`.
+The reset imports SQL in this order: `db/schema.sql`, non-seed SQL under `modules/*/db/` (currently notification triggers), `db/seed/core.sql`, then any module-specific `seed.sql` files.
 
 ### Troubleshooting
 
-| Message | Fix |
-|---|---|
-| `db:reset failed: ... You do not have the SUPER privilege and binary logging is enabled` (error 1419) | Run `SET PERSIST log_bin_trust_function_creators = 1;` once as root. |
-| `ECONNREFUSED 127.0.0.1:3306` | MySQL is not running: `brew services start mysql@8.4` (macOS) or start the MySQL service. |
-| `Access denied for user` | `DB_USER` or `DB_PASSWORD` in `.env` is wrong. |
-| `npm run check:sql` cannot connect, or fails with error 1044 | It runs the `mysql` command-line client as `mysql -uroot` and creates its own scratch database (`cn_check`), so it needs root or another user who may create databases. Pass your own login: `MYSQL="mysql -uroot -pYOURPASSWORD" npm run check:sql`. |
-| The login page shows no "Developer shortcuts" | `NODE_ENV` in `.env` must be `development` (or left out). |
+- **`ECONNREFUSED ...:3306`:** MySQL is stopped, is not installed or is using another address/port. Start it using step 2, then check `.env`. Installing Node packages does not start the database.
+- **`Access denied for user`:** MySQL is running, but `DB_USER` / `DB_PASSWORD` in `.env` does not match its account. On Windows, use the root password chosen in the MySQL installer.
+- **`You do not have the SUPER privilege and binary logging is enabled` (1419):** connect as the MySQL administrator and run `SET PERSIST log_bin_trust_function_creators = 1;` once, then retry the reset.
+- **No Developer shortcuts:** use the normal demo e-mail/password, or set `NODE_ENV=development` in `.env` and restart the app.
+- **`npm run check:sql` cannot connect:** this optional developer check uses the separate `mysql` command-line client as `mysql -uroot` and creates a scratch database named `cn_check`. Configure that client for your server; see [SQL check instructions](docs/README.md#4-checking-the-sql). It is not needed just to try the website.
 
 ## Demo accounts
 
@@ -127,49 +161,16 @@ All use the password `campus123`.
 | `filmsoc00` | filmsoc@hku.hk | organization: HKU Film Society (events) |
 | `hikeclub0` | hikeclub@cuhk.edu.hk | organization: CUHK Hiking Club (events) |
 
-## Commands
+## Project and source reference
 
-| Command | Does |
-|---|---|
-| `npm run setup` | Create `.env` once with a random session secret. |
-| `npm run dev` | Start with auto-reload (http://localhost:3000). |
-| `npm start` | Start without reload. |
-| `npm run db:reset` | Drop and rebuild the development database (`npm run db:reset -- --test` for the test database). |
-| `npm test` | Every test, one file at a time, against `DB_NAME_TEST`. `npm test -- modules/content` runs one module's. |
-| `npm run check:sql` | The SQL check suite (constraints, views, triggers, every module's queries, the race tests). Needs the `mysql` client. |
-| `npm run lint` / `npm run format` | ESLint and Prettier. |
-| `npm run load-test` | Adds 20,000 posts to the development database and times every page. |
-| `npm run package:source -- --ref COMMIT_OR_TAG --out ../Group_8_code.zip` | Export a clean committed source snapshot and a SHA-256/provenance manifest, without overwriting an existing package. |
+Built by **COMP3278 Group 8:** Michael, Catherine135, hX1-dev and MKWang-2006. Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote).
 
-`npm run check:sql` also needs **Bash and Unix command-line tools**. On Windows use Git Bash/WSL or the Linux CI SQL result; the application, database reset and `npm test` are Node-based. Git is required by the maintainer's source-packaging command, not by a marker running the extracted ZIP.
+For source review and database explanation:
 
-## Source candidate and team review
+- [Database schema](db/schema.sql), [initial data](db/seed/core.sql) and [notification triggers](modules/messages/db/triggers.sql).
+- Every module's SQL is in `modules/<name>/queries.js`; the modules are Identity, Content, Discover, Messages and Events.
+- [Chen E-R diagrams](docs/data/er/README.md) and [technical documentation index](docs/README.md).
 
-Michael/assistant finish implementation, tests, README and an exact-ZIP clean rebuild before marking the source ready. Then teammates review that baseline and suggest improvements while preparing presentation materials. Michael handles accepted source/README changes and rebuilds the package. The [submission checklist](docs/team/SUBMISSION.md) records the phase gate and unchanged official deadline.
+Optional developer checks are `npm test`, `npm run lint` and `npm run check:sql`. Tests replace `DB_NAME_TEST`; the SQL suite additionally needs the MySQL command-line client, Bash and Unix tools (Git Bash/WSL on Windows). These checks are not required just to try the app.
 
-From a clean repository checkout, export the tested commit with:
-
-```bash
-npm run package:source -- --ref HEAD --out ../Group_8_code.zip
-```
-
-The output directory must already exist and be outside the repository. The command refuses uncommitted source, missing required files, tracked private/generated paths and existing output files; choose a new path or archive the previous package when rebuilding. It verifies that the ZIP contains the complete committed tree and writes `Group_8_code.zip.manifest.json` beside it, recording the exact source commit/tree, file list and archive SHA-256. Keep the matching manifest locally as provenance; it is not a Moodle upload.
-
-The archive is a **source candidate**, not proof of successful startup. Extract the actual exported ZIP into another directory, follow this README with fresh local configuration and a dedicated empty database, then verify the demo flows. Record the results in [VALIDATION.md](docs/team/VALIDATION.md). After any source revision, build and verify a new ZIP from accepted `main` before submission. Submit the latest verified `Group_8_code.zip`, not an older candidate.
-
-## Where things are
-
-| Path | What |
-|---|---|
-| `START_HERE.md` | Role selection, first task and checkpoints. |
-| `docs/README.md` | The design pack: product spec, architecture, data model, module guides, team process. Start here. |
-| `AGENTS.md` | Rules for coding agents (Claude Code, Codex, Cursor), and a good summary of the rules for people. |
-| `db/schema.sql` | The database: every table, constraint and shared view. |
-| `db/seed/core.sql` | The demo data. |
-| `modules/<name>/queries.js` | Every SQL statement of a module (identity, content, discover, messages, events). |
-| `modules/messages/db/triggers.sql` | The notification triggers. |
-| `core/` | The shared backbone: database, sessions, login, CSRF, pages, uploads, mail. |
-| `db/tests/`, `docs/modules/*/queries.sql` | The SQL check suite. |
-| `docs/data/er/` | Editable Chen SVG views, PNG previews and schema-mapping notes. |
-
-How the code is organised and why: `docs/architecture/ARCHITECTURE.md`. How the team works: `docs/team/WORKFLOW.md`.
+**Course submission:** upload three separate files to Moodle: `Group_8_code.zip`, `Group_8_slides.pptx` and `Group_8_video.mp4`, due **21 Nov 2026, 23:59 HKT**. Group 8 presents **23 Nov**, order 8. Use the latest verified code ZIP from accepted `main`; keep its matching `.manifest.json` locally as provenance, not as a Moodle upload. Contributor roles, packaging and presentation checklists are in [SUBMISSION.md](docs/team/SUBMISSION.md).
