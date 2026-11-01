@@ -65,6 +65,7 @@ Open `.env` in a text editor. It is a hidden file, so it may not appear in Finde
 Check these lines; keep the other settings, including the generated `SESSION_SECRET`:
 
 ```dotenv
+PORT=3000
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_USER=root
@@ -76,6 +77,8 @@ DB_NAME_TEST=campus_notes_test
 - Leave `DB_PASSWORD=` empty **only if your MySQL root account has no password**. Otherwise put your actual MySQL password after `=` and save the file; use quotes if it contains `#` or spaces. This is the database password, not the `campus123` demo login password.
 - The database names must be **different and dedicated to this project**. `db:reset` creates/rebuilds `DB_NAME`; tests create/rebuild `DB_NAME_TEST`. Both replace the chosen database's contents. Choose other names if either already contains data you need.
 - Keep the default host and port unless your MySQL server uses different ones. Do not share or commit your `.env` file.
+
+If app startup reports **`EADDRINUSE`** because port 3000 is busy, set **`PORT=3001`** (or another free port) in `.env`, save it and restart the app. Use that port in every website URL, including **`http://localhost:3001/dev/mailbox`**. `PORT` is the website port; leave `DB_PORT` at your MySQL server's port, normally 3306.
 
 ### 5. Create the demo data, then start the app
 
@@ -100,7 +103,7 @@ If you see **`ECONNREFUSED 127.0.0.1:3306`**, stop here: MySQL is not accepting 
 Try this short walkthrough:
 
 1. Log in with **`mandy@connect.hku.hk` / `campus123`**. The **Feed** should contain demo posts. Open post **#600012** to see its text and comments.
-2. Click **New post**, enter `My first test post`, select **Share**, leave both switches off and click **Publish**. You should reach the new post's detail page. Reload it; your text should remain. Return to **Feed** and find the post there.
+2. Click **New post**, enter `My first test post`, select **Share**, leave both switches off and click **Publish**. Both switches off means **anonymous and visible only to your university**. Turn on **Show my handle** to display your handle, or **Visible to all universities** to share across universities. You should reach the new post's detail page. Reload it; your text should remain. Return to **Feed** and find the post there.
 3. Open a demo post, add a comment, then try **Like** and **Watch**. Look in **Messages** for Mandy's seeded conversations and notifications.
 4. For ticket booking, use **Me → Log out**, then log in as **`newbie@connect.hku.hk` / `campus123`**. Open **Events → Film night: Wake Up**, click **Book a ticket**, then try **Cancel booking**. Some other demo events are deliberately sold out, not on sale yet or already ended.
 5. To explore organizer and moderator screens, use the [demo accounts](#demo-accounts) below. The login page's **Developer shortcuts** also lets you choose a demo account. Sign-up/reset e-mail codes appear at [the local mailbox](http://localhost:3000/dev/mailbox) while `SMTP_URL` is unset; no real e-mail service is needed.
@@ -121,13 +124,23 @@ Press **Ctrl+C** in the app terminal to stop the website. Your posts remain in M
 
 ### Setting up MySQL
 
-Use these alternatives only if you did not use the macOS or Windows path above:
+Choose one path below if you did not use the macOS or Windows setup above.
 
-- **Linux:** install/start a local MySQL 8 server and put its host, port, username and password in `.env`.
-- **Docker:** if Docker is already installed and running, run `docker compose up -d mysql --wait` from the project folder. Wait until it finishes successfully before `npm run db:reset`. The included `compose.yaml` uses `127.0.0.1:3306`, user `root` and an empty development password, matching `.env.example`. Stop any other MySQL service using port 3306 first.
-- **An existing MySQL server:** keep its current credentials and port; change `.env` to match. Use two dedicated project database names.
+#### Ubuntu 24.04 LTS: install MySQL and create an app account
 
-For a dedicated app account instead of root, connect as your MySQL administrator. On Homebrew, run `"$(brew --prefix mysql@8.4)/bin/mysql" -uroot -p` and enter your database password (press Return if it is empty). Run the SQL below in that MySQL prompt, then type `exit` to return to your terminal. Replace the password and database names to match your choice, then set `DB_USER=campus` and your chosen `DB_PASSWORD` in `.env`.
+This example uses Ubuntu's MySQL package; it meets the app's MySQL 8 requirement. For other Linux distributions, use the Docker option below if Docker is available. See [Ubuntu's MySQL instructions](https://ubuntu.com/server/docs/how-to/databases/install-mysql/) for the platform reference.
+
+Run these terminal commands one at a time:
+
+```bash
+sudo apt update
+sudo apt install mysql-server mysql-client
+sudo systemctl start mysql
+sudo mysqladmin --user=root ping
+sudo mysql --user=root
+```
+
+Expect **`mysqld is alive`**, then the **`mysql>`** prompt. Ubuntu's administrator normally signs in through the local socket, so create a separate password-based account for the app. Replace `choose-a-password` with a strong password you choose before running this SQL. Use matching dedicated database names if you changed the defaults; choose another username if `campus` already exists.
 
 ```sql
 CREATE USER 'campus'@'localhost' IDENTIFIED BY 'choose-a-password';
@@ -136,12 +149,36 @@ GRANT ALL PRIVILEGES ON campus_notes_test.* TO 'campus'@'localhost';
 SET PERSIST log_bin_trust_function_creators = 1;
 ```
 
+Type **`exit`** to return to your terminal, then check the app account over TCP:
+
+```bash
+mysql --host=127.0.0.1 --port=3306 --user=campus --password --execute="SELECT 1;"
+```
+
+Enter the password you just chose. The result should contain **`1`**. Return to step 3 of the first-time setup. After `npm run setup` creates `.env`, set `DB_USER=campus` and `DB_PASSWORD` to that password at step 4, keeping the matching database names. You do not need to change the administrator's password or authentication method.
+
+#### Docker: an alternative for Linux or other platforms
+
+If Docker is already installed and running, run these commands from the project folder:
+
+```bash
+docker compose up -d mysql --wait
+docker compose exec mysql mysqladmin --user=root ping
+```
+
+Wait for **`mysqld is alive`** before continuing to step 3. The included `compose.yaml` uses `127.0.0.1:3306`, user `root` and an empty development password, matching `.env.example`. Stop any other MySQL service using port 3306 first; run only one database option.
+
+#### An existing MySQL server or another local app account
+
+Keep an existing server's credentials and port; change `.env` to match and use two dedicated project database names. To create a separate app account, use the SQL in the Ubuntu example from your administrator's MySQL prompt. On Homebrew, open that prompt with `"$(brew --prefix mysql@8.4)/bin/mysql" -uroot -p` and enter your database password (press Return if it is empty). Then set `DB_USER` / `DB_PASSWORD` in `.env` to the account you created.
+
 The reset imports SQL in this order: `db/schema.sql`, non-seed SQL under `modules/*/db/` (currently notification triggers), `db/seed/core.sql`, then any module-specific `seed.sql` files.
 
 ### Troubleshooting
 
 - **`ECONNREFUSED ...:3306`:** MySQL is stopped, is not installed or is using another address/port. Start it using step 2, then check `.env`. Installing Node packages does not start the database.
 - **`Access denied for user`:** MySQL is running, but `DB_USER` / `DB_PASSWORD` in `.env` does not match its account. On Windows, use the root password chosen in the MySQL installer.
+- **`EADDRINUSE` / port 3000 already in use:** change `PORT` in `.env` to a free port such as 3001, restart the app and use `http://localhost:3001` for the website and `http://localhost:3001/dev/mailbox` for local e-mail codes. This does not change MySQL's `DB_PORT`.
 - **`You do not have the SUPER privilege and binary logging is enabled` (1419):** connect as the MySQL administrator and run `SET PERSIST log_bin_trust_function_creators = 1;` once, then retry the reset.
 - **No Developer shortcuts:** use the normal demo e-mail/password, or set `NODE_ENV=development` in `.env` and restart the app.
 - **`npm run check:sql` cannot connect:** this optional developer check uses the separate `mysql` command-line client as `mysql -uroot` and creates a scratch database named `cn_check`. Configure that client for your server; see [SQL check instructions](docs/README.md#4-checking-the-sql). It is not needed just to try the website.
