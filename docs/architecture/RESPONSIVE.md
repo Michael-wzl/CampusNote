@@ -24,6 +24,7 @@ The shared `public/css/kit.css` supplies:
 - `form-width`: bounds forms to about 42 rem; inputs still fill their available column on phones.
 - `table-wrap` around `table`: keeps a wide table's horizontal scrolling within that panel.
 - `row` with `wrap`: lets filter controls, metadata and action buttons wrap. `post-list` is the shared way to render post cards; it uses two columns from 768 px and one below that.
+- Feed filter tabs wrap into rows on desktop so every topic label is visible beside the sidebar. Compact screens keep the horizontal strip; keyboard focus scrolls later topics into view.
 
 For example, a detail page may put its detail card and a supporting panel inside `page-grid-wide`; a form page may wrap its form in `form-width`. Keep comments and conversations in one chronological column. More columns are useful only when the content remains easy to read.
 
@@ -55,6 +56,8 @@ Check normal, empty and validation-error states as the personas in your DEV_GUID
 Run your module tests, `npm test` and `npm run lint` as usual. HTTP tests verify behavior and markup; they do not replace these browser layout checks. Follow [WORKFLOW.md](../team/WORKFLOW.md) for the PR checklist.
 
 ## Reference views
+
+The 1 Nov Feed filter update wraps topics beside the desktop sidebar. Narrow screens keep the horizontal strip. Both views below show Newbie's empty Watching feed with JavaScript disabled: [1024 px desktop](screenshots/review-feed-topics-1024.png) and [390 px phone](screenshots/review-feed-topics-390.png).
 
 The 27 Oct review update keeps Events in the compact navigation alongside Feed, Search, New post, Messages and Me. The same Feed works without JavaScript at both sizes; tablet and breakpoint checks are recorded in [validation](../team/VALIDATION.md).
 

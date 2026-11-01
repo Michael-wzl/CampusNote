@@ -1,6 +1,14 @@
 # Validation and source readiness
 
-## Current source status — 27 Oct 2026
+## Current source status — 1 Nov 2026
+
+App Tester's independent Round 3 review of [`da36f64`](https://github.com/Michael-wzl/CampusNote/commit/da36f643aca81f795bc370a1be666e7eae556eb8) reproduced setup, lint, **277/277 tests and 456 SQL checks**. Its browser walkthrough passed; D1–D4 remained fixed, and booking/cancellation restored inventory from 48 to 47 to 48. It reported no new functional blocker. Its approximate materials mark is one reviewer's opinion, not an official grade; slides, video and live presentation were outside that review.
+
+The follow-up README adds a concrete Ubuntu/MySQL installation and password-account path, a Docker alternative, the meaning of both compose switches being off, and busy-port/mailbox instructions. Ubuntu installation/authentication commands were checked against official Ubuntu/MySQL documentation; a native Ubuntu installation was not performed on the coordinator's Mac. Existing pinned dependencies are unchanged; npm's moderate advisory warnings must not be described as a clean audit.
+
+Desktop Feed filters now wrap at 1024 px and above, so every topic label is visible beside the sidebar. Compact layouts retain their horizontal strip. **24 Chrome cases** pass across two feed/persona states, JavaScript on/off and 390/768/1023/1024/1025/1440 px: no document overflow or page errors, 50 px filter targets, and keyboard access through Food. The new source screenshots show an empty demo account, without user-post content. Exact-current CI and a clean extraction of the replacement ZIP remain the source-handoff gate below.
+
+## Earlier source verification — 27 Oct 2026
 
 The agreed app features are implemented. Follow-up fixes from App Tester's independent review clarify both audience-switch states, give anonymous conversations distinct chat references, keep Events in compact navigation, remove the repeated Feed title, name Watching/Hot filters and make the local-demo login shortcuts collapsible. The README now leads with the marker's ZIP setup path. These are usability/documentation improvements; anonymity, module/table boundaries and the schema are preserved.
 

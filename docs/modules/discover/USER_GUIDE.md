@@ -6,7 +6,7 @@ Existing Feed/Search/list/profile screenshots are linked below. Announcement scr
 
 **Current implementation (27 Oct 2026):** All Feed tabs, Search, four personal lists, public pages, scheduled announcement banners and admin announcement management are implemented. Lists use 20-post pages and Load more. See [announcement validation](ANNOUNCEMENTS_VALIDATION.md) and the coordinator's [shared validation](../../team/VALIDATION.md) for the exact tested scope.
 
-**On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen; topic tabs remain scrollable when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
+**On a computer or phone:** Campus Notes is a responsive website. When logged in, use the left sidebar on desktop or the bottom tabs on tablets and phones. The same destinations and actions are available at every width. Feeds and search can show cards in more columns on a wider screen. Feed topics wrap into rows on desktop and scroll sideways on compact screens when needed. These instructions use “tap” for either clicking or tapping. See [the responsive layout guide](../../architecture/RESPONSIVE.md) for viewport details.
 
 ## 1. The feed
 
