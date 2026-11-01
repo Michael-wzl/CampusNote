@@ -6,15 +6,14 @@ Built by Group 8 for COMP3278 (Introduction to Database Management Systems), HKU
 
 ## Marker quick start (ZIP)
 
-You need **Node.js 22+** and **MySQL 8.0.19+** (8.4 recommended). Extract `Group_8_code.zip`, open a terminal beside its `CampusNote` folder, then run:
+You need **Node.js 22+** and **MySQL 8.0.19+** (8.4 recommended). Extract `Group_8_code.zip`, open a terminal **in** its `CampusNote` folder (the folder containing `package.json`), then run:
 
 ```bash
-cd CampusNote
 npm ci
 npm run setup
 ```
 
-**Before resetting:** start MySQL and set its connection details in `.env` (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`). Check that `DB_NAME` and `DB_NAME_TEST` name **two distinct, dedicated local databases**; their defaults are `campus_notes` and `campus_notes_test`. The reset and test commands replace their contents, so choose different names if either already contains data you need. The MySQL account needs privileges on the chosen databases; see [full setup](#setting-up-mysql).
+**Before resetting:** start MySQL (on Windows, start your installed MySQL service in the **Services** app). Set the connection details in `.env` (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`). Check that `DB_NAME` and `DB_NAME_TEST` name **two distinct, dedicated local databases**; their defaults are `campus_notes` and `campus_notes_test`. The reset and test commands replace their contents, so choose different names if either already contains data you need. The MySQL account needs privileges on the chosen databases; see [full setup](#setting-up-mysql).
 
 ```bash
 npm run db:reset
@@ -33,7 +32,7 @@ Repository: [Michael-wzl/CampusNote](https://github.com/Michael-wzl/CampusNote).
 
 The agreed app features are implemented, including scheduled announcement banners/admin CRUD, the shared backbone, Identity, Events, Content, Messages MS-1–MS-7 and Discover feeds/search/lists/profiles. The three shared Discover integration checks are mandatory. The editable [Chen diagrams](docs/data/er/README.md) and module SQL cards support the later team review/presentation. See [validation](docs/team/VALIDATION.md) for current results, source-package evidence and limits. The [responsive guide](docs/architecture/RESPONSIVE.md) explains desktop/sidebar and phone/bottom-navigation behavior.
 
-**Final submission:** code ZIP, slides and video are all due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal and required filenames.
+**Final submission:** upload **three separate files** to Moodle: `Group_8_code.zip`, `Group_8_slides.pptx` and `Group_8_video.mp4`. All are due **21 Nov 2026, 23:59 HKT**; our internal submission target is **20 Nov**. Group 8 presents **23 Nov**, order 8. See [grading, owners and submission checklist](docs/team/SUBMISSION.md), including the 18 Nov draft rehearsal.
 
 ## Run locally
 
@@ -154,9 +153,9 @@ From a clean repository checkout, export the tested commit with:
 npm run package:source -- --ref HEAD --out ../Group_8_code.zip
 ```
 
-The output directory must already exist and be outside the repository. The command refuses uncommitted source, missing required files, tracked private/generated paths and existing output files; choose a new path or archive the previous package when rebuilding. It verifies that the ZIP contains the complete committed tree and writes `Group_8_code.zip.manifest.json` beside it, recording the exact source commit/tree, file list and archive SHA-256. Keep that manifest as a provenance record; the required Moodle uploads remain code ZIP, separate slides and separate video.
+The output directory must already exist and be outside the repository. The command refuses uncommitted source, missing required files, tracked private/generated paths and existing output files; choose a new path or archive the previous package when rebuilding. It verifies that the ZIP contains the complete committed tree and writes `Group_8_code.zip.manifest.json` beside it, recording the exact source commit/tree, file list and archive SHA-256. Keep the matching manifest locally as provenance; it is not a Moodle upload.
 
-The archive is a **source candidate**, not proof of successful startup. Extract the actual exported ZIP into another directory, follow this README with fresh local configuration and a dedicated empty database, then verify the demo flows. Record the results in [VALIDATION.md](docs/team/VALIDATION.md). A source revision after team feedback requires a new verified archive; do not submit a stale ZIP or wait until after the deadline to finalize it.
+The archive is a **source candidate**, not proof of successful startup. Extract the actual exported ZIP into another directory, follow this README with fresh local configuration and a dedicated empty database, then verify the demo flows. Record the results in [VALIDATION.md](docs/team/VALIDATION.md). After any source revision, build and verify a new ZIP from accepted `main` before submission. Submit the latest verified `Group_8_code.zip`, not an older candidate.
 
 ## Where things are
 
