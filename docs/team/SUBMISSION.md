@@ -71,6 +71,8 @@ The baseline must be ready early enough for Phase B. If its handoff is at risk, 
 
 Michael and the assistant assemble and verify the package. The root [README](../../README.md#run-locally) must stand on its own for a marker starting with the ZIP and an empty local database.
 
+Maintain the source on `main` and identify the verified submission with its exact commit and manifest; an immutable tag can pin the final version when it is frozen. A separate release branch is unnecessary for this handoff. Keep the complete source, tests and verification helpers together: tests run only when invoked, and some documented tools and the exported-ZIP CI depend on `test/http-server.js`. `AGENTS.md`, `START_HERE.md` and contributor guides do not run as application code. Keep their detailed instructions outside the marker's main README walkthrough, with links to the team docs.
+
 - [ ] Build from the accepted, tested source commit/ref. Record that commit and archive SHA-256; use a release-candidate ref while teammate suggestions are still possible.
 - [ ] Include application source/templates/static assets, `package.json`, `package-lock.json`, `.env.example`, README and needed guides.
 - [ ] Include `db/schema.sql`, `db/seed/core.sql`, `db/reset.js`, module database files including notification triggers, and required helpers. Seed images under `public/seed/` must be present.

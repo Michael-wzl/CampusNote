@@ -84,3 +84,19 @@ All repository paths now have `@Michael-wzl` as owner in [.github/CODEOWNERS](..
 GitHub branch protection requires a pull request and passing `ci`, with code-owner review enabled and no force pushes. All implementation changes route through Michael. Teammates provide review suggestions after the source-ready handoff.
 
 The repository owner retains GitHub’s default admin override for coordinator maintenance. This does not assign teammates implementation or packaging work during Phase A.
+
+## 7. Maintainer command reference
+
+The root README focuses on installing and trying the submitted app. Keep contributor instructions here and in [SUBMISSION.md](SUBMISSION.md), with the complete technical index in [docs/README.md](../README.md).
+
+- `npm run setup`: create `.env` once with a random session secret; preserve an existing file.
+- `npm run dev`: start with automatic reload. `npm start` starts without reload.
+- `npm run db:reset`: rebuild `DB_NAME` with schema, triggers and demo data. `npm run db:reset -- --test` rebuilds `DB_NAME_TEST`.
+- `npm test`: run the complete suite, one file at a time, replacing the dedicated test database. `npm test -- modules/content` runs one module's suite.
+- `npm run check:sql`: run the SQL constraints, views, triggers, module queries and race checks. Requires the MySQL client, Bash and Unix tools; see [SQL setup](../README.md#4-checking-the-sql).
+- `npm run lint` / `npm run format`: run ESLint/Prettier checks or format the source.
+- `npm run load-test`: add 20,000 posts to the development database and time pages. This changes local demo data; reset only when ready to discard those changes.
+- `npm run demo:race`: run the Events booking concurrency demonstration; follow the [Events guide](../modules/events/DEV_GUIDE.md).
+- `npm run package:source -- --ref COMMIT_OR_TAG --out ../Group_8_code.zip`: export committed source and its SHA-256/provenance manifest. The output directory must exist and be outside the repository; existing output files are never overwritten. Follow the clean-extraction checks in [SUBMISSION.md](SUBMISSION.md#4-source-zip-and-reproducibility).
+
+Git is needed to maintain/export the repository, but not to run an extracted ZIP. Development-only persona login and mailbox routes are enabled by `NODE_ENV=development`; the local demonstration uses them without requiring an external mail service.
