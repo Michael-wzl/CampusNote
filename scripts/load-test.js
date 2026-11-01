@@ -78,6 +78,7 @@ async function timePages() {
       for (let i = 0; i < 5; i += 1) {
         const t0 = process.hrtime.bigint();
         status = (await agent.get(url)).status;
+        if (status !== 200) throw new Error(`GET ${url} returned HTTP ${status}; expected 200`);
         times.push(Number(process.hrtime.bigint() - t0) / 1e6);
       }
       const median = times.sort((a, b) => a - b)[2];
