@@ -95,7 +95,7 @@ The root README focuses on installing and trying the submitted app. Keep contrib
 - `npm test`: run the complete suite, one file at a time, replacing the dedicated test database. `npm test -- modules/content` runs one module's suite.
 - `npm run check:sql`: run the SQL constraints, views, triggers, module queries and race checks. Requires the MySQL client, Bash and Unix tools; see [SQL setup](../README.md#4-checking-the-sql).
 - `npm run lint` / `npm run format`: run ESLint/Prettier checks or format the source.
-- `npm run load-test`: add 20,000 posts to the development database and time pages. This changes local demo data; reset only when ready to discard those changes.
+- `npm run load-test`: add 20,000 posts to the development database and time pages. The command fails if a smoke page does not return HTTP 200; slow successful pages are reported separately. This changes local demo data; reset only when ready to discard those changes.
 - `npm run demo:race`: run the Events booking concurrency demonstration; follow the [Events guide](../modules/events/DEV_GUIDE.md).
 - `npm run package:source -- --ref COMMIT_OR_TAG --out ../Group_8_code.zip`: export committed source and its SHA-256/provenance manifest. The output directory must exist and be outside the repository; existing output files are never overwritten. Follow the clean-extraction checks in [SUBMISSION.md](SUBMISSION.md#4-source-zip-and-reproducibility).
 

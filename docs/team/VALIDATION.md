@@ -2,6 +2,10 @@
 
 ## Current source status — 1 Nov 2026
 
+App Tester's final review of [`0252fd9`](https://github.com/Michael-wzl/CampusNote/commit/0252fd96a5f9a802f5d5f9b0b8925babc50bc512) returned **GO**, reporting 277/277 tests, 456 SQL checks, three clean ticket races and a browser pass with D1–D4 still fixed. Its 30/30 materials estimate is unofficial; slides, video and live presentation were not scored. No marker-reproducibility blocker was reported.
+
+The proposed load-generator timezone cause was not reproduced: the unchanged generator inserted 20,000 posts under `TZ=Asia/Hong_Kong` against a MySQL server using HKT/SYSTEM, with zero future-dated generated rows and Hot returning HTTP 200. It already writes through the UTC-configured app pool. A controlled future-dated fixture did expose a separate tooling issue: the timing command accepted a fast HTTP 500 as an “ok” page and exited successfully. It now fails clearly on non-200 smoke responses. Production Hot SQL and normal app behavior are unchanged. Before/after fault checks and recovery on the restored fixture pass; temporary test data stays separate from the user's app.
+
 App Tester's independent Round 3 review of [`da36f64`](https://github.com/Michael-wzl/CampusNote/commit/da36f643aca81f795bc370a1be666e7eae556eb8) reproduced setup, lint, **277/277 tests and 456 SQL checks**. Its browser walkthrough passed; D1–D4 remained fixed, and booking/cancellation restored inventory from 48 to 47 to 48. It reported no new functional blocker. Its approximate materials mark is one reviewer's opinion, not an official grade; slides, video and live presentation were outside that review.
 
 The follow-up README adds a concrete Ubuntu/MySQL installation and password-account path, a Docker alternative, the meaning of both compose switches being off, and busy-port/mailbox instructions. Ubuntu installation/authentication commands were checked against official Ubuntu/MySQL documentation; a native Ubuntu installation was not performed on the coordinator's Mac. Existing pinned dependencies are unchanged; npm's moderate advisory warnings must not be described as a clean audit.
